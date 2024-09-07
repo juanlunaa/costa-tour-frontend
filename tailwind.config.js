@@ -13,6 +13,12 @@ module.exports = {
         customOrange: '#FFA432',
         customBlue: '#37B1E2',
       },
+      boxShadow: {
+        'customBlueShadow': '0 4px 6px rgba(123, 188, 176, 0.5)',
+      },
+      gridTemplateColumns: {
+        'auto-fit': 'repeat(auto-fit, minmax(320px, 1fr))',
+      },
     },
   },
   plugins: [],
