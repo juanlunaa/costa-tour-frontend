@@ -5,7 +5,7 @@ import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 
 export const Footer = () => {
   return (
-    <div className='py-10 flex justify-around items-center bg-gradient-to-b from-customBlueFooter to-white'>
+    <div className='py-10 flex justify-around items-center bg-gradient-to-b from-customBlue to-white'>
       <Image
         src='/logo.png'
         width={200}
