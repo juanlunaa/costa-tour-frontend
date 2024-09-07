@@ -3,7 +3,7 @@ import Link from "next/link"
 
 export const NavBar = () => {
   return(
-    <nav className="flex px-5 h-16 justify-between items-center w-full sm:backdrop-blur-sm sm:bg-gradient-to-b from-gray-800/90 to-transparent" >
+    <nav className="absolute z-10 flex px-5 h-16 justify-between items-center w-full sm:bg-gradient-to-b from-gray-800/90 to-transparent" >
       <div>
         <Link href='/'>
           <span className={`${titleFont.className} antialiased font-bold text-white`}>Costa Tour</span>
