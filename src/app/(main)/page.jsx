@@ -1,10 +1,14 @@
+
 import { textFont, titleFont } from "@/config/fonts";
 import Image from "next/image";
 
-export default function Home () {
+import { CarouselPlugin } from "@/components/ui/carousels/Carousel";
+export default function Home() {
   return (
     <div>
-
+      <div className='max-w-full'>
+        <CarouselPlugin className="w-full"/>
+      </div>
       <div className='my-12'>
         <h1 className={`${titleFont.className} text-2xl text-center mb-12`}>Aventuras que te esperan</h1>
 

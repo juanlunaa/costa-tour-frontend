@@ -1,6 +1,6 @@
-import { Footer, NavBar } from "@/components";
+import { Footer, NavBar} from "@/components";
 
-export default function CostaTourLayout ({ children }) {
+export default function CostaTourLayout({ children }) {
   return (
     <main className="min-h-screen relative">
       <NavBar />
