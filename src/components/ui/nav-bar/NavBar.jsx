@@ -12,7 +12,7 @@ export const NavBar = () => {
 
       <div className='hidden sm:block'>
         <Link className={`${textFont.className} m-2 p-2 rounded-xl text-white hover:bg-customOrange`} href='/'>Inicio</Link>
-        <Link className={`${textFont.className} m-2 p-2 rounded-xl text-white hover:bg-customOrange`} href='/category'>Categorias</Link>
+        <Link className={`${textFont.className} m-2 p-2 rounded-xl text-white hover:bg-customOrange`} href='/category/activities'>Categorias</Link>
         <Link className={`${textFont.className} m-2 p-2 rounded-xl text-white hover:bg-customOrange`} href='/auth/login'>Inicio de Sesion</Link>
       </div>
 
