@@ -1,8 +1,8 @@
-import './globals.css'
+import "./globals.css"
 
 export const metadata = {
-  title: 'Costa Tour',
-  description: 'Guia turistica de la ciudad de Cartagena',
+  title: "Costa Tour",
+  description: "Guia turistica de la ciudad de Cartagena",
 }
 
 export default function RootLayout({ children }) {

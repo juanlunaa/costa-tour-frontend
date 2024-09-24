@@ -1,4 +1,4 @@
-import { Footer, NavBar} from "@/components";
+import { Footer, NavBar } from "@/components"
 
 export default function CostaTourLayout({ children }) {
   return (
