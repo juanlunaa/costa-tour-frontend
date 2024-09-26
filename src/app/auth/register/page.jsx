@@ -17,7 +17,6 @@ export default function Register() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm()
 
   const { locationData, locationSelect, handleChange } = useLocationData()
