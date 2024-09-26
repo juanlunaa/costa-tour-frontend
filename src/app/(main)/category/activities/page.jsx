@@ -34,13 +34,37 @@ export default function Category() {
           </TabsTrigger>
         </TabsList>
         <div className="grid-filter-tabContent flex flex-wrap justify-between mt-24">
-          <div className="filter shadow-lg bg-[#FFFFFF] rounded-sm max-w-[200px] w-full ml-[3%]">
+          <div className="filter shadow-lg bg-[#FFFFFF] rounded-sm max-w-[200px] w-full ml-[3%] h-fit">
             <div className="title border-b border-b-[#F4F4F5] p-4"><h3>Filtrar por</h3></div>
             <CheckboxGroupDemo />
           </div>
-          <TabsContent value="restaurante" className="relative w-3/4">Restaurantes
-          <Image src="/img-carousel/cartagena1.png" objectFit="cover" layout="fill" alt="Selfie" className="rounded-lg" />
-          
+          <TabsContent value="restaurante" className="relative w-3/4">
+            <div className='grid grid-cols-2 sm:grid-cols-2 gap-8 overflow-y-scroll h-[700px] max-w-full'>
+              <CardPlan
+                nombre={plan.nombre}
+                miniatura={plan.miniatura}
+                descripcion={plan.descripcion}
+              />
+
+              <CardPlan
+                nombre={plan.nombre}
+                miniatura={plan.miniatura}
+                descripcion={plan.descripcion}
+              />
+
+              <CardPlan
+                nombre={plan.nombre}
+                miniatura={plan.miniatura}
+                descripcion={plan.descripcion}
+              />
+
+              <CardPlan
+                nombre={plan.nombre}
+                miniatura={plan.miniatura}
+                descripcion={plan.descripcion}
+              />
+            </div>
+
 
           </TabsContent>
           <TabsContent value="sitio-turistico" className="relative w-3/4">Sitios turisticos</TabsContent>
