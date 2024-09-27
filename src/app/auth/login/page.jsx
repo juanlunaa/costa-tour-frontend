@@ -5,11 +5,14 @@ import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { MdOutlineEmail } from "react-icons/md"
 import { RiLockPasswordLine } from "react-icons/ri"
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
 
   const server = process.env.NEXT_PUBLIC_BACKEND_SERVER
+
+  const router = useRouter()
 
   const onSubmit = handleSubmit(async (data) => {
     const res = await fetch(`${server}/user/auth`, {
@@ -23,6 +26,10 @@ export default function Login() {
     console.log(res.status)
     const resJSON = await res.json()
     console.log(resJSON)
+
+    if (res.status === 200) {
+      router.push("/dashboard")
+    }
   })
 
   return (
