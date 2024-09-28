@@ -1,6 +1,4 @@
 import { useUserStore } from "@/store/user"
-import { useEffect } from "react"
-import Cookies from "js-cookie"
 
 export function useUserData() {
   const user = useUserStore(state => state.user)
