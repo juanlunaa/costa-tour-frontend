@@ -15,13 +15,13 @@ export default function Home() {
 
         <div className="grid gap-4 grid-cols-3 w-[90%] h-[200px] mx-auto sm:h-[500px] sm:gap-8">
           <div className="grid row-span-2 relative">
-            <Image src="/home/selfie.webp" objectFit="cover" layout="fill" alt="Selfie" className="rounded-lg" />
+            <Image src="/home/selfie.webp" fill alt="Selfie" className="rounded-lg object-cover" />
 
             <p className={`${textFont.className} absolute bottom-2 left-2 text-white font-semibold`}>Selfie</p>
           </div>
 
           <div className="grid row-span-2 relative">
-            <Image src="/home/pasear.webp" objectFit="cover" layout="fill" alt="Pasear" className="rounded-lg" />
+            <Image src="/home/pasear.webp" fill alt="Pasear" className="rounded-lg object-cover" />
 
             <p className={`${textFont.className} absolute bottom-2 left-2 text-white font-semibold`}>Pasear</p>
           </div>
@@ -29,17 +29,16 @@ export default function Home() {
           <div className="grid relative row-span-1">
             <Image
               src="/home/recreacion.webp"
-              objectFit="cover"
-              layout="fill"
+              fill
               alt="Recreacion"
-              className="rounded-lg"
+              className="rounded-lg object-cover"
             />
 
             <p className={`${textFont.className} absolute bottom-2 left-2 text-white font-semibold`}>Recreación</p>
           </div>
 
           <div className="grid relative row-span-1">
-            <Image src="/home/comida.webp" objectFit="cover" layout="fill" alt="Comer" className="rounded-lg" />
+            <Image src="/home/comida.webp" fill alt="Comer" className="rounded-lg object-cover" />
 
             <p className={`${textFont.className} absolute bottom-2 left-2 text-white font-semibold`}>Comer</p>
           </div>
