@@ -8,7 +8,7 @@ export async function middleware(request) {
 
   // Si el token es undefined significa que el usuario aun no esta autenticado
   // entonces es redireccionado al login
-  console.log(tokenJwt)
+
   if (tokenJwt === undefined) {
 
     // Si el usuario no tiene token y esta accediendo a la página de login o register, lo dejamos pasar
