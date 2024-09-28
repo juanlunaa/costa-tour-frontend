@@ -2,9 +2,8 @@
 
 import { titleFont, textFont } from "@/config/fonts"
 import useLocationData from "@/hooks/useLocationData"
-import { fecthEstadosByPais, fetchCiudadesByEstado, fetchPaises } from "@/services/location"
+import { registerTurist } from "@/services/auth"
 import Link from "next/link"
-import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { AiOutlineIdcard } from "react-icons/ai"
 import { CiCalendarDate } from "react-icons/ci"
@@ -21,19 +20,14 @@ export default function Register() {
 
   const { locationData, locationSelect, handleChange } = useLocationData()
 
-  const server = process.env.NEXT_PUBLIC_BACKEND_SERVER
-
   const onSubmit = handleSubmit(async (data) => {
     const newData = { ...data, intereses: [1, 2, 3] }
-    const res = await fetch(`${server}/turist/create`, {
-      method: "POST",
-      body: JSON.stringify(newData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    const resJSON = await res.json()
-    console.log(resJSON)
+    
+    const { res, status } = await registerTurist(newData)
+
+    if (status === 200) {
+      router.push("/dashboard")
+    }
   })
 
   return (

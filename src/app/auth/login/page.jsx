@@ -1,33 +1,25 @@
 "use client"
 
-import { textFont, titleFont } from "@/config/fonts"
-import Link from "next/link"
 import { useForm } from "react-hook-form"
+import { useRouter } from 'next/navigation';
+import Link from "next/link"
+import { login } from "@/services/auth"
+import { textFont, titleFont } from "@/config/fonts"
 import { MdOutlineEmail } from "react-icons/md"
 import { RiLockPasswordLine } from "react-icons/ri"
-import { useRouter } from 'next/navigation';
+import { useUserData } from "@/hooks/useUserData";
 
 export default function Login() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm()
 
-  const server = process.env.NEXT_PUBLIC_BACKEND_SERVER
+  const { signInUser } = useUserData()
 
   const router = useRouter()
 
   const onSubmit = handleSubmit(async (data) => {
-    const res = await fetch(`${server}/user/auth`, {
-      method: "POST",
-      credentials: 'include',
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    console.log(res.status)
-    const resJSON = await res.json()
-    console.log(resJSON)
-
-    if (res.status === 200) {
+    const success = await signInUser(data)
+    
+    if (success) {
       router.push("/dashboard")
     }
   })

@@ -1,80 +1,52 @@
 "use client"
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useUserData } from "@/hooks/useUserData"
+import Image from 'next/image';
 
 const Dashboard = () => {
-  const server = process.env.NEXT_PUBLIC_BACKEND_SERVER
-
   const router = useRouter()
 
-  const [user, setUser] = useState({
-    userId: 0,
-    dni: "",
-    tipoUsuario: "",
-    nombre: "",
-    apellido: "",
-    fechaNacimiento: "",
-    edad: 0,
-    email: "",
-    avatar: "",
-    ciudad: {
-      id: 0,
-      name: ""
-    },
-    estado: {
-      id: 0,
-      name: ""
-    },
-    pais: {
-      id: 0,
-      name: ""
-    },
-    intereses: [
-      {
-        id: 0,
-        interes: ""
-      }
-    ]
-  })
+  const { user, fetchUserProfile, logoutUser } = useUserData()
 
-  const getProfile = async () => {
-    const res = await fetch(`${server}/user/profile`, {
-      method: "GET",
-      credentials: 'include',
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-
-    const resJson = await res.json()
-
-    setUser(resJson)
-  }
-
-  const logoutProfile = async () => {
-    const res = await fetch(`${server}/user/logout`, {
-      method: "POST",
-      credentials: 'include',
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    router.push("/auth/login")
-    const resJson = await res.json()
+  const handleLogout = async () => {
+    const success = await logoutUser()
+    
+    if (success) {
+      router.push("/")
+    }
   }
 
   return (
-    <div className="flex flex-col items-center">
-      <h1>Dashboard</h1>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="bg-white shadow-lg rounded-lg p-8 max-w-sm w-full">
+        <div className="flex flex-col items-center">
+          <Image
+            src={`${process.env.NEXT_PUBLIC_BACKEND_SERVER}${user.avatar}`}
+            alt="Profile"
+            width={96}
+            height={96}
+            className="w-24 h-24 rounded-full shadow-lg mb-4"
+          />
+          <h2 className="text-xl font-semibold text-gray-800">
+            {user.nombre} {user.apellido}
+          </h2>
+          <p className="text-gray-500 mb-6">{user.email}</p>
 
-      <pre>
-        {JSON.stringify(user, null, 2)}
-      </pre>
-
-      <button onClick={getProfile}>Obtener perfil</button>
-
-      <button onClick={logoutProfile}>Cerrar sesion</button>      
+          <button 
+            onClick={fetchUserProfile}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300"
+          >
+            Obtener perfil
+          </button>
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
