@@ -34,16 +34,14 @@ export const useUserStore = create((set) => ({
     const { res, status } = await fetchProfile()
 
     if (status === 200) {
-      console.log({ user: res, isLoggedIn: true })
-      set({ user: res, isLoggedIn: true })
+      set(state => ({ ...state, user: res, isLoggedIn: true }))
     }
   },
   signInUser: async (data) => {
     const { res, status } = await login(data)
 
     if (status === 200) {
-      console.log(res)
-      set({ user: res, isLoggedIn: true })
+      set(state => ({ ...state, user: res, isLoggedIn: true }))
       return true
     }
 
@@ -53,7 +51,7 @@ export const useUserStore = create((set) => ({
     const { res, status } = await registerTurist(data)
 
     if (status === 200) {
-      set({ user: res, isLoggedIn: true })
+      set(state => ({ ...state, user: res, isLoggedIn: true }))
       return true
     }
 
@@ -63,7 +61,7 @@ export const useUserStore = create((set) => ({
     const { status } = await logout()
     
     if (status === 200) {
-      set({ user: userInitialState, isLoggedIn: false })
+      set(state => ({ ...state, user: userInitialState, isLoggedIn: false }))
       return true
     }
 
