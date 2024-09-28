@@ -2,7 +2,9 @@ import { textFont, titleFont } from "@/config/fonts"
 import Image from "next/image"
 
 import { CarouselPlugin } from "@/components/ui/carousels/Carousel"
+
 export default function Home() {
+
   return (
     <div>
       <div className="max-w-full">
