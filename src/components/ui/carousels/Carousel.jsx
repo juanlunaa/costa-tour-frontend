@@ -42,10 +42,9 @@ export function CarouselPlugin() {
               <Image
                 src={src}
                 alt={`Image ${index + 1}`}
-                layout="fill"
-                style={{
-                  objectFit: "cover",
-                }}
+                fill
+                priority
+                className="object-cover"
               />
             </div>
           </CarouselItem>
