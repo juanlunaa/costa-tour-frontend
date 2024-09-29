@@ -3,7 +3,6 @@
 import { useForm } from "react-hook-form"
 import { useRouter } from 'next/navigation';
 import Link from "next/link"
-import { login } from "@/services/auth"
 import { textFont, titleFont } from "@/config/fonts"
 import { MdOutlineEmail } from "react-icons/md"
 import { RiLockPasswordLine } from "react-icons/ri"
@@ -20,7 +19,7 @@ export default function Login() {
     const success = await signInUser(data)
     
     if (success) {
-      router.push("/dashboard")
+      router.push("/customer-profile/info-profile")
     }
   })
 

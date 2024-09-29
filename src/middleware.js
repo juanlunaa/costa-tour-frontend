@@ -27,7 +27,7 @@ export async function middleware(request) {
     // Si el usuario esta autenticado y trata de acceder a alguna ruta de autenticacion (login o register),
     // lo redirigimos al dashboard
     if (request.nextUrl.pathname.includes("/auth")) {
-      return NextResponse.redirect(new URL("/dashboard", request.url))
+      return NextResponse.redirect(new URL("/customer-profile/info-profile", request.url))
     }
 
     //  Si es valido se da acceso a la ruta que se quiere acceder
@@ -40,5 +40,5 @@ export async function middleware(request) {
 }
  
 export const config = {
-  matcher: ["/dashboard", "/auth/:path*"],
+  matcher: ["/customer-profile/info-profile", "/auth/:path*"],
 }

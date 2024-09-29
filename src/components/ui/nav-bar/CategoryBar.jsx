@@ -8,7 +8,9 @@ const CategoryBar = ({ pathname }) => {
 
   const { isLoggedIn } = useUserData()
 
-  console.log(pathname)
+  const isLinkActive = (href) => {
+    return pathname.pathname.includes(href)
+  }
 
   return (
     <div className="absolute left-1/2 transform -translate-x-1/2 -mt-12
@@ -17,14 +19,20 @@ const CategoryBar = ({ pathname }) => {
     > 
       <Link
         href="/category/activities"
-        className={`${titleFont.className} sm:text-2xl ${pathname.pathname.includes("/activities") ? "underline" : ""}`}
+        className={`${titleFont.className} sm:text-2xl
+          ${isLinkActive("/activities")
+            ? 'border-b-4 border-[#363636]'
+            : 'hover:border-b-4 border-[#363636]'}`}
       >
         Actividades
       </Link>
       { isLoggedIn 
         ? <Link 
             href="/category/recomendations"
-            className={`${titleFont.className} sm:text-2xl ${pathname.pathname.includes("/recomendations") ? "underline" : ""}`}
+            className={`${titleFont.className} sm:text-2xl
+              ${isLinkActive("/recomendations")
+              ? 'border-b-4 border-[#363636]'
+              : 'hover:border-b-4 border-[#363636]'}`}
           >
         Recomendaciones
       </Link>
@@ -32,7 +40,10 @@ const CategoryBar = ({ pathname }) => {
       }
       <Link
         href="/category/extreme"
-        className={`${titleFont.className} sm:text-2xl ${pathname.pathname.includes("/extreme") ? "underline" : ""}`}
+        className={`${titleFont.className} sm:text-2xl 
+          ${isLinkActive("/extreme")
+          ? 'border-b-4 border-[#363636]'
+          : 'hover:border-b-4 border-[#363636]'}`}
       >
         Planes Extremos
       </Link>
