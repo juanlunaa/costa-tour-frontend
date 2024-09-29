@@ -54,6 +54,7 @@ module.exports = {
       },
       boxShadow: {
         customBlueShadow: "0 4px 6px rgba(123, 188, 176, 0.5)",
+        customBoxShadow: "0 0px 15px 2px rgb(0 0 0 / 0.1), 0 4px 6px 2px rgb(0 0 0 / 0.1)"
       },
       gridTemplateColumns: {
         "auto-fit": "repeat(auto-fit, minmax(320px, 1fr))",
