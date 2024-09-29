@@ -18,7 +18,7 @@ export function UserProvider ({ children }) {
       }
     }
 
-    fetchUser();
+    fetchUser()
   }, [fetchUserProfile])
 
   return (

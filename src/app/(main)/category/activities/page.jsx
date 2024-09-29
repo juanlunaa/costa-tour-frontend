@@ -12,7 +12,7 @@ import { CardPlan } from "@/components"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CheckboxGroupDemo } from "@/components/ui/checkbox-group/Checkbox"
 
-export default function Category() {
+export default function Activity() {
   return (
     <div className="container-slider">
       <Tabs defaultValue="restaurante" className="w-full mt-24">
@@ -28,9 +28,6 @@ export default function Category() {
           </TabsTrigger>
           <TabsTrigger className={`${textFont.className} font-bold text-black sm:text-xl`} value="alojamiento">
             <PiBuildingApartment className="w-6 h-6 mr-2" /> Alojamientos
-          </TabsTrigger>
-          <TabsTrigger className={`${textFont.className} font-bold text-black sm:text-xl`} value="extremo">
-            <FaFire className="w-6 h-6 mr-2" /> Extremos
           </TabsTrigger>
         </TabsList>
         <div className="grid-filter-tabContent flex flex-wrap justify-between mt-24">
@@ -70,7 +67,6 @@ export default function Category() {
           <TabsContent value="sitio-turistico" className="relative w-3/4">Sitios turisticos</TabsContent>
           <TabsContent value="playa" className="relative w-3/4">Playas</TabsContent>
           <TabsContent value="alojamiento" className="relative w-3/4">Alojamientos</TabsContent>
-          <TabsContent value="extremo" className="relative w-3/4">Extremos</TabsContent>
         </div>
       </Tabs>
     </div>

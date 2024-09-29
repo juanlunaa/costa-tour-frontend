@@ -3,7 +3,7 @@ import { plan } from "@/mocks/plan"
 import { textFont, titleFont } from "@/config/fonts"
 import { CardRecommendation } from "@/components/ui/recommendation-card/Card-Recommendation"
 
-export default function Category() {
+export default function Recomendation() {
   return (
     <div className="flex justify-center">
       <div className="carousel-recomendation container mt-24 font-bold">
