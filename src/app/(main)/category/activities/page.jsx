@@ -1,4 +1,3 @@
-import { textFont } from "@/config/fonts"
 import { plan } from "@/mocks/plan"
 import { IoRestaurant } from "react-icons/io5"
 import { MdOutlineBeachAccess } from "react-icons/md"
@@ -14,16 +13,16 @@ export default function Activity() {
     <div className="container-slider">
       <Tabs defaultValue="restaurante" className="w-full mt-24">
         <TabsList className="flex flex-wrap justify-around">
-          <TabsTrigger className={`${textFont.className} font-bold text-black sm:text-xl`} value="restaurante">
+          <TabsTrigger className="font-bold text-black sm:text-xl" value="restaurante">
             <IoRestaurant className="w-4 h-4 mr-2" /> Restaurantes
           </TabsTrigger>
-          <TabsTrigger className={`${textFont.className} font-bold text-black sm:text-xl`} value="sitio-turistico">
+          <TabsTrigger className="font-bold text-black sm:text-xl" value="sitio-turistico">
             <TbGps className="w-6 h-6 mr-2" /> Sitios Turísticos
           </TabsTrigger>
-          <TabsTrigger className={`${textFont.className} font-bold text-black sm:text-xl`} value="playa">
+          <TabsTrigger className="font-bold text-black sm:text-xl" value="playa">
             <MdOutlineBeachAccess className="w-6 h-6 mr-2" /> Playas
           </TabsTrigger>
-          <TabsTrigger className={`${textFont.className} font-bold text-black sm:text-xl`} value="alojamiento">
+          <TabsTrigger className="font-bold text-black sm:text-xl" value="alojamiento">
             <PiBuildingApartment className="w-6 h-6 mr-2" /> Alojamientos
           </TabsTrigger>
         </TabsList>

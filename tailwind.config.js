@@ -8,12 +8,17 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        volkhov: ["var(--font-volkhov)"],
+        mulish: ["var(--font-mulish)"]
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         customOrange: "#FFA432",
         customBlue: "#37B1E2",
         blueProfile: "#A7E9F2",
+        customYellow: "#FFDA32",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",

@@ -1,6 +1,5 @@
 "use client"
 
-import { titleFont } from '@/config/fonts'
 import { useUserData } from '@/hooks/useUserData'
 import Link from 'next/link'
 
@@ -19,7 +18,7 @@ const CategoryBar = ({ pathname }) => {
     > 
       <Link
         href="/category/activities"
-        className={`${titleFont.className} sm:text-2xl
+        className={`sm:text-2xl font-volkhov
           ${isLinkActive("/activities")
             ? 'border-b-4 border-[#363636]'
             : 'hover:border-b-4 border-[#363636]'}`}
@@ -29,7 +28,7 @@ const CategoryBar = ({ pathname }) => {
       { isLoggedIn 
         ? <Link 
             href="/category/recomendations"
-            className={`${titleFont.className} sm:text-2xl
+            className={`sm:text-2xl font-volkhov
               ${isLinkActive("/recomendations")
               ? 'border-b-4 border-[#363636]'
               : 'hover:border-b-4 border-[#363636]'}`}
@@ -40,7 +39,7 @@ const CategoryBar = ({ pathname }) => {
       }
       <Link
         href="/category/extreme"
-        className={`${titleFont.className} sm:text-2xl 
+        className={`sm:text-2xl font-volkhov
           ${isLinkActive("/extreme")
           ? 'border-b-4 border-[#363636]'
           : 'hover:border-b-4 border-[#363636]'}`}

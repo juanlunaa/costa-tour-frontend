@@ -32,7 +32,7 @@ export default function Register() {
 
   return (
     <>
-      <h1 className={`${titleFont.className} font-bold text-2xl text-center`}>CREAR CUENTA</h1>
+      <h1 className="font-bold text-2xl text-center">CREAR CUENTA</h1>
 
       <form onSubmit={onSubmit} className="flex flex-col items-center gap-4 w-[90%] mt-4">
         <div className="grid grid-cols-2 gap-2">

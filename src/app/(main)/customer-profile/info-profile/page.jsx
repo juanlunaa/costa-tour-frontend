@@ -2,22 +2,20 @@
 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { textFont, titleFont } from "@/config/fonts"
 import { useUserData } from '@/hooks/useUserData';
 
 export default function CustomerProfile() {
   
   const { user } = useUserData()
 
-  const styleLabels = `${textFont.className} text-md font-bold`
-  const styleInputs = `${textFont.className} text-gray-600 font-bold block w-full bg-[#F4F4F5]`
+  const styleLabels = "text-md font-bold"
+  const styleInputs = "text-gray-600 font-bold block w-full bg-[#F4F4F5]"
 
     return (
         <div className="relative flex justify-center">
             <div className="container bg-white shadow-customBoxShadow">
               <div className='mx-auto w-[85%] mt-[2%]'>
-                    <h1 className={`${textFont.className} font-bold text-2xl`}>Información Personal</h1>
+                    <h1 className="font-bold text-2xl">Información Personal</h1>
                 </div>
                 <form >
                     <div className="space-y-4 mx-auto w-[85%] mt-[2%]">
@@ -28,7 +26,6 @@ export default function CustomerProfile() {
                                     id="nombre"
                                     name="nombre"
                                     className={styleInputs}
-                                    value={user.nombre}
                                 />
                             </div>
 
@@ -39,7 +36,6 @@ export default function CustomerProfile() {
                                     id="apellido"
                                     name="apellido"
                                     className={styleInputs}
-                                    value={user.apellido}
                                 />
                             </div>
 
@@ -49,7 +45,6 @@ export default function CustomerProfile() {
                                     id="num_documento"
                                     name="num_documento"
                                     className={styleInputs}
-                                    value={user.dni}
                                 />
                             </div>
 
@@ -59,7 +54,6 @@ export default function CustomerProfile() {
                                     id="edad"
                                     name="edad"
                                     className={styleInputs}
-                                    value={user.edad}
                                 />
                             </div>
                             <div className="space-y-2">
@@ -69,7 +63,6 @@ export default function CustomerProfile() {
                                     id="ciudad"
                                     name="ciudad"
                                     className={styleInputs}
-                                    value={user.ciudad.name}
                                 />
                             </div>
 
@@ -80,7 +73,6 @@ export default function CustomerProfile() {
                                     id="estado"
                                     name="estado"
                                     className={styleInputs}
-                                    value={user.estado.name}
                                 />
                             </div>
 
@@ -91,7 +83,6 @@ export default function CustomerProfile() {
                                     id="pais"
                                     name="pais"
                                     className={styleInputs}
-                                    value={user.pais.name}
                                 />
                             </div>
 
@@ -103,7 +94,7 @@ export default function CustomerProfile() {
                 <div className='segurity'>
 
                     <div className='mx-auto w-[85%] mt-[2%]'>
-                        <h1 className={`${textFont.className} font-bold text-2xl`}>Seguridad </h1>
+                        <h1 className="font-bold text-2xl">Seguridad </h1>
                     </div>
                     <form>
                         <div className="space-y-4 mx-auto w-[85%] mt-[2%]">
@@ -117,7 +108,6 @@ export default function CustomerProfile() {
                                         id="email"
                                         name="email"
                                         className={styleInputs}
-                                        value={user.email}
                                     />
 
                                 </div>

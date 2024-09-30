@@ -1,5 +1,6 @@
 import { UserProvider } from "@/context/user"
 import "./globals.css"
+import { textFont, titleFont } from "@/config/fonts"
 
 export const metadata = {
   title: "Costa Tour",
@@ -8,7 +9,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${titleFont.variable} ${textFont.variable}`}>
       <body>
         <UserProvider>
           {children}

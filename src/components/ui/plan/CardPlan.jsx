@@ -1,4 +1,3 @@
-import { textFont } from "@/config/fonts"
 import Image from "next/image"
 import Link from "next/link"
 import { CiBookmark } from "react-icons/ci"
@@ -22,7 +21,7 @@ export const CardPlan = ({ nombre, miniatura, descripcion }) => {
         </span>
       </div>
 
-      <p className={`${textFont.className} p-3 text-sm text-center`}>{descripcionRecortada}</p>
+      <p className="p-3 text-sm text-center">{descripcionRecortada}</p>
 
       <Link href="#" className="py-1 px-4 bg-customBlue text-white rounded-full">
         Leer más
