@@ -1,11 +1,11 @@
 "use client"
 
-import { useUserData } from '@/hooks/useUserData'
+import { useUserStore } from '@/context/user'
 import Link from 'next/link'
 
 const CategoryBar = ({ pathname }) => {
 
-  const { isLoggedIn } = useUserData()
+  const { isLoggedIn } = useUserStore((state) => state)
 
   const isLinkActive = (href) => {
     return pathname.pathname.includes(href)
