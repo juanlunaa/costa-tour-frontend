@@ -1,6 +1,5 @@
 "use client"
 
-import { titleFont, textFont } from "@/config/fonts"
 import useLocationData from "@/hooks/useLocationData"
 import { registerTurist } from "@/services/auth"
 import Link from "next/link"
@@ -34,7 +33,7 @@ export default function Register() {
     <>
       <h1 className="font-bold text-2xl text-center">CREAR CUENTA</h1>
 
-      <form onSubmit={onSubmit} className="flex flex-col items-center gap-4 w-[90%] mt-4">
+      <form onSubmit={onSubmit} className="flex flex-col items-stretch gap-4 max-w-lg w-[90%] mt-4 mx-auto">
         <div className="grid grid-cols-2 gap-2">
           <div className="relative">
             <input
@@ -144,13 +143,13 @@ export default function Register() {
 
         <button
           type="submit"
-          className={`${textFont.className} bg-gradient-to-r from-customBlue to-customOrange rounded-lg px-4 py-2 text-white font-bold`}
+          className="text-white font-bold bg-gradient-to-r from-customBlue to-customOrange rounded-2xl px-4 py-3 w-36 mx-auto"
         >
           Registrarse
         </button>
       </form>
 
-      <div className={`${textFont.className} text-sm mt-4`}>
+      <div className="text-sm mt-4">
         <span>Si ya tienes cuenta, </span>
         <Link href="/auth/login" className="text-customOrange hover:underline">
           ¡inicia sesión aquí!

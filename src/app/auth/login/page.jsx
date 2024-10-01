@@ -5,12 +5,12 @@ import { useRouter } from 'next/navigation';
 import Link from "next/link"
 import { MdOutlineEmail } from "react-icons/md"
 import { RiLockPasswordLine } from "react-icons/ri"
-import { useUserData } from "@/hooks/useUserData";
+import { useUserStore } from "@/context/user";
 
 export default function Login() {
   const { register, handleSubmit } = useForm()
 
-  const { signInUser } = useUserData()
+  const { signInUser } = useUserStore((state) => state)
 
   const router = useRouter()
 
@@ -24,12 +24,12 @@ export default function Login() {
 
   return (
     <>
-      <h1 className="font-bold text-2xl text-center">INICIO DE SESIÓN</h1>
+      <h1 className="font-bold text-2xl text-center mb-6">INICIO DE SESIÓN</h1>
       <form
-        className="flex flex-col items-center gap-4 w-full mt-4"
+        className="flex flex-col items-stretch gap-4 max-w-lg w-[90%] mt-4 mx-auto"
         onSubmit={onSubmit}
       >
-        <div className="relative w-2/3">
+        <div className="relative">
           <input
             type="email"
             placeholder="Email"
@@ -39,7 +39,7 @@ export default function Login() {
           <MdOutlineEmail className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
         </div>
 
-        <div className="relative w-2/3">
+        <div className="relative">
           <input
             type="password"
             placeholder="Contraseña"
@@ -54,7 +54,7 @@ export default function Login() {
 
         <button
           type="submit"
-          className="bg-gradient-to-r from-customBlue to-customOrange rounded-lg px-4 py-2 text-white font-bold"
+          className="text-white font-bold bg-gradient-to-r from-customBlue to-customOrange rounded-2xl mt-8 px-4 py-3 w-36 mx-auto"
         >
           Iniciar sesión
         </button>
