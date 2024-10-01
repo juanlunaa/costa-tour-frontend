@@ -4,8 +4,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { useUserData } from "@/hooks/useUserData"
 import { useRouter } from "next/navigation"
+import { useUserStore } from "@/context/user";
 
 export default function CustomerProfileLayout({ children }) {
     const pathname = usePathname()
@@ -16,7 +16,7 @@ export default function CustomerProfileLayout({ children }) {
         return pathname.startsWith(href)
     }
 
-    const { user, logoutUser } = useUserData()
+    const { user, logoutUser } = useUserStore((state) => state)
     
     const handleLogout = async () => {
         const success = await logoutUser()
@@ -53,23 +53,23 @@ export default function CustomerProfileLayout({ children }) {
                         </div>
                     </div>
 
-                    <div className="opcion-profile flex flex-col mt-4">
+                    <div className="opcion-profile flex flex-col gap-2 mt-4">
 
-                        <Link href="/customer-profile/info-profile" className={`sm:text-lg flex items-center text-center justify-start pl-6 font-bold h-16
-                    ${isLinkActive('/customer-profile/info-profile')
-                                ? 'bg-blueProfile'
-                                : 'hover:bg-blueProfile'
-                            }`}>
+                        <Link href="/customer-profile/info-profile" className={`sm:text-lg flex items-center px-4 font-bold h-16 w-full
+                            ${isLinkActive('/customer-profile/info-profile')
+                            ? 'bg-blueProfile'
+                            : 'hover:bg-blueProfile'
+                        }`}>
                             Informacion del perfil
                         </Link>
-                        <Link href="/customer-profile/favorites" className={`sm:text-lg flex items-center justify-start pl-6 font-bold h-16 mt-2 
-                    ${isLinkActive('/customer-profile/favorites')
-                                ? 'bg-blueProfile'
-                                : 'hover:bg-blueProfile'
-                            }`}>
+                        <Link href="/customer-profile/favorites" className={`sm:text-lg flex items-center px-4 font-bold h-16 w-full
+                            ${isLinkActive('/customer-profile/favorites')
+                            ? 'bg-blueProfile'
+                            : 'hover:bg-blueProfile'
+                        }`}>
                             Guardados
                         </Link>
-                        <button onClick={handleLogout} className="sm:text-lg flex items-center text-center font-bold justify-start pl-6 h-16 mt-2 hover:bg-blueProfile">
+                        <button onClick={handleLogout} className="sm:text-lg text-start px-4 font-bold h-16 w-full hover:bg-blueProfile">
                             Cerrar sesion
                         </button>
                     </div>

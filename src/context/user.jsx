@@ -1,29 +1,40 @@
 "use client"
 
-import { useUserStore } from '@/store/user';
-import Cookies from 'js-cookie';
-import { createContext, useEffect } from 'react'
+import { createUserStore } from "@/store/user"
+import { createContext, useContext, useEffect, useRef } from "react"
+import { useStore } from "zustand"
+import Cookies from "js-cookie"
 
-export const UserContext = createContext()
+export const UserStoreContext = createContext(undefined)
 
-export function UserProvider ({ children }) {
-  const fetchUserProfile = useUserStore((state) => state.fetchUserProfile)
-  
+export function UserStoreProvider({ children }) {
+  const userStoreRef = useRef()
+
+  if (!userStoreRef.current) {
+    userStoreRef.current = createUserStore()
+  }
+
   useEffect(() => {
-    const fetchUser = async () => {
-      const token = Cookies.get('token')
+    const token = Cookies.get('token')
 
-      if (token) {
-        fetchUserProfile()
-      }
+    if (token) {
+      userStoreRef.current.getState().fetchUserProfile()
     }
-
-    fetchUser()
-  }, [fetchUserProfile])
+  }, []);
 
   return (
-    <UserContext.Provider value={{fetchUserProfile}}>
+    <UserStoreContext.Provider value={userStoreRef.current}>
       {children}
-    </UserContext.Provider>
+    </UserStoreContext.Provider>
   )
+}
+
+export const useUserStore = (selector) => {
+  const userStoreContext = useContext(UserStoreContext)
+
+  if (!userStoreContext) {
+    throw new Error(`useUserStore must be used within UserStoreProvider`)
+  }
+
+  return useStore(userStoreContext, selector)
 }

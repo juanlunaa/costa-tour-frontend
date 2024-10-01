@@ -1,5 +1,5 @@
 import { fetchProfile, login, logout, registerTurist } from '@/services/auth'
-import { create } from 'zustand'
+import { create, createStore } from 'zustand'
 
 const userInitialState = {
   userId: null,
@@ -26,45 +26,52 @@ const userInitialState = {
   intereses: []
 }
 
+export const defaultInitState = {
+  user : userInitialState,
+  isLoggedIn: false
+}
 
-export const useUserStore = create((set) => ({
-  user: userInitialState,
-  isLoggedIn: false,
-  fetchUserProfile: async () => {
-    const { res, status } = await fetchProfile()
 
-    if (status === 200) {
-      set(state => ({ ...state, user: res, isLoggedIn: true }))
+export const createUserStore = (initialState = defaultInitState) => {
+  return createStore()((set) => ({
+    ...initialState,
+    fetchUserProfile: async () => {
+      const { res, status } = await fetchProfile()
+  
+      if (status === 200) {
+        set(state => ({ ...state, user: res, isLoggedIn: true }))
+      }
+    },
+    signInUser: async (data) => {
+      const { res, status } = await login(data)
+  
+      if (status === 200) {
+        set(state => ({ ...state, user: res, isLoggedIn: true }))
+        return true
+      }
+  
+      return false
+    },
+    signUpTurist: async () => {
+      const { res, status } = await registerTurist(data)
+  
+      if (status === 200) {
+        set(state => ({ ...state, user: res, isLoggedIn: true }))
+        return true
+      }
+  
+      return false
+    },
+    logoutUser: async () => {
+      const { status } = await logout()
+      
+      if (status === 200) {
+        set(state => ({ ...state, user: userInitialState, isLoggedIn: false }))
+        return true
+      }
+  
+      return false
     }
-  },
-  signInUser: async (data) => {
-    const { res, status } = await login(data)
-
-    if (status === 200) {
-      set(state => ({ ...state, user: res, isLoggedIn: true }))
-      return true
-    }
-
-    return false
-  },
-  signUpTurist: async () => {
-    const { res, status } = await registerTurist(data)
-
-    if (status === 200) {
-      set(state => ({ ...state, user: res, isLoggedIn: true }))
-      return true
-    }
-
-    return false
-  },
-  logoutUser: async () => {
-    const { status } = await logout()
-    
-    if (status === 200) {
-      set(state => ({ ...state, user: userInitialState, isLoggedIn: false }))
-      return true
-    }
-
-    return false
-  }
-}))
+  }))
+}
+  

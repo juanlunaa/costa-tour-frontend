@@ -2,14 +2,15 @@
 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useUserData } from '@/hooks/useUserData';
+import { useUserStore } from '@/context/user';
+import clsx from 'clsx';
 
 export default function CustomerProfile() {
   
-  const { user } = useUserData()
+  const { user } = useUserStore((state) => state)
 
-  const styleLabels = "text-md font-bold"
-  const styleInputs = "text-gray-600 font-bold block w-full bg-[#F4F4F5]"
+  const styleLabels = clsx("text-md font-bold")
+  const styleInputs = clsx("text-gray-600 font-bold block w-full bg-[#F4F4F5]")
 
     return (
         <div className="relative flex justify-center">

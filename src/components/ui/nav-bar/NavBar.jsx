@@ -1,11 +1,12 @@
 "use client"
 
+import { useUserStore } from "@/context/user"
 import { useUserData } from "@/hooks/useUserData"
 import Link from "next/link"
 
 export const NavBar = ({ pathname }) => {
 
-  const { isLoggedIn } = useUserData()
+  const { isLoggedIn } = useUserStore((state) => state)
 
   const isDashboard = pathname.pathname.includes("/customer-profile")
 
