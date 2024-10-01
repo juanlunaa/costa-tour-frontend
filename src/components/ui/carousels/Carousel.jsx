@@ -38,7 +38,7 @@ export function CarouselPlugin() {
       <CarouselContent>
         {images.map((src, index) => (
           <CarouselItem key={index}>
-            <div className="relative w-full h-96">
+            <div className="relative w-full h-[500px]">
               <Image
                 src={src}
                 alt={`Image ${index + 1}`}

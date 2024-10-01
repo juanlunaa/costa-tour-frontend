@@ -66,8 +66,8 @@ export function CardRecommendation({ title }) {
       <div className="flex justify-between items-center mb-2">
         <p className="rounded-full w-40 py-2 text-center bg-customBlue text-white">{title}</p>
         <div className="flex gap-2">
-          <CarouselPrevious className="w-14 h-14 shadow-[0_0_10px_rgba(255,255,0,0.5)] hover:bg-customYellow active:hover:bg-customYellow" />
-          <CarouselNext className="w-14 h-14 shadow-[0_0_10px_rgba(255,255,0,0.5)] hover:bg-customYellow active:hover:bg-customYellow" />
+          <CarouselPrevious className="static w-14 h-14 shadow-[0_0_10px_rgba(255,255,0,0.5)] hover:bg-customYellow active:hover:bg-customYellow" />
+          <CarouselNext className="static w-14 h-14 shadow-[0_0_10px_rgba(255,255,0,0.5)] hover:bg-customYellow active:hover:bg-customYellow" />
         </div>
       </div>
       <CarouselContent>
