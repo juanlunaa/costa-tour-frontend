@@ -20,7 +20,7 @@ export default function Login() {
     const status = await signInUser(data)
     
     if (status === 200) {
-      router.push("/customer-profile/info-profile")
+      router.push("/dashboard/customer-profile/info-profile")
     }
 
     if (status === 403) {

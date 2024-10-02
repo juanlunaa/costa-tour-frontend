@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { verifyToken } from "./logic/auth"
  
 export async function middleware(req) {
-  return
+  // return
   // Se obtiene el valor de la cookie que tiene el token
   const token = req.cookies.get("token")?.value
 
@@ -21,7 +21,7 @@ export async function middleware(req) {
   console.log(req.url)
   // Si el usuario esta accediendo al login y esta autenticado es redireccionado al perfil
   if (req.url.includes("/auth") && verifiedToken) {
-    return NextResponse.redirect(new URL("/customer-profile/info-profile", req.url))
+    return NextResponse.redirect(new URL("/dashboard/customer-profile/info-profile", req.url))
   }
 
   // Si el usuario no tiene un token valido y esta intentando acceder a una ruta protegida es redireccionado al login
@@ -32,7 +32,7 @@ export async function middleware(req) {
  
 export const config = {
   matcher: [
-    "/customer-profile/:path*",
+    "/dashboard/customer-profile/:path*",
     "/auth/:path*"
   ]
 }

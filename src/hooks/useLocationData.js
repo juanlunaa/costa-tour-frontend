@@ -17,8 +17,7 @@ export default function useLocationData() {
   const handleChange = (e) => {
     const { name, value } = e.target
     setLocationSelect((prevLocationSelect) => {
-      const newState = {...prevLocationSelect,
-      [name]: value }
+      const newState = {...prevLocationSelect, [name]: value }
       return newState
     })
   }

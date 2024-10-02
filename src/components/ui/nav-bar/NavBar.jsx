@@ -43,7 +43,7 @@ export const NavBar = ({ pathname }) => {
           isLoggedIn
             ? <Link
                 className={`m-2 p-2 rounded-xl font-bold hover:bg-customOrange ${isDashboard ? "text-black" : "text-white"}`}
-                href="/customer-profile/info-profile"
+                href="/dashboard/customer-profile/info-profile"
               >
                 Mi cuenta
               </Link>
