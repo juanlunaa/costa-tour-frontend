@@ -47,16 +47,15 @@ export const createUserStore = (initialState = defaultInitState) => {
   
       if (status === 200) {
         set(state => ({ ...state, user: res, isLoggedIn: true }))
-        return true
       }
-  
-      return false
+
+      return status
     },
     signUpTurist: async (data) => {
       const { res, status } = await registerTurist(data)
   
-      if (status === 200) {
-        set(state => ({ ...state, user: res, isLoggedIn: true }))
+      if (status === 201) {
+        // set(state => ({ ...state, user: res, isLoggedIn: true }))
         return true
       }
   
