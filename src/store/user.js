@@ -52,7 +52,7 @@ export const createUserStore = (initialState = defaultInitState) => {
   
       return false
     },
-    signUpTurist: async () => {
+    signUpTurist: async (data) => {
       const { res, status } = await registerTurist(data)
   
       if (status === 200) {
