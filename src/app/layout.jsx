@@ -1,6 +1,7 @@
 import { UserStoreProvider } from "@/context/user"
 import { textFont, titleFont } from "@/config/fonts"
 import "./globals.css"
+import { Toaster } from "sonner"
 
 export const metadata = {
   title: "Costa Tour",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
         <UserStoreProvider>
           {children}
         </UserStoreProvider>
+        <Toaster richColors position="bottom-left" />
       </body>
     </html>
   )
