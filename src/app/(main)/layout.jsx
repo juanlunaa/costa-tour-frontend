@@ -9,6 +9,7 @@ export default function CostaTourLayout({ children }) {
   
   const showFooter = () => {
     if (pathname.includes("/customer-profile")) return false
+    if (pathname.includes("/admin-profile")) return false
     
     return true
   }
