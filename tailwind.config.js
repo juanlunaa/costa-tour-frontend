@@ -18,6 +18,7 @@ module.exports = {
         customOrange: "#FFA432",
         customBlue: "#37B1E2",
         blueProfile: "#A7E9F2",
+        yellowProfile:"#F4B46A",
         customYellow: "#FFDA32",
         card: {
           DEFAULT: "hsl(var(--card))",
