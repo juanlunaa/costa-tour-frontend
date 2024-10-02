@@ -9,7 +9,7 @@ import { createContext, useContext, useState } from "react"
 export const RegisterFormContext = createContext()
 
 export function RegisterFormProvider({ children }) {
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState(undefined)
   
   const updateFormData  = (newData) => {
     setFormData((prevState) => {

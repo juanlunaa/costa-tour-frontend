@@ -2,8 +2,11 @@
 
 import { useRegisterFormData } from "@/context/register"
 import useLocationData from "@/hooks/useLocationData"
+import { checkDniAvailability, checkEmailAvailability } from "@/services/auth"
+import debounce from "lodash.debounce"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useCallback } from "react"
 import { useForm } from "react-hook-form"
 import { AiOutlineIdcard } from "react-icons/ai"
 import { CiCalendarDate } from "react-icons/ci"
@@ -13,12 +16,19 @@ import { RiLockPasswordLine } from "react-icons/ri"
 import { TiWorld } from "react-icons/ti"
 
 export default function Register() {
+  const { locationData, locationSelect, handleChange } = useLocationData()
+  
   const {
     register,
     handleSubmit,
-  } = useForm()
+    formState: { errors }
+  } = useForm({
+    defaultValues: {
+      pais: locationSelect.pais,
+      estado: locationSelect.estado
+    }
+  })
 
-  const { locationData, locationSelect, handleChange } = useLocationData()
 
   const { updateFormData } = useRegisterFormData()
 
@@ -29,116 +39,231 @@ export default function Register() {
     router.push("/auth/register/interests")
   })
 
+  const validateUsername = useCallback(
+    debounce(async (value, resolve) => {
+      const isAvailable = await checkEmailAvailability(value);
+      if (!isAvailable) {
+        resolve("Este email ya está en uso");
+      } else {
+        resolve(true);
+      }
+    }, 500),
+    []
+  )
+
+  const validateDni = useCallback(
+    debounce(async (value, resolve) => {
+      const isAvailable = await checkDniAvailability(value);
+      if (!isAvailable) {
+        resolve("Este DNI ya está en uso");
+      } else {
+        resolve(true);
+      }
+    }, 500),
+    []
+  )
+
   return (
     <>
       <h1 className="font-bold text-2xl text-center">CREAR CUENTA</h1>
 
       <form onSubmit={onSubmit} className="flex flex-col items-stretch gap-4 max-w-lg w-[90%] mt-4 mx-auto">
         <div className="grid grid-cols-2 gap-2">
-          <div className="relative">
-            <input
-              placeholder="Nombre"
-              className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
-              {...register("nombre", { required: true })}
-            />
-
-            <FaRegUser className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
+          <div>
+            <div className="relative">
+              <input
+                placeholder="Nombre"
+                className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                {...register("nombre", { 
+                  required: {
+                    value: true,
+                    message: "Nombre es requerido"
+                  }
+                })}
+              />
+              <FaRegUser className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
+            </div>
+            { errors.nombre && <span className="text-xs text-red-600 font-bold">{errors.nombre.message}</span> }
           </div>
 
-          <input
-            placeholder="Apellido"
-            className="bg-[#D1EEF2] p-3 rounded-lg w-full placeholder:text-black/60"
-            {...register("apellido", { required: true })}
-          />
-
-          <div className="relative">
+          <div>
             <input
-              placeholder="N° Identificación"
-              className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
-              {...register("dni", { required: true })}
+              placeholder="Apellido"
+              className="bg-[#D1EEF2] p-3 rounded-lg w-full placeholder:text-black/60"
+              {...register("apellido", { 
+                required: {
+                  value: true,
+                  message: "Apellido es requerido"
+                }
+              })}
             />
-
-            <AiOutlineIdcard className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
+            { errors.apellido && <span className="text-xs text-red-600 font-bold">{errors.apellido.message}</span> }
           </div>
 
-          <div className="relative">
-            <input
-              type="date"
-              placeholder="Fecha Nacimiento"
-              className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
-              {...register("fechaNacimiento", { required: true })}
-            />
+          <div>
+            <div className="relative">
+              <input
+                placeholder="N° Identificación"
+                className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                {...register("dni", { 
+                  required: {
+                    value: true,
+                    message: "DNI es requerido"
+                  },
+                  validate: (value) => 
+                    new Promise((resolve) => {
+                      validateDni(value, resolve)
+                    })
+                })}
+              />
 
-            <CiCalendarDate className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
+              <AiOutlineIdcard className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
+            </div>
+            { errors.dni && <span className="text-xs text-red-600 font-bold">{errors.dni.message}</span> }
           </div>
 
-          <div className="relative col-span-2">
-            <input
-              type="email"
-              placeholder="Email"
-              className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
-              {...register("email", { required: true })}
-            />
+          <div>
+            <div className="relative">
+              <input
+                type="date"
+                placeholder="Fecha Nacimiento"
+                className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                {...register("fechaNacimiento", { 
+                  required: {
+                    value: true,
+                    message: "Fecha de nacimiento es requerida"
+                  }
+                })}
+              />
 
-            <MdOutlineEmail className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
+              <CiCalendarDate className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
+            </div>
+            { errors.fechaNacimiento && <span className="text-xs text-red-600 font-bold">{errors.fechaNacimiento.message}</span> }
           </div>
 
-          <div className="relative col-span-2">
-            <input
-              type="password"
-              placeholder="Contraseña"
-              className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
-              {...register("password", { required: true })}
-            />
+          <div>
+            <div className="relative col-span-2">
+              <input
+                type="email"
+                placeholder="Email"
+                className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                {...register("email", { 
+                  required: {
+                    value: true,
+                    message: "Email es requerido"
+                  },
+                  pattern: {
+                    value: /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/,
+                    message: "Email no valido"
+                  },
+                  validate: (value) => 
+                    new Promise((resolve) => {
+                      validateUsername(value, resolve)
+                    })
+                })}
+              />
 
-            <RiLockPasswordLine className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
+              <MdOutlineEmail className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
+            </div>
+            { errors.email && <span className="text-xs text-red-600 font-bold">{errors.email.message}</span> }
           </div>
 
-          <div className="relative col-span-2">
+          <div>
+            <div className="relative col-span-2">
+              <input
+                type="password"
+                placeholder="Contraseña"
+                className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                {...register("password", { 
+                  required: {
+                    value: true,
+                    message: "Contraseña es requerida"
+                  },
+                  minLength: {
+                    value: 6,
+                    message: "Numero minimo de caracteres es 6"
+                  }
+                })}
+              />
+
+              <RiLockPasswordLine className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
+            </div>
+            { errors.password && <span className="text-xs text-red-600 font-bold">{errors.password.message}</span> }
+          </div>
+
+          <div className="col-span-2">
+            <div className="relative">
+              <select
+                name="pais"
+                className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                {...register("pais", { 
+                  required: {
+                    value: true,
+                    message: "Pais es requerido"
+                  },
+                  onChange: (event) => {
+                    handleChange(event)
+                  }
+                })}
+              >
+                <option value="">Selecciona un pais</option>
+                {locationData.paises.map((p) => (
+                  <option value={p.id} key={p.id}>
+                    {p.name}
+                  </option>
+                ))}
+              </select>
+
+              <TiWorld className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
+            </div>
+            { errors.pais && <span className="text-xs text-red-600 font-bold">{errors.pais.message}</span> }
+          </div>
+
+          <div>
             <select
-              name="pais"
-              className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
-              value={locationSelect.pais}
-              onChange={handleChange}
+              name="estado"
+              className="bg-[#D1EEF2] p-3 rounded-lg w-full placeholder:text-black/60"
+              {...register("estado", { 
+                required: {
+                  value: true,
+                  message: "Estado es requerido"
+                },
+                onChange: (event) => {
+                  handleChange(event)
+                }
+              })}
             >
-              <option value="0">Selecciona un pais</option>
-              {locationData.paises.map((p) => (
-                <option value={p.id} key={p.id}>
-                  {p.name}
+              <option value="">Selecciona un estado</option>
+              {locationData.estados.map((e) => (
+                <option value={e.id} key={e.id}>
+                  {e.name}
                 </option>
               ))}
             </select>
-
-            <TiWorld className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
+            { errors.estado && <span className="text-xs text-red-600 font-bold">{errors.estado.message}</span> }
           </div>
 
-          <select
-            name="estado"
-            className="bg-[#D1EEF2] p-3 rounded-lg w-full placeholder:text-black/60"
-            value={locationSelect.estado}
-            onChange={handleChange}
-          >
-            <option value="0">Selecciona un estado</option>
-            {locationData.estados.map((e) => (
-              <option value={e.id} key={e.id}>
-                {e.name}
+          <div>
+            <select
+              className="bg-[#D1EEF2] p-3 rounded-lg w-full placeholder:text-black/60"
+              {...register("idCiudad", { 
+                required: {
+                  value: true,
+                  message: "Ciudad es requerida"
+                }
+              })}
+            >
+              <option value="" default>
+                Selecciona una ciudad
               </option>
-            ))}
-          </select>
-
-          <select
-            className="bg-[#D1EEF2] p-3 rounded-lg w-full placeholder:text-black/60"
-            {...register("idCiudad", { required: true })}
-          >
-            <option value="0" default>
-              Selecciona una ciudad
-            </option>
-            {locationData.ciudades.map((c) => (
-              <option value={c.id} key={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </select>
+              {locationData.ciudades.map((c) => (
+                <option value={c.id} key={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+            { errors.idCiudad && <span className="text-xs text-red-600 font-bold">{errors.idCiudad.message}</span> }
+          </div>
         </div>
 
         <button

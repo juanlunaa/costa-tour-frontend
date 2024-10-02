@@ -9,17 +9,18 @@ export default function useLocationData() {
   })
 
   const [locationSelect, setLocationSelect] = useState({
-    pais: 0,
-    estado: 0,
+    pais: "",
+    estado: "",
   })
 
   // funcion generica para manejar el cambio del pais y estado seleccionado
   const handleChange = (e) => {
     const { name, value } = e.target
-    setLocationSelect((prevLocationSelect) => ({
-      ...prevLocationSelect,
-      [name]: value,
-    }))
+    setLocationSelect((prevLocationSelect) => {
+      const newState = {...prevLocationSelect,
+      [name]: value }
+      return newState
+    })
   }
 
   // se cargan los países al montar el hook
