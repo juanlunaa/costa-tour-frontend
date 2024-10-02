@@ -62,7 +62,7 @@ export default function Login() {
 
       <div className="text-sm mt-4 text-center">
         <span>Si aún no te has registrado, </span>
-        <Link href="/auth/register" className="text-customOrange hover:underline">
+        <Link href="/auth/register/turist" className="text-customOrange hover:underline">
           ¡únete aquí y comienza esta emocionante aventura!
         </Link>
       </div>

@@ -3,7 +3,6 @@ const server = process.env.NEXT_PUBLIC_BACKEND_SERVER
 export const login = async (data) => {
   const res = await fetch(`${server}/user/auth`, {
     method: "POST",
-    credentials: 'include',
     body: JSON.stringify(data),
     headers: {
       "Content-Type": "application/json",

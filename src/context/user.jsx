@@ -20,7 +20,7 @@ export function UserStoreProvider({ children }) {
     if (token) {
       userStoreRef.current.getState().fetchUserProfile()
     }
-  }, []);
+  }, [])
 
   return (
     <UserStoreContext.Provider value={userStoreRef.current}>

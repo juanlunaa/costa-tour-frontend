@@ -1,8 +1,9 @@
 "use client"
 
+import { useRegisterFormData } from "@/context/register"
 import useLocationData from "@/hooks/useLocationData"
-import { registerTurist } from "@/services/auth"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { AiOutlineIdcard } from "react-icons/ai"
 import { CiCalendarDate } from "react-icons/ci"
@@ -19,14 +20,13 @@ export default function Register() {
 
   const { locationData, locationSelect, handleChange } = useLocationData()
 
-  const onSubmit = handleSubmit(async (data) => {
-    const newData = { ...data, intereses: [1, 2, 3] }
-    
-    const { res, status } = await registerTurist(newData)
+  const { updateFormData } = useRegisterFormData()
 
-    if (status === 200) {
-      router.push("/dashboard")
-    }
+  const router = useRouter()
+
+  const onSubmit = handleSubmit(data => {
+    updateFormData(data)
+    router.push("/auth/register/interests")
   })
 
   return (
