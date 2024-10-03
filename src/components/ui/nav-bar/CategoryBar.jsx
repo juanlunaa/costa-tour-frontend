@@ -1,11 +1,13 @@
 "use client"
 
 import { useUserStore } from '@/context/user'
+import { UserRoles } from '@/logic/auth'
 import Link from 'next/link'
 
 const CategoryBar = ({ pathname }) => {
 
-  const { isLoggedIn } = useUserStore((state) => state)
+  const { isLoggedIn, user } = useUserStore((state) => state)
+  const role = user.tipoUsuario
 
   const isLinkActive = (href) => {
     return pathname.pathname.includes(href)
@@ -25,7 +27,7 @@ const CategoryBar = ({ pathname }) => {
       >
         Actividades
       </Link>
-      { isLoggedIn 
+      { isLoggedIn && role === UserRoles.TURISTA
         ? <Link 
             href="/category/recomendations"
             className={`sm:text-2xl font-volkhov

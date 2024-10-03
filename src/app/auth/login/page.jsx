@@ -7,6 +7,7 @@ import { MdOutlineEmail } from "react-icons/md"
 import { RiLockPasswordLine } from "react-icons/ri"
 import { useUserStore } from "@/context/user"
 import { useState } from "react"
+import { UserRoles } from "@/logic/auth"
 
 export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm()
@@ -17,17 +18,26 @@ export default function Login() {
   const router = useRouter()
 
   const onSubmit = handleSubmit(async (data) => {
-    const status = await signInUser(data)
+    const res = await signInUser(data)
     
-    if (status === 200) {
-      router.push("/dashboard/customer-profile/info-profile")
+    if (res.status === 200) {
+      setError()
+      const { role } = res
+
+      if (role === UserRoles.TURISTA) {
+        router.push('/dashboard/customer-profile/info-profile');
+      } else if (role === UserRoles.ADMINISTRADOR) {
+        router.push('/dashboard/admin-profile/info-profile');
+      } else if (role === UserRoles.ALIADO) {
+        router.push('/');
+      }
     }
 
-    if (status === 403) {
+    if (res.status === 401) {
       setError("Contraseña invalida")
     }
 
-    if (status === 404) {
+    if (res.status === 404) {
       setError("Cuenta no existente, por favor registrese")
     }
   })
@@ -57,7 +67,7 @@ export default function Login() {
                   message: "Email es requerido"
                 },
                 pattern: {
-                  value: /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/,
+                  value: /\S+@\S+\.\S+/,
                   message: "Email no valido"
                 }
               })}

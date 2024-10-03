@@ -1,5 +1,18 @@
 import { jwtVerify } from "jose"
 
+export const UserRoles = {
+  TURISTA: 'TURISTA',
+  ADMINISTRADOR: 'ADMINISTRADOR',
+  ALIADO: 'ALIADO',
+}
+
+
+export const getDashboardByRole = (role) => {
+  if (role === UserRoles.ADMINISTRADOR) return "admin-profile"
+  if (role === UserRoles.ALIADO) return "admin-profile"
+  if (role === UserRoles.TURISTA) return "customer-profile"
+}
+
 const getJwtSecret = () => {
   const secret = process.env.JWT_SECRET
 
@@ -12,6 +25,7 @@ const getJwtSecret = () => {
 
 export const verifyToken = async (token) => {
   try {
+    if (!token) return
     const verified = await jwtVerify(
       token,
       new TextEncoder().encode(getJwtSecret())

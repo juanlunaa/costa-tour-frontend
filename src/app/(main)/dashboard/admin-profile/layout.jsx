@@ -3,10 +3,9 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { FaMapMarkerAlt } from "react-icons/fa";
 import { useRouter } from "next/navigation"
-import { useUserStore } from "@/context/user";
-import { Badge } from "@/components/ui/badge";
+import { useUserStore } from "@/context/user"
+import { Badge } from "@/components/ui/badge"
 
 export default function CustomerProfileLayout({ children }) {
     const pathname = usePathname()
@@ -48,11 +47,7 @@ export default function CustomerProfileLayout({ children }) {
                         <div className="username text-center mt-4">
                             <h2 className="text-2xl font-bold" >{user.nombre} {user.apellido}</h2>
 
-                        </div>
-                        <div className="pais flex flex-row items-center justify-center space-x-1 text-[#00A0B1] mt-4">
-                            <FaMapMarkerAlt className="text-sm" />
-                            <p>{user.ciudad.name}</p>
-                        </div>
+                        </div>                        
                     </div>
 
                     <div className="opcion-profile flex flex-col gap-2 mt-4">
