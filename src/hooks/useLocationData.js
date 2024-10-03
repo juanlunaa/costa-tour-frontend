@@ -1,13 +1,14 @@
 import { fecthEstadosByPais, fetchCiudadesByEstado, fetchAllPaises } from "@/services/location"
 import { useEffect, useState } from "react"
 
-export default function useLocationData() {
+export default function useLocationData() { 
   const [locationData, setLocationData] = useState({
     paises: [],
     estados: [],
     ciudades: [],
   })
 
+  // console.log({ idPais, idEstado  })
   const [locationSelect, setLocationSelect] = useState({
     pais: "",
     estado: "",
@@ -22,11 +23,27 @@ export default function useLocationData() {
     })
   }
 
+  const updateLocationSelect = ({ pais, estado }) => {
+    setLocationSelect({ pais, estado })
+  }
+
   // se cargan los países al montar el hook
   useEffect(() => {
     const fetchPaises = async () => {
+      // console.log({ idPais, idEstado  })
+      
       const paisesData = await fetchAllPaises()
       setLocationData((prevLocData) => ({ ...prevLocData, paises: paisesData }))
+
+      // if (idPais !== null && idPais) {
+      //   const estadosData = await fecthEstadosByPais(idPais)
+      //   setLocationData((prevLocData) => ({ ...prevLocData, estados: estadosData, ciudades: [] }))
+      // }
+
+      // if (idEstado !== null && idEstado) {
+      //   const ciudadesData = await fetchCiudadesByEstado(idEstado)
+      //   setLocationData((prevLocData) => ({ ...prevLocData, ciudades: ciudadesData }))
+      // }
     }
     fetchPaises()
   }, [])
@@ -57,5 +74,6 @@ export default function useLocationData() {
     locationData,
     locationSelect,
     handleChange,
+    updateLocationSelect
   }
 }

@@ -1,16 +1,16 @@
 "use client"
 
+import { TuristUpdatePersonalData } from '@/components';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useUserStore } from '@/context/user';
 import clsx from 'clsx';
+import { useForm } from 'react-hook-form';
 
 export default function CustomerProfile() {
-  
-  const { user } = useUserStore((state) => state)
 
   const styleLabels = clsx("text-sm font-bold md:text-base sm:text-sm ")
-  const styleInputs = clsx("text-gray-600 font-bold block w-full bg-[#F4F4F5]")
+  const styleInputs = clsx("text-gray-600 block w-full bg-[#F4F4F5]")
 
     return (
         <div className="relative flex justify-center">
@@ -18,79 +18,7 @@ export default function CustomerProfile() {
               <div className='mx-auto w-[85%] mt-[2%]'>
                     <h1 className="font-bold  mt-12 text-sm sm:text-base md:text-xl lg:text-2xl">Información Personal</h1>
                 </div>
-                <form >
-                    <div className="space-y-4 mx-auto w-[85%] mt-[2%]">
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-1 ">
-                            <div className="space-y-2">
-                                <Label htmlFor="nombre" className={styleLabels}>Nombre</Label>
-                                <Input
-                                    id="nombre"
-                                    name="nombre"
-                                    className={styleInputs}
-                                />
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="apellido" className={styleLabels}>Apellido</Label>
-                                <Input
-                                    type='text'
-                                    id="apellido"
-                                    name="apellido"
-                                    className={styleInputs}
-                                />
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="num_documento" className={styleLabels}>N° de documento</Label>
-                                <Input
-                                    id="num_documento"
-                                    name="num_documento"
-                                    className={styleInputs}
-                                />
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="edad" className={styleLabels}>Edad</Label>
-                                <Input
-                                    id="edad"
-                                    name="edad"
-                                    className={styleInputs}
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="ciudad" className={styleLabels}>Ciudad</Label>
-                                <Input
-                                    type='text'
-                                    id="ciudad"
-                                    name="ciudad"
-                                    className={styleInputs}
-                                />
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="estado" className={styleLabels}>Estado</Label>
-                                <Input
-                                    type='text'
-                                    id="estado"
-                                    name="estado"
-                                    className={styleInputs}
-                                />
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="pais" className={styleLabels}>Pais</Label>
-                                <Input
-                                    type='text'
-                                    id="pais"
-                                    name="pais"
-                                    className={styleInputs}
-                                />
-                            </div>
-
-                            <button className={`${styleLabels} bg-blueProfile w-[50%] sm:w-[40%] mt-5 py-4`}>Guardar</button>
-                        </div>
-                    </div>
-                </form>
+                    <TuristUpdatePersonalData/>
                 <hr className='dividier mt-10'></hr>
                 <div className='segurity'>
 

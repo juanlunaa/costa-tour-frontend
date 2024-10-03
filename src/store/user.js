@@ -1,4 +1,5 @@
 import { fetchProfile, login, logout, registerTurist } from '@/services/auth'
+import { updatePersonalDataTurist } from '@/services/user'
 import { create, createStore } from 'zustand'
 
 const userInitialState = {
@@ -52,6 +53,16 @@ export const createUserStore = (initialState = defaultInitState) => {
 
       return { status }
     },
+    logoutUser: async () => {
+      const { status } = await logout()
+      
+      if (status === 200) {
+        set(state => ({ ...state, user: userInitialState, isLoggedIn: false }))
+        return true
+      }
+  
+      return false
+    },
     signUpTurist: async (data) => {
       const { res, status } = await registerTurist(data)
   
@@ -62,14 +73,14 @@ export const createUserStore = (initialState = defaultInitState) => {
   
       return false
     },
-    logoutUser: async () => {
-      const { status } = await logout()
-      
+    updateProfileTurist: async ({ dni, data }) => {
+      const { res, status } = await updatePersonalDataTurist({ dni, data })
+
       if (status === 200) {
-        set(state => ({ ...state, user: userInitialState, isLoggedIn: false }))
+        set(state => ({ ...state, user: res, isLoggedIn: true }))
         return true
       }
-  
+      
       return false
     }
   }))
