@@ -1,3 +1,5 @@
+import { InvalidPasswordError, UserNotFoundError } from "@/erros"
+
 const server = process.env.NEXT_PUBLIC_BACKEND_SERVER
 
 export const login = async (data) => {
@@ -11,18 +13,23 @@ export const login = async (data) => {
       },
     })
     
-    if (res.status === 403) {
-      const errorMessage = await res.text()
-      const error = new Error(`Error ${res.status}: ${errorMessage || 'No se pudo iniciar sesión'}`)
+    if (!res.ok) {
+      const { message } = await res.json()
+
+      let error
+
+      if (res.status === 401) error = new InvalidPasswordError(`Error ${res.status}: ${message || 'No se pudo iniciar sesión'}`)
+      
+      if (res.status === 404) error = new UserNotFoundError(`Error ${res.status}: ${message || 'No se pudo iniciar sesión'}`)
+
       error.status = res.status
-      throw error
+      return error
     }
 
     const resJson = await res.json()
   
     return { res: resJson, status: res.status }
   } catch (err) {
-    console.error("Error en la solicitud de inicio de sesión:", err)
     return { error: err.message, status: err.status || 500 }
   }
 }
