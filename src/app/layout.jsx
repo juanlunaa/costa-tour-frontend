@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
         <UserStoreProvider>
           {children}
         </UserStoreProvider>
-        <Toaster richColors position="bottom-left" />
+        <Toaster richColors position="bottom-left" closeButton />
       </body>
     </html>
   )

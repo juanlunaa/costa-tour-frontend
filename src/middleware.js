@@ -10,12 +10,13 @@ export async function middleware(req) {
   const payload = await verifyToken(token).catch(err => console.log(err))
   const verifiedToken = token && payload
 
-  const role = payload.role[0].authority
-
+  
   // Si el usuario esta accediendo al login y no esta autenticado (no tiene token) se deja pasar
   if (req.nextUrl.pathname.startsWith("/auth") && !verifiedToken) {
     return
   }
+  
+  const role = payload?.role[0].authority
 
   // Si el usuario esta accediendo al login y esta autenticado es redireccionado al perfil
   if (req.url.includes("/auth") && verifiedToken) {
