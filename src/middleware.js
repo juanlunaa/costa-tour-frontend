@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import { getDashboardByRole, UserRoles, verifyToken } from "./logic/auth"
 
 export async function middleware(req) {
+  return
   // return
   // Se obtiene el valor de la cookie que tiene el token
   const token = req.cookies.get("token")?.value
