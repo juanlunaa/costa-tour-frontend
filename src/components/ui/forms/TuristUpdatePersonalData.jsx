@@ -1,3 +1,5 @@
+"use client"
+
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useUserStore } from '@/context/user'
@@ -81,155 +83,154 @@ export const TuristUpdatePersonalData = () => {
   })
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className="w-[85%] mt-[2%] grid grid-cols-1 gap-4 space-y-4 mx-auto">
+    <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 w-[85%] mt-[2%] mx-auto">
+      <h1 className="font-bold mt-12 text-sm sm:text-base md:text-xl lg:text-2xl">Información Personal</h1>
 
-        <div>
-          <Label htmlFor="nombre" className={styleLabels}>Nombre</Label>
-          <Input
-            id="nombre"
-            name="nombre"
-            className={styleInputs}
-            {...register("nombre", { 
-              required: {
-                value: true,
-                message: "Nombre es requerido"
-              }
-            })}
-          />
-          { errors.nombre && <span className="text-xs text-red-600 font-bold">{errors.nombre.message}</span> }
-        </div>
-
-        <div>
-          <Label htmlFor="apellido" className={styleLabels}>Apellido</Label>
-          <Input
-            type='text'
-            id="apellido"
-            name="apellido"
-            className={styleInputs}
-            {...register("apellido", { 
-              required: {
-                value: true,
-                message: "Apellido es requerido"
-              }
-            })}
-          />
-          { errors.apellido && <span className="text-xs text-red-600 font-bold">{errors.apellido.message}</span> }
-        </div>
-
-        <div>
-          <Label htmlFor="dni" className={styleLabels}>N° de documento</Label>
-          <Input
-            id="dni"
-            name="dni"
-            disabled
-            className={`${styleInputs} disabled:opacity-100`}
-            {...register("dni") }
-          />
-        </div>
-
-        <div>
-          <Label htmlFor="fechaNacimiento" className={styleLabels}>Fecha de Nacimiento</Label>
-          <Input
-            id="fechaNacimiento"
-            name="fechaNacimiento"
-            type="date"
-            className={styleInputs}
-            {...register("fechaNacimiento", { 
-              required: {
-                value: true,
-                message: "Fecha de nacimiento es requerida"
-              }
-            })}
-          />
-            { errors.fechaNacimiento && <span className="text-xs text-red-600 font-bold">{errors.fechaNacimiento.message}</span> }
-        </div>
-
-        <div>
-          <Label htmlFor="ciudad" className={styleLabels}>Ciudad</Label>
-          <select
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-            {...register("idCiudad", { 
-              required: {
-                value: true,
-                message: "Ciudad es requerida"
-              }
-            })}
-          >
-            <option value="">
-              Selecciona una ciudad
-            </option>
-            {locationData.ciudades.map((c) => (
-              <option value={c.id} key={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-          { errors.idCiudad && <span className="text-xs text-red-600 font-bold">{errors.idCiudad.message}</span> }
-        </div>
-
-        <div>
-          <Label htmlFor="estado" className={styleLabels}>Estado</Label>
-          <select
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-            {...register("estado", {
-              required: {
-                value: true,
-                message: "Estado es requerido"
-              },
-              onChange: (event) => {
-                setValue("idCiudad", "")
-                handleChange(event)
-              }
-            })}
-          >
-            <option value="">
-              Selecciona un estado
-            </option>
-            {locationData.estados.map((e) => (
-              <option value={e.id} key={e.id}>
-                {e.name}
-              </option>
-            ))}
-          </select>
-          { errors.estado && <span className="text-xs text-red-600 font-bold">{errors.estado.message}</span> }
-        </div>
-
-        <div>
-          <Label htmlFor="pais" className={styleLabels}>Pais</Label>
-          <select
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-            {...register("pais", {
-              required: {
-                value: true,
-                message: "Pais es requerido"
-              },
-              onChange: (event) => {
-                setValue("estado", "")
-                setValue("idCiudad", "")
-                handleChange(event)
-              }
-            })}
-          >
-            <option value="">
-              Selecciona un pais
-            </option>
-            {locationData.paises.map((p) => (
-              <option value={p.id} key={p.id}>
-                {p.name}
-              </option>
-            ))}
-          </select>
-          { errors.pais && <span className="text-xs text-red-600 font-bold">{errors.pais.message}</span> }
-        </div>
-
-        <button
-          type="submit"
-          className={`${styleLabels} bg-blueProfile w-[50%] sm:w-[40%] mt-5 py-4`}
-        >
-          Guardar
-        </button>
+      <div className="space-y-2">
+        <Label htmlFor="nombre" className={styleLabels}>Nombre</Label>
+        <Input
+          id="nombre"
+          name="nombre"
+          className={styleInputs}
+          {...register("nombre", { 
+            required: {
+              value: true,
+              message: "Nombre es requerido"
+            }
+          })}
+        />
+        { errors.nombre && <span className="text-xs text-red-600 font-bold">{errors.nombre.message}</span> }
       </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="apellido" className={styleLabels}>Apellido</Label>
+        <Input
+          type='text'
+          id="apellido"
+          name="apellido"
+          className={styleInputs}
+          {...register("apellido", { 
+            required: {
+              value: true,
+              message: "Apellido es requerido"
+            }
+          })}
+        />
+        { errors.apellido && <span className="text-xs text-red-600 font-bold">{errors.apellido.message}</span> }
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="dni" className={styleLabels}>N° de documento</Label>
+        <Input
+          id="dni"
+          name="dni"
+          disabled
+          className={`${styleInputs} disabled:opacity-100`}
+          {...register("dni") }
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="fechaNacimiento" className={styleLabels}>Fecha de Nacimiento</Label>
+        <Input
+          id="fechaNacimiento"
+          name="fechaNacimiento"
+          type="date"
+          className={styleInputs}
+          {...register("fechaNacimiento", { 
+            required: {
+              value: true,
+              message: "Fecha de nacimiento es requerida"
+            }
+          })}
+        />
+          { errors.fechaNacimiento && <span className="text-xs text-red-600 font-bold">{errors.fechaNacimiento.message}</span> }
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="ciudad" className={styleLabels}>Ciudad</Label>
+        <select
+          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          {...register("idCiudad", { 
+            required: {
+              value: true,
+              message: "Ciudad es requerida"
+            }
+          })}
+        >
+          <option value="">
+            Selecciona una ciudad
+          </option>
+          {locationData.ciudades.map((c) => (
+            <option value={c.id} key={c.id}>
+              {c.name}
+            </option>
+          ))}
+        </select>
+        { errors.idCiudad && <span className="text-xs text-red-600 font-bold">{errors.idCiudad.message}</span> }
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="estado" className={styleLabels}>Estado</Label>
+        <select
+          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          {...register("estado", {
+            required: {
+              value: true,
+              message: "Estado es requerido"
+            },
+            onChange: (event) => {
+              setValue("idCiudad", "")
+              handleChange(event)
+            }
+          })}
+        >
+          <option value="">
+            Selecciona un estado
+          </option>
+          {locationData.estados.map((e) => (
+            <option value={e.id} key={e.id}>
+              {e.name}
+            </option>
+          ))}
+        </select>
+        { errors.estado && <span className="text-xs text-red-600 font-bold">{errors.estado.message}</span> }
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="pais" className={styleLabels}>Pais</Label>
+        <select
+          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          {...register("pais", {
+            required: {
+              value: true,
+              message: "Pais es requerido"
+            },
+            onChange: (event) => {
+              setValue("estado", "")
+              setValue("idCiudad", "")
+              handleChange(event)
+            }
+          })}
+        >
+          <option value="">
+            Selecciona un pais
+          </option>
+          {locationData.paises.map((p) => (
+            <option value={p.id} key={p.id}>
+              {p.name}
+            </option>
+          ))}
+        </select>
+        { errors.pais && <span className="text-xs text-red-600 font-bold">{errors.pais.message}</span> }
+      </div>
+
+      <button
+        type="submit"
+        className={`${styleLabels} bg-blueProfile w-[50%] sm:w-[40%] mt-5 py-4`}
+      >
+        Guardar
+      </button>
     </form>
   )
 }
