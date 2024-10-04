@@ -1,5 +1,5 @@
 import { fetchProfile, login, logout, registerTurist } from '@/services/auth'
-import { updatePersonalDataTurist } from '@/services/user'
+import { updateCredentials, updatePersonalDataTurist } from '@/services/user'
 import { create, createStore } from 'zustand'
 
 const userInitialState = {
@@ -34,7 +34,7 @@ export const defaultInitState = {
 
 
 export const createUserStore = (initialState = defaultInitState) => {
-  return createStore()((set) => ({
+  return createStore()((set, get) => ({
     ...initialState,
     fetchUserProfile: async () => {
       const { res, status } = await fetchProfile()
@@ -62,6 +62,15 @@ export const createUserStore = (initialState = defaultInitState) => {
       }
   
       return false
+    },
+    changePassword: async (data) => {
+      const { res, status } = await updateCredentials({ userId: get().user.userId, data })
+
+      if (status === 200) {
+        return { message: "Contraseña actualizada correctamente", success: true }
+      }
+
+      return { message: res, success: false }
     },
     signUpTurist: async (data) => {
       const { res, status } = await registerTurist(data)

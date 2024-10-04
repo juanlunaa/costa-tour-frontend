@@ -13,3 +13,11 @@ export class InvalidPasswordError extends Error {
     this.stack = ""
   }
 }
+
+export class ChangePasswordError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = "ChangePasswordError"
+    this.stack = ""
+  }
+}
