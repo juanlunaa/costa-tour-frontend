@@ -1,0 +1,24 @@
+.rmsc .dropdown-heading{
+    height: fit-content !important;
+    overflow-y: scroll;
+    
+}
+.rmsc .dropdown-heading .dropdown-heading-value{
+    white-space:normal !important;
+    padding-top: 8px !important;
+}
+
+.rmsc .select-item:hover{
+    background: #6ec8f8!important;
+}
+
+.rmsc .select-item.selected{
+    background: #6ec8f8 !important
+} 
+
+@media (max-width: 640px) { /* Puedes ajustar el valor de max-width según tus necesidades */
+    .rmsc .dropdown-heading{
+      overflow-y: auto; /* Habilita el scroll vertical */
+      max-height: 300px; /* Ajusta la altura máxima según lo necesario */
+    }
+  }

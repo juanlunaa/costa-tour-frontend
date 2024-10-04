@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation"
 import { useUserStore } from "@/context/user";
 import { Badge } from "@/components/ui/badge";
 
-export default function CustomerProfileLayout({ children }) {
+export default function AdminProfileLayout({ children }) {
     const pathname = usePathname()
 
     const router = useRouter()
