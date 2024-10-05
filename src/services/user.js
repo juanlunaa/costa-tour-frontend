@@ -20,6 +20,25 @@ export const updatePersonalDataTurist = async ({ dni, data }) => {
   }
 }
 
+export const updatePersonalDataAdmin = async ({ userId, data }) => {
+  try {
+    const res = await fetch(`${BACKEND_SERVER}/admin/update/${userId}`, {
+      method: "PUT",
+      credentials: "include",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+
+    const resJson = await res.json()
+
+    return { res: resJson, status: res.status }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const updateCredentials = async ({ userId, data }) => {
   try {
     const res = await fetch(`${BACKEND_SERVER}/user/update/credentials?userId=${userId}`, {
