@@ -1,11 +1,15 @@
 .rmsc .dropdown-heading{
-    height: fit-content !important;
-    overflow-y: scroll;
-    
+    height: fit-content !important;    
 }
-.rmsc .dropdown-heading .dropdown-heading-value{
-    white-space:normal !important;
-    padding-top: 8px !important;
+
+.rmsc .dropdown-heading .dropdown-heading-value span{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    padding: 0.5rem 0;
+    max-height: 126px;
+    overflow-y: auto;
 }
 
 .rmsc .select-item:hover{

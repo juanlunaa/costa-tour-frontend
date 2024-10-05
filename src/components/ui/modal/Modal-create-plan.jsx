@@ -113,17 +113,17 @@ export function ModalCreate() {
 
                 <div className="space-y-4">
                   <div>
+                    <Label>Categoria</Label>
                     <Select>
                       <SelectTrigger className="w-full max-w-[500px]">
                         <SelectValue placeholder="¿Qué planes nuevos deseas agregar?" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Restaurantes">Restaurantes</SelectItem>
-                        <SelectItem value="Sitios Turisticos">Sitios Turisticos</SelectItem>
-                        <SelectItem value="Playas">Playas</SelectItem>
-                        <SelectItem value="Alojamientos">Alojamientos</SelectItem>
-                        <SelectItem value="Extremos">Extremos</SelectItem>
-
+                        <SelectItem value="RESTAURANTE">Restaurantes</SelectItem>
+                        <SelectItem value="SITIO_TURISTICO">Sitios Turisticos</SelectItem>
+                        <SelectItem value="PLAYA">Playas</SelectItem>
+                        <SelectItem value="ALOJAMIENTO">Alojamientos</SelectItem>
+                        <SelectItem value="EXTREMO">Extremos</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -145,11 +145,20 @@ export function ModalCreate() {
                   </div>
 
                   <div>
-                    <Label htmlFor="price">Rango de precio</Label>
+                    <Label htmlFor="priceMin">Rango minimo de dinero</Label>
                     <Input
-                      typer="number"
+                      type="number"
                       min="1"
-                      id="price"
+                      id="priceMin"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="priceMax">Rango maximo de dinero</Label>
+                    <Input
+                      type="number"
+                      min="1"
+                      id="priceMax"
                     />
                   </div>
 
@@ -159,18 +168,13 @@ export function ModalCreate() {
                   </div>
 
                   <div>
-                    <Label htmlFor="ubicacion">Ubicacion</Label>
-                    <Input id="ubicacion" />
-                  </div>
-
-                  <div>
                     <DialogTitle className="text-center mt-12">
                       ¿Desea guardar los cambios?
                     </DialogTitle>
                     <div className="btns flex justify-between mt-10">
-                      <Button type="submit" className="sm:w-[40%] sm:text-base w-[45%] text-xs bg-[#37B1E2] hover:bg-[#34c6ffd0] rounded-full">Cacelar</Button>
+                      <Button type="submit" className="sm:w-[40%] sm:text-base w-[45%] text-xs bg-customBlue hover:bg-cyan-400 rounded-full">Cancelar</Button>
 
-                      <Button type="submit" className=" sm:w-[40%] sm:text-base w-[45%] text-xs bg-[#37B1E2] hover:bg-[#34c6ffd0] rounded-full">Crear Plan</Button>
+                      <Button type="submit" className=" sm:w-[40%] sm:text-base w-[45%] text-xs bg-customBlue hover:bg-cyan-400 rounded-full">Crear Plan</Button>
                     </div>
 
                   </div>
