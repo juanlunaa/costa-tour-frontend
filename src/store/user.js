@@ -1,5 +1,5 @@
 import { fetchProfile, login, logout, registerTurist } from '@/services/auth'
-import { updateCredentials, updatePersonalDataTurist } from '@/services/user'
+import { fetchFavoritePlansByTurist, toggleSavePlanTurist, updateCredentials, updatePersonalDataTurist } from '@/services/user'
 import { create, createStore } from 'zustand'
 
 const userInitialState = {
@@ -91,6 +91,34 @@ export const createUserStore = (initialState = defaultInitState) => {
       }
       
       return false
+    },
+    toggleSavePlan: async (planId) => {
+      const { res, status } = await toggleSavePlanTurist({ dni: get().user.dni, planId })
+
+      if (status === 200) {
+        const prevUser = get().user
+
+        if (res === "added") {
+          prevUser.planesFavoritos = [...prevUser.planesFavoritos, planId]
+
+          set(state => ({ ...state, user: prevUser }))
+
+          return { res: "Favorito añadido satisfactoriamente", status }
+        }
+
+
+        if (res === "removed") {
+          prevUser.planesFavoritos = prevUser.planesFavoritos.filter(pi => pi !== planId)
+
+          set(state => ({ ...state, user: prevUser }))
+
+          return { res: "Favorito eliminado satisfactoriamente", status }
+        }
+      }
+      return { res, status }
+    },
+    getFavoritePlansTurist: async (dni) => {
+      return await fetchFavoritePlansByTurist(dni)
     }
   }))
 }

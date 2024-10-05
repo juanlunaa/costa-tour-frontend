@@ -21,3 +21,11 @@ export class ChangePasswordError extends Error {
     this.stack = ""
   }
 }
+
+export class CouldNotSavePlanError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = "CouldNotSavePlanError"
+    this.stack = ""
+  }
+}
