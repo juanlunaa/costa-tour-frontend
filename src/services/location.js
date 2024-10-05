@@ -1,8 +1,8 @@
-const server = process.env.NEXT_PUBLIC_BACKEND_SERVER
+import { BACKEND_SERVER } from "@/env"
 
 export const fetchAllPaises = async () => {
   try {
-    const res = await fetch(`${server}/location/country/all`)
+    const res = await fetch(`${BACKEND_SERVER}/location/country/all`)
     const resJson = await res.json()
     return resJson
   } catch (error) {
@@ -13,7 +13,7 @@ export const fetchAllPaises = async () => {
 
 export const fecthEstadosByPais = async (idPais) => {
   try {
-    const res = await fetch(`${server}/location/states/${idPais}`)
+    const res = await fetch(`${BACKEND_SERVER}/location/states/${idPais}`)
     const resJson = await res.json()
     return resJson
   } catch (error) {
@@ -24,7 +24,7 @@ export const fecthEstadosByPais = async (idPais) => {
 
 export const fetchCiudadesByEstado = async (idEstado) => {
   try {
-    const res = await fetch(`${server}/location/cities/${idEstado}`)
+    const res = await fetch(`${BACKEND_SERVER}/location/cities/${idEstado}`)
     const resJson = await res.json()
     return resJson
   } catch (error) {

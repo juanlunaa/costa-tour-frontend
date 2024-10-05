@@ -1,10 +1,9 @@
+import { BACKEND_SERVER } from "@/env"
 import { InvalidPasswordError, UserNotFoundError } from "@/erros"
-
-const server = process.env.NEXT_PUBLIC_BACKEND_SERVER
 
 export const login = async (data) => {
   try {
-    const res = await fetch(`${server}/user/auth`, {
+    const res = await fetch(`${BACKEND_SERVER}/user/auth`, {
       method: "POST",
       credentials: 'include',
       body: JSON.stringify(data),
@@ -35,7 +34,7 @@ export const login = async (data) => {
 }
 
 export const registerTurist = async (data) => {
-  const res = await fetch(`${server}/turist/create`, {
+  const res = await fetch(`${BACKEND_SERVER}/turist/create`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -49,7 +48,7 @@ export const registerTurist = async (data) => {
 }
 
 export const fetchProfile = async () => {
-  const res = await fetch(`${server}/user/profile`, {
+  const res = await fetch(`${BACKEND_SERVER}/user/profile`, {
     method: "GET",
     credentials: 'include',
     headers: {
@@ -62,7 +61,7 @@ export const fetchProfile = async () => {
 }
 
 export const logout = async () => {
-  const res = await fetch(`${server}/user/logout`, {
+  const res = await fetch(`${BACKEND_SERVER}/user/logout`, {
     method: "POST",
     credentials: 'include',
     headers: {
@@ -77,7 +76,7 @@ export const logout = async () => {
 
 export const checkEmailAvailability = async (email) => {
   try {
-    const res = await fetch(`${server}/user/validate-email?email=${email}`)
+    const res = await fetch(`${BACKEND_SERVER}/user/validate-email?email=${email}`)
     
     return res.status === 200 ? true : false
 
@@ -88,7 +87,7 @@ export const checkEmailAvailability = async (email) => {
 
 export const checkDniAvailability = async (dni) => {
   try {
-    const res = await fetch(`${server}/turist/validate-dni?dni=${dni}`)
+    const res = await fetch(`${BACKEND_SERVER}/turist/validate-dni?dni=${dni}`)
     
     return res.status === 200 && true
 

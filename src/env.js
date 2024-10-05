@@ -1,0 +1,1 @@
+export const BACKEND_SERVER = process.env.NEXT_PUBLIC_BACKEND_SERVER
