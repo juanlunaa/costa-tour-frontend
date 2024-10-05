@@ -26,6 +26,7 @@ import MultiCaracterist from '@/components/ui/multi-select/MultiSelect'
 export function ModalCreate() {
   const [images, setImages] = useState([])
   const [previewIndex, setPreviewIndex] = useState(0)
+  const [isOpen, setIsOpen] = useState(false)
 
   const handleImageUpload = (event) => {
     const files = event.target.files
@@ -42,15 +43,28 @@ export function ModalCreate() {
     }
   }
 
+  const handleOpenChange = (open) => {
+    if (!open) {
+      if (confirm("¿Estás seguro de que quieres cerrar? Los cambios no guardados se perderán.")) {
+        setIsOpen(false)
+      }
+    } else {
+      setIsOpen(true)
+    }
+  }
+
   return (
-    <Dialog >
+    <Dialog open={isOpen} onOpenChange={handleOpenChange} >
       <DialogTrigger asChild >
-        <Button variant="outline" className="w-[95%] text-xs sm:text-lg sm:w-[50%] ">Crear Plan</Button>
+        <Button variant="outline" className="w-[95%] text-xs sm:text-lg sm:w-[50%] " onClick={() => setIsOpen(true)}>Crear Plan</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[900px] max-h-[90vh] h-full bg-white">
-        
+      <DialogContent className="sm:max-w-[900px] max-h-[90vh] h-full bg-white"
+        onPointerDownOutside={(e) => {
+          e.preventDefault()
+        }}>
+
         <form >
-          <div className='conten-scroll sm:max-h-[calc(90vh-5rem)] max-h-[calc(90vh-5rem)] h-full pr-4 overflow-y-auto'>
+          <div className='conten-scroll mt-[2%] sm:max-h-[calc(90vh-5rem)] max-h-[calc(90vh-5rem)] h-full pr-4 overflow-y-auto'>
             <div className="flex gap-6">
               <div className="w-1/2 h-fit">
                 <div className="mb-4 flex justify-center">
