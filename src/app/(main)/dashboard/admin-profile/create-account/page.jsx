@@ -1,14 +1,7 @@
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { useUserStore } from '@/context/user';
 import clsx from 'clsx';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+
 export default function AddPlan() {
 
 
@@ -71,7 +64,7 @@ export default function AddPlan() {
                   className={styleInputs}
                 />
               </div>
-              <button className={`${styleLabels} bg-yellowProfile w-[50%] sm:w-[40%] mt-5 py-4`}>Guardar</button>
+              <button className={`${styleLabels} bg-yellowProfile w-[50%] sm:w-[40%] mt-5 py-4`}>Crear Cuenta</button>
             </div>
           </div>
         </form>
