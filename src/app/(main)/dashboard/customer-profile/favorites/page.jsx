@@ -1,6 +1,33 @@
+"use client"
+
 import { SaveCardPlan } from "@/components/ui/save-plan/Save-Card"
+import { useUserStore } from "@/context/user"
+import { useEffect, useState } from "react"
 
 export default function CustomerProfile() {
+    const { user, getFavoritePlansTurist } = useUserStore((state) => state)
+
+    const [plansSaved, setPlansSaved] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (user.dni === null || !user.dni) return
+
+            const { res, status } = await getFavoritePlansTurist(user.dni)
+
+            if (status === 200) {
+                setPlansSaved(res)
+            }
+        }
+        fetchData()
+    }, [user])
+
+
+    const removePlanSaved = (id) => {
+        setPlansSaved(prevState => {
+            return prevState.filter(p => p.id !== id)
+        })
+    }
 
     return (
         <div className="relative flex w-full h-auto">
@@ -12,33 +39,22 @@ export default function CustomerProfile() {
                         en tu perfil y planificar tu próxima aventura en Cartagena con facilidad.</p>
                 </div>
                 <div className="w-full pr-5 overflow-y-scroll h-[590px] mt-12">
-                    <div className="grid gap-4 sm:grid-cols-1  md:grid-cols-2  lg:grid-cols-3 ">
-
-                        <SaveCardPlan />
-                        <SaveCardPlan />
-                        <SaveCardPlan />
-                        <SaveCardPlan />
-                        <SaveCardPlan />
-                        <SaveCardPlan />
-                        <SaveCardPlan />
-                        <SaveCardPlan />
-                        <SaveCardPlan />
-                        <SaveCardPlan />
-                        <SaveCardPlan />
-                        <SaveCardPlan />
-
+                    <div className="grid gap-4 sm:grid-cols-1  md:grid-cols-2  lg:grid-cols-auto-fit ">
+                        {
+                            plansSaved.map(p => (
+                                <SaveCardPlan 
+                                    key={p.id}
+                                    id={p.id}
+                                    nombre={p.nombre}
+                                    miniatura={p.miniatura}
+                                    precioMax={p.rangoMaxDinero}
+                                    removePlanSaved={removePlanSaved}
+                                />
+                            ))
+                        }
                     </div>
-
-
-
-
-
                 </div>
-
-
-
             </div>
-
         </div>
     )
 
