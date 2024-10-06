@@ -153,7 +153,7 @@ export default function Register() {
                     message: "Email es requerido"
                   },
                   pattern: {
-                    value: /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/,
+                    value: /\S+@\S+\.\S+/,
                     message: "Email no valido"
                   },
                   validate: (value) => 
