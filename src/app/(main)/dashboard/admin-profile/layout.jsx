@@ -6,6 +6,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useRouter } from "next/navigation"
 import { useUserStore } from "@/context/user"
 import { Badge } from "@/components/ui/badge"
+import { BACKEND_SERVER } from "@/env"
+import { UserUpdateAvatar } from "@/components"
 
 export default function AdminProfileLayout({ children }) {
     const pathname = usePathname()
@@ -34,15 +36,16 @@ export default function AdminProfileLayout({ children }) {
                 <p>Bienvenido {user.nombre}</p>
             </div>
 
-            <div className="flex justify-between mt-4">
+            <div className="flex items-stretch justify-between mt-4">
                 <div className="profile flex sm:w-[30%] md:w-[25%] flex-col p-[1%] ml-auto bg-white shadow-customBoxShadow">
                     <div className="user-details mt-[10%]">
-                        <div className="miniature flex justify-center">
+                        <UserUpdateAvatar srcAvatar={`${BACKEND_SERVER}${user.avatar}`} />
+                        {/* <div className="relative h-16 w-16 md:h-32 md:w-32 mx-auto">
                             <Avatar className="h-16 w-16 md:h-32 md:w-32">
-                                <AvatarImage src={`${process.env.NEXT_PUBLIC_BACKEND_SERVER}${user.avatar}`} />
+                                <AvatarImage src={`${BACKEND_SERVER}${user.avatar}`} />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
-                        </div>
+                        </div> */}
 
                         <div className="username text-center mt-4">
                             <h2 className="text-2xl font-bold" >{user.nombre} {user.apellido}</h2>
