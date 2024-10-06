@@ -20,9 +20,9 @@
     background: #6ec8f8 !important
 } 
 
-@media (max-width: 640px) { /* Puedes ajustar el valor de max-width según tus necesidades */
+@media (max-width: 640px) { 
     .rmsc .dropdown-heading{
-      overflow-y: auto; /* Habilita el scroll vertical */
-      max-height: 300px; /* Ajusta la altura máxima según lo necesario */
+      overflow-y: auto; 
+      max-height: 300px; 
     }
   }
