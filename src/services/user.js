@@ -51,9 +51,9 @@ export const updateCredentials = async ({ userId, data }) => {
     })
 
     if (!res.ok) {
-      const { message } = await res.json()
-
+      
       if (res.status === 400) {
+        const { message } = await res.json()
         const error = new ChangePasswordError(message)
         error.status = res.status
         throw error

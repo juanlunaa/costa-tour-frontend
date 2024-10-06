@@ -1,4 +1,4 @@
-import { fetchProfile, login, logout, registerTurist } from '@/services/auth'
+import { fetchProfile, login, logout, registerAdmin, registerTurist } from '@/services/auth'
 import { fetchFavoritePlansByTurist, toggleSavePlanTurist, updateCredentials, updatePersonalDataAdmin, updatePersonalDataTurist } from '@/services/user'
 import { createStore } from 'zustand'
 
@@ -119,6 +119,15 @@ export const createUserStore = (initialState = defaultInitState) => {
     },
     getFavoritePlansTurist: async (dni) => {
       return await fetchFavoritePlansByTurist(dni)
+    },
+    signUpAdmin: async (data) =>{
+      const { status } = await registerAdmin(data)
+  
+      if (status === 201) {
+        return true
+      }
+  
+      return false
     },
     updateProfileAdmin: async ({ userId, data }) => {
       const { res, status } = await updatePersonalDataAdmin({ userId, data })
