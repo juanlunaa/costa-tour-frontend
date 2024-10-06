@@ -10,10 +10,10 @@ export const RegisterFormContext = createContext()
 
 export function RegisterFormProvider({ children }) {
   const [formData, setFormData] = useState(undefined)
-  
-  const updateFormData  = (newData) => {
+
+  const updateFormData = (newData) => {
     setFormData((prevState) => {
-      return {...prevState, ...newData} 
+      return { ...prevState, ...newData }
     })
   }
 

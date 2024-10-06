@@ -14,13 +14,13 @@ export function UserStoreProvider({ children }) {
     userStoreRef.current = createUserStore()
   }
 
-  const token = Cookies.get('token')
+  const token = Cookies.get("token")
 
-    if (token) {
-      userStoreRef.current.getState().fetchUserProfile()
-    }
+  if (token) {
+    userStoreRef.current.getState().fetchUserProfile()
+  }
 
-    return (
+  return (
     <UserStoreContext.Provider value={userStoreRef.current}>
       {children}
     </UserStoreContext.Provider>

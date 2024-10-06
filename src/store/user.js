@@ -1,6 +1,19 @@
-import { fetchProfile, login, logout, registerAdmin, registerTurist } from '@/services/auth'
-import { fetchFavoritePlansByTurist, toggleSavePlanTurist, updateAvatar, updateCredentials, updatePersonalDataAdmin, updatePersonalDataTurist } from '@/services/user'
-import { createStore } from 'zustand'
+import {
+  fetchProfile,
+  login,
+  logout,
+  registerAdmin,
+  registerTurist,
+} from "@/services/auth"
+import {
+  fetchFavoritePlansByTurist,
+  toggleSavePlanTurist,
+  updateAvatar,
+  updateCredentials,
+  updatePersonalDataAdmin,
+  updatePersonalDataTurist,
+} from "@/services/user"
+import { createStore } from "zustand"
 
 const userInitialState = {
   userId: null,
@@ -14,40 +27,39 @@ const userInitialState = {
   avatar: "/files/avatars/avatar-default.png",
   ciudad: {
     id: null,
-    name: ""
+    name: "",
   },
   estado: {
     id: null,
-    name: ""
+    name: "",
   },
   pais: {
     id: null,
-    name: ""
+    name: "",
   },
-  intereses: []
+  intereses: [],
 }
 
 export const defaultInitState = {
-  user : userInitialState,
-  isLoggedIn: false
+  user: userInitialState,
+  isLoggedIn: false,
 }
-
 
 export const createUserStore = (initialState = defaultInitState) => {
   return createStore()((set, get) => ({
     ...initialState,
     fetchUserProfile: async () => {
       const { res, status } = await fetchProfile()
-  
+
       if (status === 200) {
-        set(state => ({ ...state, user: res, isLoggedIn: true }))
+        set((state) => ({ ...state, user: res, isLoggedIn: true }))
       }
     },
     signInUser: async (data) => {
       const { res, status } = await login(data)
-  
+
       if (status === 200) {
-        set(state => ({ ...state, user: res, isLoggedIn: true }))
+        set((state) => ({ ...state, user: res, isLoggedIn: true }))
         return { status, role: res.tipoUsuario }
       }
 
@@ -55,45 +67,58 @@ export const createUserStore = (initialState = defaultInitState) => {
     },
     logoutUser: async () => {
       const { status } = await logout()
-      
+
       if (status === 200) {
-        set(state => ({ ...state, user: userInitialState, isLoggedIn: false }))
+        set((state) => ({
+          ...state,
+          user: userInitialState,
+          isLoggedIn: false,
+        }))
         return true
       }
-  
+
       return false
     },
     changePassword: async (data) => {
-      const { res, status } = await updateCredentials({ userId: get().user.userId, data })
+      const { res, status } = await updateCredentials({
+        userId: get().user.userId,
+        data,
+      })
 
       if (status === 200) {
-        return { message: "Contraseña actualizada correctamente", success: true }
+        return {
+          message: "Contraseña actualizada correctamente",
+          success: true,
+        }
       }
 
       return { message: res, success: false }
     },
     signUpTurist: async (data) => {
       const { res, status } = await registerTurist(data)
-  
+
       if (status === 201) {
         // set(state => ({ ...state, user: res, isLoggedIn: true }))
         return true
       }
-  
+
       return false
     },
     updateProfileTurist: async ({ dni, data }) => {
       const { res, status } = await updatePersonalDataTurist({ dni, data })
 
       if (status === 200) {
-        set(state => ({ ...state, user: res, isLoggedIn: true }))
+        set((state) => ({ ...state, user: res, isLoggedIn: true }))
         return true
       }
-      
+
       return false
     },
     toggleSavePlan: async (planId) => {
-      const { res, status } = await toggleSavePlanTurist({ dni: get().user.dni, planId })
+      const { res, status } = await toggleSavePlanTurist({
+        dni: get().user.dni,
+        planId,
+      })
 
       if (status === 200) {
         const prevUser = get().user
@@ -101,16 +126,17 @@ export const createUserStore = (initialState = defaultInitState) => {
         if (res === "added") {
           prevUser.planesFavoritos = [...prevUser.planesFavoritos, planId]
 
-          set(state => ({ ...state, user: prevUser }))
+          set((state) => ({ ...state, user: prevUser }))
 
           return { res: "Favorito añadido satisfactoriamente", status }
         }
 
-
         if (res === "removed") {
-          prevUser.planesFavoritos = prevUser.planesFavoritos.filter(pi => pi !== planId)
+          prevUser.planesFavoritos = prevUser.planesFavoritos.filter(
+            (pi) => pi !== planId
+          )
 
-          set(state => ({ ...state, user: prevUser }))
+          set((state) => ({ ...state, user: prevUser }))
 
           return { res: "Favorito eliminado satisfactoriamente", status }
         }
@@ -120,23 +146,23 @@ export const createUserStore = (initialState = defaultInitState) => {
     getFavoritePlansTurist: async (dni) => {
       return await fetchFavoritePlansByTurist(dni)
     },
-    signUpAdmin: async (data) =>{
+    signUpAdmin: async (data) => {
       const { status } = await registerAdmin(data)
-  
+
       if (status === 201) {
         return true
       }
-  
+
       return false
     },
     updateProfileAdmin: async ({ userId, data }) => {
       const { res, status } = await updatePersonalDataAdmin({ userId, data })
 
       if (status === 200) {
-        set(state => ({ ...state, user: res, isLoggedIn: true }))
+        set((state) => ({ ...state, user: res, isLoggedIn: true }))
         return true
       }
-      
+
       return false
     },
     updateAvatarUser: async (data) => {
@@ -144,7 +170,10 @@ export const createUserStore = (initialState = defaultInitState) => {
 
       if (status === 200) {
         const prevUser = get().user
-        set(state => ({ ...state, user: { ...prevUser, avatar: res.avatar } }))
+        set((state) => ({
+          ...state,
+          user: { ...prevUser, avatar: res.avatar },
+        }))
         return true
       }
       console.log(res)
@@ -152,4 +181,3 @@ export const createUserStore = (initialState = defaultInitState) => {
     },
   }))
 }
-  
