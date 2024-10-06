@@ -1,5 +1,5 @@
 import { BACKEND_SERVER } from "@/env"
-import { ChangePasswordError, CouldNotSavePlanError, UserNotFoundError } from "@/erros"
+import { ChangePasswordError, CouldNotSavePlanError, FileCannotBeEmptyError, UserNotFoundError } from "@/erros"
 
 export const updatePersonalDataTurist = async ({ dni, data }) => {
   try {
@@ -58,6 +58,37 @@ export const updateCredentials = async ({ userId, data }) => {
         error.status = res.status
         throw error
       }
+    }
+
+    const resJson = await res.json()
+
+    return { res: resJson, status: res.status }
+  } catch (err) {
+    return { res: err.message, status: err.status || 500 }
+  }
+}
+
+export const updateAvatar = async (data) => {
+  try {
+    console.log(data)
+    const res = await fetch(`${BACKEND_SERVER}/user/update/avatar`, {
+      method: "PUT",
+      credentials: "include",
+      body: data,
+    })
+
+    if (!res.ok) {
+      const { message } = await res.json()
+
+      let error
+
+      if (res.status === 404) error = new UserNotFoundError(message)
+      
+      if (res.status === 400) error = new FileCannotBeEmptyError(message)
+      
+
+      error.status = res.status
+      return error
     }
 
     const resJson = await res.json()

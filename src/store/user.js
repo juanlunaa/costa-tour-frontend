@@ -1,5 +1,5 @@
 import { fetchProfile, login, logout, registerAdmin, registerTurist } from '@/services/auth'
-import { fetchFavoritePlansByTurist, toggleSavePlanTurist, updateCredentials, updatePersonalDataAdmin, updatePersonalDataTurist } from '@/services/user'
+import { fetchFavoritePlansByTurist, toggleSavePlanTurist, updateAvatar, updateCredentials, updatePersonalDataAdmin, updatePersonalDataTurist } from '@/services/user'
 import { createStore } from 'zustand'
 
 const userInitialState = {
@@ -137,6 +137,17 @@ export const createUserStore = (initialState = defaultInitState) => {
         return true
       }
       
+      return false
+    },
+    updateAvatarUser: async (data) => {
+      const { res, status } = await updateAvatar(data)
+
+      if (status === 200) {
+        const prevUser = get().user
+        set(state => ({ ...state, user: { ...prevUser, avatar: res.avatar } }))
+        return true
+      }
+      console.log(res)
       return false
     },
   }))
