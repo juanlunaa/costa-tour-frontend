@@ -88,7 +88,6 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
             Eliminar
           </Link>
         )}
-              
       </div>
     </div>
   )

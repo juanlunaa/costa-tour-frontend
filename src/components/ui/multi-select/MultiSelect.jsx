@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { MultiSelect } from "react-multi-select-component"
 import { IoIosClose } from "react-icons/io"
 import "./Multi.css"
@@ -56,14 +56,23 @@ const interests = [
   { value: 50, label: "Cultura de Cafés" },
 ]
 
-const MultiCaracterist = () => {
-  const [selected, setSelected] = useState([])
+const MultiCaracterist = ({ initialSelection, setInputCaracteristicas }) => {
+  const formatedCaracteristicas = initialSelection?.map((c) => ({
+    value: c.id,
+    label: c.caracteristica,
+  }))
+
+  const [selected, setSelected] = useState(formatedCaracteristicas || [])
 
   const handleRemove = (value) => {
-    setSelected((prevSelected) =>
-      prevSelected.filter((item) => item.value !== value)
-    )
+    const newState = selected.filter((item) => item.value !== value)
+    setSelected(newState)
+    setInputCaracteristicas(newState)
   }
+
+  useEffect(() => {
+    setInputCaracteristicas(selected)
+  }, [selected])
 
   const ValueRenderer = (selected) => {
     return selected.length
