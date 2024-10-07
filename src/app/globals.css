@@ -19,11 +19,17 @@ body {
   background: var(--background);
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   @apply font-volkhov;
 }
 
-p, span, a, button, label {
+p,
+span,
+a,
+button,
+label {
   @apply font-mulish;
 }
 

@@ -1,12 +1,12 @@
 "use client"
 
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { useUserStore } from '@/context/user'
-import clsx from 'clsx'
-import { useForm } from 'react-hook-form'
-import { useEffect } from 'react'
-import { toast } from 'sonner'
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useUserStore } from "@/context/user"
+import clsx from "clsx"
+import { useForm } from "react-hook-form"
+import { useEffect } from "react"
+import { toast } from "sonner"
 
 export const ChangePassword = ({ buttonColor }) => {
   const styleLabels = clsx("text-sm font-bold md:text-base sm:text-sm ")
@@ -17,15 +17,15 @@ export const ChangePassword = ({ buttonColor }) => {
   const formDefaultValues = {
     email: user.email,
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   }
 
-  const { 
+  const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-    reset
+    reset,
   } = useForm()
 
   useEffect(() => {
@@ -35,7 +35,9 @@ export const ChangePassword = ({ buttonColor }) => {
   const onSubmit = handleSubmit(async (data) => {
     console.log(data)
 
-    const { message, success } = await changePassword({ newPassword: data.password })
+    const { message, success } = await changePassword({
+      newPassword: data.password,
+    })
 
     if (success) {
       toast.success(message)
@@ -46,13 +48,17 @@ export const ChangePassword = ({ buttonColor }) => {
     reset(formDefaultValues)
   })
 
-
   return (
-    <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 mb-10 mx-auto w-[85%] mt-[2%]">
+    <form
+      onSubmit={onSubmit}
+      className="grid grid-cols-1 gap-4 mb-10 mx-auto w-[85%] mt-[2%]"
+    >
       <h1 className="font-bold text-2xl mt-12">Seguridad </h1>
-      
+
       <div className="space-y-2">
-        <Label htmlFor="email" className={styleLabels}>Correo electronico</Label>
+        <Label htmlFor="email" className={styleLabels}>
+          Correo electronico
+        </Label>
         <Input
           type="email"
           id="email"
@@ -64,52 +70,64 @@ export const ChangePassword = ({ buttonColor }) => {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="password" className={styleLabels}>Contraseña</Label>
+        <Label htmlFor="password" className={styleLabels}>
+          Contraseña
+        </Label>
         <Input
           type="password"
           id="password"
           name="password"
           className={styleInputs}
-          {...register("password", { 
+          {...register("password", {
             required: {
               value: true,
-              message: "Contraseña es requerida"
+              message: "Contraseña es requerida",
             },
             minLength: {
               value: 6,
-              message: "Numero minimo de caracteres es 6"
-            }
+              message: "Numero minimo de caracteres es 6",
+            },
           })}
         />
-        { errors.password && <span className="text-xs text-red-600 font-bold">{errors.password.message}</span> }
+        {errors.password && (
+          <span className="text-xs text-red-600 font-bold">
+            {errors.password.message}
+          </span>
+        )}
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="confirmPassword" className={styleLabels}>Confirmar Contraseña </Label>
+        <Label htmlFor="confirmPassword" className={styleLabels}>
+          Confirmar Contraseña{" "}
+        </Label>
         <Input
-          type='password'
+          type="password"
           id="confirmPassword"
           name="confirmPassword"
           className={styleInputs}
-          {...register("confirmPassword", { 
+          {...register("confirmPassword", {
             required: {
               value: true,
-              message: "Confirmacion de contraseña requerida"
+              message: "Confirmacion de contraseña requerida",
             },
             minLength: {
               value: 6,
-              message: "Numero minimo de caracteres es 6"
+              message: "Numero minimo de caracteres es 6",
             },
             validate: (value) => {
               const password = watch("password")
 
               if (password === value) return true
-              
+
               return "La contraseñas no coinciden"
-            }
+            },
           })}
         />
-        { errors.confirmPassword && <span className="text-xs text-red-600 font-bold">{errors.confirmPassword.message}</span> }
+        {errors.confirmPassword && (
+          <span className="text-xs text-red-600 font-bold">
+            {errors.confirmPassword.message}
+          </span>
+        )}
       </div>
 
       <button
@@ -118,6 +136,6 @@ export const ChangePassword = ({ buttonColor }) => {
       >
         Guardar
       </button>
-  </form>
+    </form>
   )
 }

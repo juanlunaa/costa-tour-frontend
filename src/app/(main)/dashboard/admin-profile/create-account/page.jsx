@@ -1,4 +1,4 @@
-import { CreateAdminAccount } from "@/components";
+import { CreateAdminAccount } from "@/components"
 
 export default function AddPlan() {
   return (

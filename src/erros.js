@@ -45,3 +45,11 @@ export class UserAlreadyExistError extends Error {
     this.stack = ""
   }
 }
+
+export class FileCannotBeEmptyError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = "FileCannotBeEmptyError"
+    this.stack = ""
+  }
+}

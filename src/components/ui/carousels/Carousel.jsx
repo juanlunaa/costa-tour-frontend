@@ -1,11 +1,19 @@
 "use client"
 import * as React from "react"
 import Autoplay from "embla-carousel-autoplay"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 import Image from "next/image"
 import useEmblaCarousel from "embla-carousel-react"
 export function CarouselPlugin() {
-  const plugin = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true }))
+  const plugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: true })
+  )
   const images = [
     "/img-carousel/cartagena1.png",
     "/img-carousel/cartagena2.jpg",

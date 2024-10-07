@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-const withMT = require("@material-tailwind/react/utils/withMT");
+const withMT = require("@material-tailwind/react/utils/withMT")
 
-module.exports =  withMT({
+module.exports = withMT({
   darkMode: ["class"],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -13,7 +13,7 @@ module.exports =  withMT({
     extend: {
       fontFamily: {
         volkhov: ["var(--font-volkhov)"],
-        mulish: ["var(--font-mulish)"]
+        mulish: ["var(--font-mulish)"],
       },
       colors: {
         background: "hsl(var(--background))",
@@ -21,7 +21,7 @@ module.exports =  withMT({
         customOrange: "#FFA432",
         customBlue: "#37B1E2",
         blueProfile: "#A7E9F2",
-        yellowProfile:"#F4B46A",
+        yellowProfile: "#F4B46A",
         customYellow: "#FFDA32",
         card: {
           DEFAULT: "hsl(var(--card))",
@@ -64,7 +64,8 @@ module.exports =  withMT({
       },
       boxShadow: {
         customBlueShadow: "0 4px 6px rgba(123, 188, 176, 0.5)",
-        customBoxShadow: "0 0px 15px 2px rgb(0 0 0 / 0.1), 0 4px 6px 2px rgb(0 0 0 / 0.1)"
+        customBoxShadow:
+          "0 0px 15px 2px rgb(0 0 0 / 0.1), 0 4px 6px 2px rgb(0 0 0 / 0.1)",
       },
       gridTemplateColumns: {
         "auto-fit": "repeat(auto-fit, minmax(320px, 1fr))",
@@ -77,5 +78,4 @@ module.exports =  withMT({
     },
   },
   plugins: [require("tailwindcss-animate")],
-});
-
+})

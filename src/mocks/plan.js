@@ -16,6 +16,7 @@ export const plan = {
     id: 3,
     latitud: 10.4286,
     longitud: -75.548,
-    direccion: "Carrera 11, Cl. de la Serrezuela #39 - 21, Cartagena de Indias, Provincia de Cartagena, Bolívar",
+    direccion:
+      "Carrera 11, Cl. de la Serrezuela #39 - 21, Cartagena de Indias, Provincia de Cartagena, Bolívar",
   },
 }

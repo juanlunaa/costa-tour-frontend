@@ -1,7 +1,11 @@
-import { fecthEstadosByPais, fetchCiudadesByEstado, fetchAllPaises } from "@/services/location"
+import {
+  fecthEstadosByPais,
+  fetchCiudadesByEstado,
+  fetchAllPaises,
+} from "@/services/location"
 import { useEffect, useState } from "react"
 
-export default function useLocationData() { 
+export default function useLocationData() {
   const [locationData, setLocationData] = useState({
     paises: [],
     estados: [],
@@ -18,7 +22,7 @@ export default function useLocationData() {
   const handleChange = (e) => {
     const { name, value } = e.target
     setLocationSelect((prevLocationSelect) => {
-      const newState = {...prevLocationSelect, [name]: value }
+      const newState = { ...prevLocationSelect, [name]: value }
       return newState
     })
   }
@@ -31,7 +35,7 @@ export default function useLocationData() {
   useEffect(() => {
     const fetchPaises = async () => {
       // console.log({ idPais, idEstado  })
-      
+
       const paisesData = await fetchAllPaises()
       setLocationData((prevLocData) => ({ ...prevLocData, paises: paisesData }))
 
@@ -54,7 +58,11 @@ export default function useLocationData() {
 
     const fetchEstados = async () => {
       const estadosData = await fecthEstadosByPais(locationSelect.pais)
-      setLocationData((prevLocData) => ({ ...prevLocData, estados: estadosData, ciudades: [] }))
+      setLocationData((prevLocData) => ({
+        ...prevLocData,
+        estados: estadosData,
+        ciudades: [],
+      }))
     }
     fetchEstados()
   }, [locationSelect.pais])
@@ -65,7 +73,10 @@ export default function useLocationData() {
 
     const fetchCiudades = async () => {
       const ciudadesData = await fetchCiudadesByEstado(locationSelect.estado)
-      setLocationData((prevLocData) => ({ ...prevLocData, ciudades: ciudadesData }))
+      setLocationData((prevLocData) => ({
+        ...prevLocData,
+        ciudades: ciudadesData,
+      }))
     }
     fetchCiudades()
   }, [locationSelect.estado])
@@ -74,6 +85,6 @@ export default function useLocationData() {
     locationData,
     locationSelect,
     handleChange,
-    updateLocationSelect
+    updateLocationSelect,
   }
 }

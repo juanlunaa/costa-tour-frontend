@@ -1,12 +1,12 @@
 "use client"
 
-import { useRegisterFormData } from "@/context/register";
-import { useUserStore } from "@/context/user";
-import useUtilsData from "@/hooks/useUtilsData";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { useRegisterFormData } from "@/context/register"
+import { useUserStore } from "@/context/user"
+import useUtilsData from "@/hooks/useUtilsData"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
+import { Controller, useForm } from "react-hook-form"
+import { toast } from "sonner"
 
 // const interests = [
 //   { "id": 1, "palabraClave": "Comida de Mar" },
@@ -69,7 +69,7 @@ export default function RegisterInterest() {
   // Si la data del paso anterior esta vacia quiere decir que ese paso no se realizao
   // por lo tanto mandamos al usuario a esa ruta
   useEffect(() => {
-    if (!formData || formData === undefined ) {
+    if (!formData || formData === undefined) {
       // Se da un tiempo a que el componente termine de cargar todo (useEffects y useStates) antes de hacer la redireccion
       // Mientras este tiempo transcurre se mostrara un loading
       setTimeout(() => {
@@ -87,7 +87,7 @@ export default function RegisterInterest() {
   })
 
   // Sacamos de la store el metodo para hacer el registro del usuario
-  const signUpTurist = useUserStore(state => state.signUpTurist)
+  const signUpTurist = useUserStore((state) => state.signUpTurist)
 
   const onSubmit = handleSubmit(async (data) => {
     const fullData = { ...formData, ...data } // <- Se añaden los intereses a la informacion obtenida en el primer paso
@@ -104,14 +104,17 @@ export default function RegisterInterest() {
   if (!formData || formData === undefined) {
     return (
       <div className="flex flex-col items-center justify-center h-full">
-          <div className="animate-spin h-16 w-16 border-4 border-customBlue border-t-transparent rounded-full mb-4"></div>
-          <p className="text-lg text-gray-700">Cargando...</p>
+        <div className="animate-spin h-16 w-16 border-4 border-customBlue border-t-transparent rounded-full mb-4"></div>
+        <p className="text-lg text-gray-700">Cargando...</p>
       </div>
     )
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col justify-between h-full items-center p-8">
+    <form
+      onSubmit={onSubmit}
+      className="flex flex-col justify-between h-full items-center p-8"
+    >
       <div className="h-[20%] text-center">
         <h1 className="text-4xl">Escoge tus intereses</h1>
         <p>Selecciona por lo menos 3</p>
@@ -151,7 +154,7 @@ export default function RegisterInterest() {
       </div>
 
       <button
-        type="submit" 
+        type="submit"
         disabled={watch("intereses").length < 3}
         className="text-white font-bold bg-gradient-to-r from-customBlue to-customOrange rounded-2xl px-4 py-3 w-44 mx-auto disabled:opacity-70"
       >

@@ -1,41 +1,62 @@
+"use client"
+
 import { useId } from "react"
-import { IoIosClose, IoIosCheckmark, IoIosBook } from "react-icons/io"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useForm } from "react-hook-form"
-import clsx from "clsx"
+import { useUserStore } from "@/context/user"
+import usePreviewAvatar from "@/hooks/usePreviewAvatar"
+import { toast } from "sonner"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { IoIosClose, IoIosCheckmark } from "react-icons/io"
+import { MdEdit } from "react-icons/md"
 
 export const UserUpdateAvatar = ({ srcAvatar }) => {
-  const prevAvatar = srcAvatar
   const inputId = useId()
 
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-    reset
-  } = useForm()
+  const { register, handleSubmit, watch, reset } = useForm()
 
   const avatarInput = watch("avatar")
   const isNewAvatarLoad = avatarInput !== undefined && avatarInput?.length !== 0
 
-  const onSubmit = handleSubmit((data) => {
-    const { length, ...other } = data.avatar
-    
-    console.log(other.src)
-    // setTimeout(() => reset(), [500])
+  const { previewSrc, resetPreview } = usePreviewAvatar({
+    inputFile: avatarInput,
+  })
+
+  const { user, updateAvatarUser } = useUserStore((state) => state)
+
+  const resetImage = () => {
+    reset()
+    resetPreview()
+  }
+
+  const onSubmit = handleSubmit(async (data) => {
+    const formData = new FormData()
+    formData.append("userId", user.userId)
+    formData.append("avatar", data.avatar[0])
+
+    const success = await updateAvatarUser(formData)
+
+    if (success) {
+      toast.success("Su avatar ha sido actualizado correctamente")
+    } else {
+      toast.success(
+        "Ha ocurrido un error al momento de actualizar su avatar :'("
+      )
+    }
+    resetImage()
   })
 
   return (
-    <form onSubmit={onSubmit} className="relative h-16 w-16 md:h-32 md:w-32 mx-auto">
-      <label 
+    <form
+      onSubmit={onSubmit}
+      className="relative h-16 w-16 md:h-32 md:w-32 mx-auto"
+    >
+      <label
         htmlFor={inputId}
-        className={`absolute bottom-1 left-2 z-10 bg-customOrange p-1 rounded-full hover:cursor-pointer hover:bg-orange-700
+        className={`absolute bottom-0 right-1 z-10 bg-yellowProfile text-white border-2 border-white p-2 rounded-full hover:cursor-pointer hover:bg-orange-700
           ${isNewAvatarLoad && "hidden"}
         `}
       >
-        <IoIosBook />
+        <MdEdit />
       </label>
 
       <input
@@ -46,13 +67,13 @@ export const UserUpdateAvatar = ({ srcAvatar }) => {
       />
 
       <Avatar className="h-16 w-16 md:h-32 md:w-32">
-        <AvatarImage src={srcAvatar} />
+        <AvatarImage src={previewSrc ? previewSrc : srcAvatar} />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
 
       <button
         type="submit"
-        className={`absolute bottom-1 left-2 z-10 bg-customOrange p-1 rounded-full hover:cursor-pointer hover:bg-orange-700
+        className={`absolute bottom-0 left-1 z-10 bg-yellowProfile text-white border-2 border-white p-2 rounded-full hover:cursor-pointer hover:bg-orange-700
           ${!isNewAvatarLoad && "hidden"}
         `}
       >
@@ -61,8 +82,8 @@ export const UserUpdateAvatar = ({ srcAvatar }) => {
 
       <button
         type="reset"
-        onClick={() => reset()}
-        className={`absolute bottom-1 right-2 z-10 bg-customOrange p-1 rounded-full hover:cursor-pointer hover:bg-orange-700
+        onClick={() => resetImage()}
+        className={`absolute bottom-0 right-1 z-10 bg-yellowProfile text-white border-2 border-white p-2 rounded-full hover:cursor-pointer hover:bg-orange-700
           ${!isNewAvatarLoad && "hidden"}
         `}
       >

@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { MultiSelect } from "react-multi-select-component";
-import { IoIosClose } from "react-icons/io";
-import './Multi.css';
+import { useEffect, useState } from "react"
+import { MultiSelect } from "react-multi-select-component"
+import { IoIosClose } from "react-icons/io"
+import "./Multi.css"
 
 const interests = [
   { value: 1, label: "Comida de Mar" },
@@ -53,52 +53,54 @@ const interests = [
   { value: 47, label: "Estilo de Vida Saludable" },
   { value: 48, label: "Fotografía de Naturaleza" },
   { value: 49, label: "Viajes de Aventura" },
-  { value: 50, label: "Cultura de Cafés" }
+  { value: 50, label: "Cultura de Cafés" },
 ]
 
-const MultiCaracterist = () => {
-    const [selected, setSelected] = useState([]);
+const MultiCaracterist = ({ initialSelection, setInputCaracteristicas }) => {
+  const formatedCaracteristicas = initialSelection?.map((c) => ({
+    value: c.id,
+    label: c.caracteristica,
+  }))
 
-    const handleRemove = (value) => {
-        setSelected((prevSelected) =>
-            prevSelected.filter((item) => item.value !== value)
-        );
-    };
+  const [selected, setSelected] = useState(formatedCaracteristicas || [])
 
-    const ValueRenderer = (selected) => {
-        return selected.length
-            ? selected.map((item) => (
-                <div 
-                    key={item.value}
-                    className="rounded-full flex justify-between items-center gap-1 border border-customBlue px-3 py-1"
-                >
-                    <p className="text-sm">{item.label}</p>
-                    <button
-                        className="bg-customBlue rounded-md w-4 h-4 flex items-center justify-center hover:bg-cyan-100"
-                        onClick={() => handleRemove(item.value)}
-                    >
-                        <IoIosClose />
-                    </button>
-                </div>
-            ))
-            : "Seleccionar caracteristicas...";
-    };
+  const handleRemove = (value) => {
+    const newState = selected.filter((item) => item.value !== value)
+    setSelected(newState)
+    setInputCaracteristicas(newState)
+  }
 
-    return (
-        <MultiSelect
-            options={interests}
-            value={selected}
-            onChange={setSelected}
-            labelledBy="Select"
-            valueRenderer={ValueRenderer}
-        />
-    );
-};
-export default MultiCaracterist;
+  useEffect(() => {
+    setInputCaracteristicas(selected)
+  }, [selected])
 
+  const ValueRenderer = (selected) => {
+    return selected.length
+      ? selected.map((item) => (
+          <div
+            key={item.value}
+            className="rounded-full flex justify-between items-center gap-1 border border-customBlue px-3 py-1"
+          >
+            <p className="text-sm">{item.label}</p>
+            <button
+              className="bg-customBlue rounded-md w-4 h-4 flex items-center justify-center hover:bg-cyan-100"
+              onClick={() => handleRemove(item.value)}
+            >
+              <IoIosClose />
+            </button>
+          </div>
+        ))
+      : "Seleccionar caracteristicas..."
+  }
 
-
-
-
-
-
+  return (
+    <MultiSelect
+      options={interests}
+      value={selected}
+      onChange={setSelected}
+      labelledBy="Select"
+      valueRenderer={ValueRenderer}
+    />
+  )
+}
+export default MultiCaracterist
