@@ -7,7 +7,9 @@ export const NavBar = ({ pathname }) => {
 
   const { isLoggedIn } = useUserStore((state) => state)
 
-  const isDashboard = pathname.pathname.includes("/customer-profile") || pathname.pathname.includes("/admin-profile") || pathname.pathname.includes("/modify-plan")
+  const isDashboard = pathname.pathname.includes("/customer-profile") || pathname.pathname.includes("/admin-profile") 
+  || pathname.pathname.includes("/modify-plan") || pathname.pathname.includes("/info-plan")
+
   
 
   return (
