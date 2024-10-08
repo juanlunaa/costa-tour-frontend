@@ -90,7 +90,7 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
           </Link>
         )}
         <Link
-          href="#"
+          href={`/plans/info/${id}`}
           className="py-1 px-4 bg-customBlue text-white rounded-full"
         >
           Leer más

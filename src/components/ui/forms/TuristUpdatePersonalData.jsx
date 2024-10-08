@@ -275,7 +275,7 @@ export const TuristUpdatePersonalData = () => {
 
       <button
         type="submit"
-        className={`${styleLabels} bg-blueProfile w-[50%] sm:w-[40%] mt-5 py-4`}
+        className={`${styleLabels} bg-yellowProfile w-[50%] sm:w-[40%] mt-5 py-4`}
       >
         Guardar
       </button>

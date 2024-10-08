@@ -2,25 +2,18 @@ import { IoRestaurant } from "react-icons/io5"
 import { MdOutlineBeachAccess } from "react-icons/md"
 import { PiBuildingApartment } from "react-icons/pi"
 import { TbGps } from "react-icons/tb"
-
 import { CardPlan } from "@/components"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CheckboxGroupDemo } from "@/components/ui/checkbox-group/Checkbox"
-import { BACKEND_SERVER } from "@/env"
-
-async function getPlanes() {
-  let res = await fetch(`${BACKEND_SERVER}/plan/all`, {
-    method: "GET",
-    cache: "no-store",
-  })
-
-  return res.json()
-}
+import { fetchAllPlans } from "@/services/plan"
 
 export default async function Activity() {
-  let planes = await getPlanes()
+  const plans = await fetchAllPlans()
 
-  console.log(planes)
+  const restaurants = plans.filter((p) => p.categoria === "RESTAURANTE")
+  const touristSites = plans.filter((p) => p.categoria === "SITIO_TURISTICO")
+  const beaches = plans.filter((p) => p.categoria === "PLAYA")
+  const accommodations = plans.filter((p) => p.categoria === "ALOJAMIENTO")
 
   return (
     <div className="container-slider">
@@ -60,7 +53,7 @@ export default async function Activity() {
           </div>
           <TabsContent value="restaurante" className="relative w-3/4">
             <div className="grid grid-cols-2 sm:grid-cols-2 gap-8 max-w-full">
-              {planes.map((p) => (
+              {restaurants.map((p) => (
                 <CardPlan
                   key={p.id}
                   id={p.id}
@@ -72,13 +65,43 @@ export default async function Activity() {
             </div>
           </TabsContent>
           <TabsContent value="sitio-turistico" className="relative w-3/4">
-            Sitios turisticos
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-8 max-w-full">
+              {touristSites.map((p) => (
+                <CardPlan
+                  key={p.id}
+                  id={p.id}
+                  nombre={p.nombre}
+                  miniatura={p.miniatura}
+                  descripcion={p.descripcion}
+                />
+              ))}
+            </div>
           </TabsContent>
           <TabsContent value="playa" className="relative w-3/4">
-            Playas
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-8 max-w-full">
+              {beaches.map((p) => (
+                <CardPlan
+                  key={p.id}
+                  id={p.id}
+                  nombre={p.nombre}
+                  miniatura={p.miniatura}
+                  descripcion={p.descripcion}
+                />
+              ))}
+            </div>
           </TabsContent>
           <TabsContent value="alojamiento" className="relative w-3/4">
-            Alojamientos
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-8 max-w-full">
+              {accommodations.map((p) => (
+                <CardPlan
+                  key={p.id}
+                  id={p.id}
+                  nombre={p.nombre}
+                  miniatura={p.miniatura}
+                  descripcion={p.descripcion}
+                />
+              ))}
+            </div>
           </TabsContent>
         </div>
       </Tabs>
