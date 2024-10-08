@@ -15,17 +15,19 @@ export default async function InfoPLan({ params }) {
 
   const plan = res
 
+  const { nombre, descripcion, imagenes, ubicacion } = plan
+
   return (
     <div className="flex justify-center pt-16 dark:bg-gray-900">
       <div className="container relative mt-20 w-[80%] mx-auto dark:bg-gray-900">
         <div>
           <h1 className="font-volkhov font-bold text-2xl sm:text-4xl dark:text-white">
-            {plan.nombre}
+            {nombre}
           </h1>
         </div>
 
         <div>
-          <ImageGallery imagenes={plan.imagenes} />
+          <ImageGallery imagenes={imagenes} />
         </div>
 
         <div>
@@ -33,7 +35,7 @@ export default async function InfoPLan({ params }) {
             Descripción
           </h1>
           <p className="sm:text-sm md:text-base text-xs dark:text-white">
-            {plan.descripcion}
+            {descripcion}
           </p>
         </div>
 
@@ -43,9 +45,9 @@ export default async function InfoPLan({ params }) {
           </h1>
           <div className="h-60 sm:h-80 sm:w-3/4 rounded-lg">
             <MapStatic
-              lat={plan.ubicacion.latitud}
-              lng={plan.ubicacion.longitud}
-              address={plan.ubicacion.direccion}
+              lat={ubicacion?.latitud}
+              lng={ubicacion?.longitud}
+              address={ubicacion?.direccion}
             />
           </div>
         </div>
