@@ -12,7 +12,8 @@ import { toast } from "sonner"
 export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
   const [isSaved, setIsSaved] = useState()
 
-  const { user, setUser, isLoggedIn } = useUserStore()
+  const { user, isLoggedIn, addPlanFavorito, removePlanFavorito } =
+    useUserStore()
 
   const descripcionRecortada =
     descripcion.length < 100
@@ -29,29 +30,22 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
 
     const { res, status } = await toggleSavePlanTurist({
       dni: user.dni,
-      planId: id,
+      id,
     })
 
     if (status === 200) {
       if (res === "added") {
-        setUser({ ...user, planesFavoritos: [...user.planesFavoritos, id] })
+        addPlanFavorito(id)
         console.log("toast")
         toast.info("Favorito añadido satisfactoriamente")
       }
 
       if (res === "removed") {
-        setUser({
-          ...user,
-          planesFavoritos: user.planesFavoritos.filter((pi) => pi !== id),
-        })
-        setIsSaved(prevState)
+        removePlanFavorito(id)
         toast.info("Favorito eliminado satisfactoriamente")
       }
     } else {
-      setUser({
-        ...user,
-        planesFavoritos: user.planesFavoritos.filter((pi) => pi !== id),
-      })
+      setIsSaved(prevState)
       toast.error("Hubo un problema al agregar el plan a favoritos")
     }
   }

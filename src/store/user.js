@@ -12,6 +12,13 @@ export const userStore = create(
     setLoading: (isLoading) => set({ isLoading }),
     setInitialized: (isInitialized) => set({ isInitialized }),
     logout: () => set({ user: null, isLoggedIn: false, isLoading: false }),
+    addPlanFavorito: (idPlan) =>
+      set({
+        user: {
+          ...get().user,
+          planesFavoritos: [...get().user.planesFavoritos, idPlan],
+        },
+      }),
     removePlanFavorito: (idPlan) =>
       set({
         user: {

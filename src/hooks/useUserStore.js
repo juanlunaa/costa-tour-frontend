@@ -7,6 +7,7 @@ export default function useUserStore() {
   const isLoggedIn = userStore((state) => state.isLoggedIn)
   const setUser = userStore((state) => state.setUser)
   const logout = userStore((state) => state.logout)
+  const addPlanFavorito = userStore((state) => state.addPlanFavorito)
   const removePlanFavorito = userStore((state) => state.removePlanFavorito)
 
   return {
@@ -16,6 +17,7 @@ export default function useUserStore() {
     isLoggedIn,
     setUser,
     logout,
+    addPlanFavorito,
     removePlanFavorito,
   }
 }

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { fetchFavoritePlansByTurist } from "@/services/user"
 
 export default function CustomerProfile() {
-  const { user, setUser, removePlanFavorito } = useUserStore()
+  const { user, removePlanFavorito } = useUserStore()
 
   const [plansSaved, setPlansSaved] = useState([])
 
