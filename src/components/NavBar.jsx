@@ -11,7 +11,7 @@ export const NavBar = ({ pathname }) => {
     pathname.pathname.includes("/customer-profile") ||
     pathname.pathname.includes("/admin-profile") ||
     pathname.pathname.includes("/modify-plan") ||
-    pathname.pathname.includes("/info-plan")
+    pathname.pathname.includes("/plans")
 
   const linkStyle = cn(
     "m-2 p-2 rounded-xl font-bold sm:base dark:text-white hover:bg-customOrange transition duration-300 ease-in-out",
