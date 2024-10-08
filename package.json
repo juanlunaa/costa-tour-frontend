@@ -7,9 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "eslint:format": "eslint --fix .",
-    "prettier:format": "prettier --write .",
-    "prettier:check": "prettier --check ."
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run lint && npm run format:check",
+    "fix": "npm run lint:fix && npm run format"
   },
   "dependencies": {
     "@material-tailwind/react": "^2.1.10",
@@ -24,6 +26,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-switch": "^1.1.1",
     "@radix-ui/react-tabs": "^1.1.0",
+    "@react-google-maps/api": "2.19.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "embla-carousel-autoplay": "^8.2.1",
@@ -46,10 +49,14 @@
     "zustand": "5.0.0-rc.2"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.25.7",
     "@eslint/js": "^9.11.1",
     "eslint": "^8.57.1",
-    "eslint-config-next": "14.2.8",
+    "eslint-config-next": "^14.2.8",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "postcss": "^8",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1"
   }
 }

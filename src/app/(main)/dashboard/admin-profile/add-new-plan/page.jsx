@@ -13,12 +13,10 @@ export default function AddPlan() {
             />
           </div>
           <div className="flex justify-center mt-[10%] ">
-            <ModalCreate/>
+            <ModalCreate />
           </div>
-
         </div>
       </div>
-
     </div>
   )
 }

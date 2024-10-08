@@ -1,11 +1,10 @@
 import { jwtVerify } from "jose"
 
 export const UserRoles = {
-  TURISTA: 'TURISTA',
-  ADMINISTRADOR: 'ADMINISTRADOR',
-  ALIADO: 'ALIADO',
+  TURISTA: "TURISTA",
+  ADMINISTRADOR: "ADMINISTRADOR",
+  ALIADO: "ALIADO",
 }
-
 
 export const getDashboardByRole = (role) => {
   if (role === UserRoles.ADMINISTRADOR) return "admin-profile"

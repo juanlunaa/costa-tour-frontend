@@ -12,9 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${titleFont.variable} ${textFont.variable}`}>
       <body>
-        <UserStoreProvider>
-          {children}
-        </UserStoreProvider>
+        <UserStoreProvider>{children}</UserStoreProvider>
         <Toaster richColors position="bottom-left" closeButton />
       </body>
     </html>

@@ -8,16 +8,15 @@ export default function Recomendation() {
 
         <hr className="mt-8 w-full"></hr>
 
-        <CardRecommendation title="Restaurantes"/>
+        <CardRecommendation title="Restaurantes" />
 
-        <CardRecommendation title="Sitios Turisticos"/>
+        <CardRecommendation title="Sitios Turisticos" />
 
-        <CardRecommendation title="Playas"/>
+        <CardRecommendation title="Playas" />
 
-        <CardRecommendation title="Hotel"/>
+        <CardRecommendation title="Hotel" />
 
-        <CardRecommendation title="Extremos"/>
-
+        <CardRecommendation title="Extremos" />
       </div>
     </div>
   )
