@@ -10,17 +10,11 @@ export default function CostaTourLayout({ children }) {
     if (pathname.includes("/customer-profile")) return false
     if (pathname.includes("/admin-profile")) return false
     if (pathname.includes("/dashboard")) return false
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 80fd81b408f67db8687886d5039eaf9ebdecf204
     return true
   }
 
   return (
     <main className="min-h-screen relative">
-<<<<<<< HEAD
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
@@ -31,10 +25,6 @@ export default function CostaTourLayout({ children }) {
 
         {children}
       </ThemeProvider>
-=======
-      <NavBar pathname={{ pathname }} />
-      {children}
->>>>>>> 80fd81b408f67db8687886d5039eaf9ebdecf204
       {showFooter() ? <Footer /> : <></>}
     </main>
   )

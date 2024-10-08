@@ -4,9 +4,10 @@ import Link from "next/link"
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa"
 
 export const Footer = () => {
-  
-  const stylelinks = "text-wrap md:text-xl sm:text-base text-base dark:text-white";
-  const stylelinstext = "text-wrap md:text-base sm:text-sm text-base dark:text-white"
+  const stylelinks =
+    "text-wrap md:text-xl sm:text-base text-base dark:text-white"
+  const stylelinstext =
+    "text-wrap md:text-base sm:text-sm text-base dark:text-white"
   return (
     <div className="py-10 flex flex-col gap-4 text-center items-center sm:flex-row sm:justify-center bg-gradient-to-b from-customBlue to-white dark:fr dark:from-black dark:bg-[#202020]">
       <div className="w-[50%] sm:w-[200px] overflow-hidden">

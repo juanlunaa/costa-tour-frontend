@@ -11,7 +11,7 @@ export const NavBar = ({ pathname }) => {
     pathname.pathname.includes("/admin-profile") ||
     pathname.pathname.includes("/modify-plan") ||
     pathname.pathname.includes("/info-plan")
-    
+
   return (
     <nav
       className={`absolute z-10 flex px-5 h-20 justify-between items-center w-full
@@ -67,7 +67,7 @@ export const NavBar = ({ pathname }) => {
           </Link>
         )}
       </div>
-      
+
       <div>
         <ModeToggle />
       </div>
