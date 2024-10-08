@@ -5,7 +5,7 @@ export default function CustomerProfile() {
     <div className="container flex flex-col justify-center bg-white shadow-customBoxShadow">
       <TuristUpdatePersonalData />
       <hr className="dividier my-10"></hr>
-      <ChangePassword buttonColor="bg-blueProfile" />
+      <ChangePassword buttonColor="bg-yellowProfile" />
     </div>
   )
 }
