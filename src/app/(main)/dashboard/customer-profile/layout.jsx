@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { FaMapMarkerAlt } from "react-icons/fa"
 import { useRouter } from "next/navigation"
-import { useUserStore } from "@/context/user"
+import useUserStore from "@/hooks/useUserStore"
+import { logoutUser } from "@/services/auth"
 
 export default function CustomerProfileLayout({ children }) {
   const pathname = usePathname()
@@ -16,13 +17,18 @@ export default function CustomerProfileLayout({ children }) {
     return pathname.startsWith(href)
   }
 
-  const { user, logoutUser } = useUserStore((state) => state)
+  const { user, logout } = useUserStore()
 
   const handleLogout = async () => {
-    const success = await logoutUser()
+    const { status } = await logoutUser()
 
-    if (success) {
+    if (status === 200) {
       router.push("/")
+      // Se da un tiempo a que se haga la redireccion para actualizar el estado
+      setTimeout(
+        () => logout(), // <- afecta al estado global del usuario
+        [500]
+      )
     }
   }
 

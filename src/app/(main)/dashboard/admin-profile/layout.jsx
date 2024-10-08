@@ -3,10 +3,11 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useRouter } from "next/navigation"
-import { useUserStore } from "@/context/user"
+import useUserStore from "@/hooks/useUserStore"
 import { Badge } from "@/components/ui/badge"
 import { BACKEND_SERVER } from "@/env"
 import { UserUpdateAvatar } from "@/components"
+import { logoutUser } from "@/services/auth"
 
 export default function AdminProfileLayout({ children }) {
   const pathname = usePathname()
@@ -18,13 +19,18 @@ export default function AdminProfileLayout({ children }) {
     return pathname.startsWith(href)
   }
 
-  const { user, logoutUser } = useUserStore((state) => state)
+  const { user, logout } = useUserStore()
 
   const handleLogout = async () => {
-    const success = await logoutUser()
+    const { status } = await logoutUser()
 
-    if (success) {
+    if (status === 200) {
       router.push("/")
+      // Se da un tiempo a que se haga la redireccion para actualizar el estado
+      setTimeout(
+        () => logout(), // <- afecta al estado global del usuario
+        [500]
+      )
     }
   }
 

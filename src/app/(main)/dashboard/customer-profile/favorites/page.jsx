@@ -1,11 +1,12 @@
 "use client"
 
 import { SaveCardPlan } from "@/components/ui/save-plan/Save-Card"
-import { useUserStore } from "@/context/user"
+import useUserStore from "@/hooks/useUserStore"
 import { useEffect, useState } from "react"
+import { fetchFavoritePlansByTurist } from "@/services/user"
 
 export default function CustomerProfile() {
-  const { user, getFavoritePlansTurist } = useUserStore((state) => state)
+  const { user, setUser, removePlanFavorito } = useUserStore()
 
   const [plansSaved, setPlansSaved] = useState([])
 
@@ -13,7 +14,7 @@ export default function CustomerProfile() {
     const fetchData = async () => {
       if (user.dni === null || !user.dni) return
 
-      const { res, status } = await getFavoritePlansTurist(user.dni)
+      const { res, status } = await fetchFavoritePlansByTurist(user.dni)
 
       if (status === 200) {
         setPlansSaved(res)
@@ -23,6 +24,7 @@ export default function CustomerProfile() {
   }, [user])
 
   const removePlanSaved = (id) => {
+    removePlanFavorito(id)
     setPlansSaved((prevState) => {
       return prevState.filter((p) => p.id !== id)
     })
@@ -46,6 +48,7 @@ export default function CustomerProfile() {
             {plansSaved.map((p) => (
               <SaveCardPlan
                 key={p.id}
+                dni={user.dni}
                 id={p.id}
                 nombre={p.nombre}
                 miniatura={p.miniatura}

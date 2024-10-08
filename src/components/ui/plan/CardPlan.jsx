@@ -1,7 +1,8 @@
 "use client"
 
-import { useUserStore } from "@/context/user"
 import { BACKEND_SERVER } from "@/env"
+import useUserStore from "@/hooks/useUserStore"
+import { toggleSavePlanTurist } from "@/services/user"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
@@ -11,7 +12,7 @@ import { toast } from "sonner"
 export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
   const [isSaved, setIsSaved] = useState()
 
-  const { user, isLoggedIn, toggleSavePlan } = useUserStore((state) => state)
+  const { user, setUser, isLoggedIn } = useUserStore()
 
   const descripcionRecortada =
     descripcion.length < 100
@@ -25,13 +26,33 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
   const handleClickBookmark = async () => {
     const prevState = isSaved
     setIsSaved(!isSaved)
-    const { res, status } = await toggleSavePlan(id)
+
+    const { res, status } = await toggleSavePlanTurist({
+      dni: user.dni,
+      planId: id,
+    })
 
     if (status === 200) {
-      toast.info(res)
+      if (res === "added") {
+        setUser({ ...user, planesFavoritos: [...user.planesFavoritos, id] })
+        console.log("toast")
+        toast.info("Favorito añadido satisfactoriamente")
+      }
+
+      if (res === "removed") {
+        setUser({
+          ...user,
+          planesFavoritos: user.planesFavoritos.filter((pi) => pi !== id),
+        })
+        setIsSaved(prevState)
+        toast.info("Favorito eliminado satisfactoriamente")
+      }
     } else {
-      setIsSaved(prevState)
-      toast.error(res)
+      setUser({
+        ...user,
+        planesFavoritos: user.planesFavoritos.filter((pi) => pi !== id),
+      })
+      toast.error("Hubo un problema al agregar el plan a favoritos")
     }
   }
 
@@ -66,7 +87,7 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
       <p className="p-3 text-sm text-center">{descripcionRecortada}</p>
 
       <div className="flex gap-2">
-        {user.tipoUsuario === "ADMINISTRADOR" && (
+        {user?.tipoUsuario === "ADMINISTRADOR" && (
           <Link
             href="#"
             className="py-1 px-4 bg-customBlue text-white rounded-full"
@@ -80,7 +101,7 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
         >
           Leer más
         </Link>
-        {user.tipoUsuario === "ADMINISTRADOR" && (
+        {user?.tipoUsuario === "ADMINISTRADOR" && (
           <Link
             href="#"
             className="py-1 px-4 bg-customBlue text-white rounded-full"

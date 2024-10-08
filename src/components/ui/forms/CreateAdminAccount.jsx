@@ -2,8 +2,7 @@
 
 import { useCallback } from "react"
 import { useForm } from "react-hook-form"
-import { useUserStore } from "@/context/user"
-import { checkEmailAvailability } from "@/services/auth"
+import { checkEmailAvailability, registerAdmin } from "@/services/auth"
 import { ErrorMessage } from "@/components"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -12,8 +11,6 @@ import { toast } from "sonner"
 import debounce from "lodash.debounce"
 
 export const CreateAdminAccount = () => {
-  const { signUpAdmin } = useUserStore((store) => store)
-
   const {
     register,
     handleSubmit,
@@ -41,9 +38,9 @@ export const CreateAdminAccount = () => {
     const { confirmPassword, ...adminCreate } = data
 
     console.log(adminCreate)
-    const success = await signUpAdmin(adminCreate)
+    const { status } = await registerAdmin(adminCreate)
 
-    if (success) {
+    if (status === 201) {
       toast.success("Cuenta creada correctamente")
       reset()
     } else {

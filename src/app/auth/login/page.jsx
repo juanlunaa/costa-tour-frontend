@@ -5,9 +5,10 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { MdOutlineEmail } from "react-icons/md"
 import { RiLockPasswordLine } from "react-icons/ri"
-import { useUserStore } from "@/context/user"
 import { useState } from "react"
 import { UserRoles } from "@/logic/auth"
+import useUserStore from "@/hooks/useUserStore"
+import { login } from "@/services/auth"
 
 export default function Login() {
   const {
@@ -17,16 +18,19 @@ export default function Login() {
   } = useForm()
   const [error, setError] = useState()
 
-  const { signInUser } = useUserStore((state) => state)
+  const { setUser } = useUserStore()
 
   const router = useRouter()
 
   const onSubmit = handleSubmit(async (data) => {
-    const res = await signInUser(data)
+    const { res, status } = await login(data)
 
-    if (res.status === 200) {
+    if (status === 200) {
       setError()
-      const { role } = res
+
+      setUser(res)
+
+      const { tipoUsuario: role } = res
 
       if (role === UserRoles.TURISTA) {
         router.push("/dashboard/customer-profile/info-profile")
@@ -37,12 +41,9 @@ export default function Login() {
       }
     }
 
-    if (res.status === 401) {
-      setError("Contraseña invalida")
-    }
-
-    if (res.status === 404) {
-      setError("Cuenta no existente, por favor registrese")
+    if (status === 401 || status === 404) {
+      console.log(res)
+      setError(res)
     }
   })
 
