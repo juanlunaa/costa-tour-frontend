@@ -1,6 +1,6 @@
 "use client"
 
-import CategoryBar from "@/components/ui/nav-bar/CategoryBar"
+import CategoryBar from "@/components/CategoryBar"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 

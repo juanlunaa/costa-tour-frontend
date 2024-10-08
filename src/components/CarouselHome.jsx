@@ -1,5 +1,5 @@
 "use client"
-import * as React from "react"
+
 import Autoplay from "embla-carousel-autoplay"
 import {
   Carousel,
@@ -10,20 +10,23 @@ import {
 } from "@/components/ui/carousel"
 import Image from "next/image"
 import useEmblaCarousel from "embla-carousel-react"
-export function CarouselPlugin() {
-  const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: true })
-  )
+import { useEffect, useRef, useState } from "react"
+
+export const CarouselHome = () => {
+  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }))
+
   const images = [
     "/img-carousel/cartagena1.png",
     "/img-carousel/cartagena2.jpg",
     "/img-carousel/cartagena3.jpg",
     "/img-carousel/cartagena-sunset.jpg",
   ]
-  const [currentIndex, setCurrentIndex] = React.useState(0)
+
+  const [currentIndex, setCurrentIndex] = useState(0)
+
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false })
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!emblaApi) return
     const onSelect = () => {
       setCurrentIndex(emblaApi.selectedScrollSnap())

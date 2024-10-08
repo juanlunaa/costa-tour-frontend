@@ -15,16 +15,8 @@ export default function CostaTourLayout({ children }) {
 
   return (
     <main className="min-h-screen relative">
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <NavBar pathname={{ pathname }} />
-
-        {children}
-      </ThemeProvider>
+      <NavBar pathname={{ pathname }} />
+      {children}
       {showFooter() ? <Footer /> : <></>}
     </main>
   )

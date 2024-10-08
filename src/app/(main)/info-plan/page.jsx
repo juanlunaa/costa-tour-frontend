@@ -1,7 +1,7 @@
-import { FeedbackPlan } from "@/components/ui/feedback/Feedback"
+import { FeedbackPlan } from "@/components/Feedback"
 import ImageGallery from "@/components/ui/gallery-img/Gallery"
 import MapComponent from "@/components/ui/mapview/Map"
-import ModeToggle from "@/components/ui/darkmode/Dark"
+
 export default function InfoPLan() {
   const images = [
     "/img-carousel/cartagena1.png",

@@ -1,12 +1,11 @@
+import { CarouselHome } from "@/components"
 import Image from "next/image"
 
-import { CarouselPlugin } from "@/components/ui/carousels/Carousel"
-import ModeToggle from "@/components/ui/darkmode/Dark"
 export default function Home() {
   return (
     <div className="dark:bg-gray-900">
       <div className="max-w-full">
-        <CarouselPlugin className="w-full" />
+        <CarouselHome className="w-full" />
       </div>
       <div className="relative rounded-t-[45px] bg-white z-20 -top-12 pt-12 dark:bg-gray-900">
         <h1 className="text-4xl text-center mb-12 text-black dark:text-white">

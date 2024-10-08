@@ -4,6 +4,7 @@ import { useEffect } from "react"
 import { userStore } from "../store/user"
 import { initializeAuth } from "../lib/auth"
 import Cookies from "js-cookie"
+import { ThemeProvider } from "@/components/theme-provider"
 
 export function Providers({ children }) {
   const isLoading = userStore((state) => state.isLoading)
@@ -25,5 +26,14 @@ export function Providers({ children }) {
       </div>
     )
 
-  return children
+  return (
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      {children}
+    </ThemeProvider>
+  )
 }

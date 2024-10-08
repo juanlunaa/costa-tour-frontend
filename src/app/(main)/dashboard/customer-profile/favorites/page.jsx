@@ -1,9 +1,9 @@
 "use client"
 
-import { SaveCardPlan } from "@/components/ui/save-plan/Save-Card"
 import useUserStore from "@/hooks/useUserStore"
 import { useEffect, useState } from "react"
 import { fetchFavoritePlansByTurist } from "@/services/user"
+import { CardPlanSaved } from "@/components"
 
 export default function CustomerProfile() {
   const { user, removePlanFavorito } = useUserStore()
@@ -46,7 +46,7 @@ export default function CustomerProfile() {
         <div className="w-full pr-5 overflow-y-scroll h-[590px] mt-12">
           <div className="grid gap-4 sm:grid-cols-1  md:grid-cols-2  lg:grid-cols-auto-fit ">
             {plansSaved.map((p) => (
-              <SaveCardPlan
+              <CardPlanSaved
                 key={p.id}
                 dni={user.dni}
                 id={p.id}

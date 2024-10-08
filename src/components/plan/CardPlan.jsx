@@ -30,7 +30,7 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
 
     const { res, status } = await toggleSavePlanTurist({
       dni: user.dni,
-      id,
+      planId: id,
     })
 
     if (status === 200) {
