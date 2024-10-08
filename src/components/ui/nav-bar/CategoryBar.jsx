@@ -1,12 +1,12 @@
 "use client"
 
-import { useUserStore } from "@/context/user"
+import useUserStore from "@/hooks/useUserStore"
 import { UserRoles } from "@/logic/auth"
 import Link from "next/link"
 
 const CategoryBar = ({ pathname }) => {
-  const { isLoggedIn, user } = useUserStore((state) => state)
-  const role = user.tipoUsuario
+  const { isLoggedIn, user } = useUserStore()
+  const role = user?.tipoUsuario
 
   const isLinkActive = (href) => {
     return pathname.pathname.includes(href)

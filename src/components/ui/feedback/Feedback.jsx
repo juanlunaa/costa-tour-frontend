@@ -1,20 +1,17 @@
 "use client"
-import { StarIcon } from "lucide-react";
-import { useState } from 'react';
-import { BsCheckAll } from "react-icons/bs";
-import {
-    Avatar,
-    AvatarFallback,
-    AvatarImage,
-} from "@/components/ui/avatar"
-import { BiEdit } from "react-icons/bi";
+import { StarIcon } from "lucide-react"
+import { useState } from "react"
+import { BsCheckAll } from "react-icons/bs"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { BiEdit } from "react-icons/bi"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Progress } from "@/components/ui/progress"
 export function FeedbackPlan() {
-    const [rating, setRating] = useState(0);
-    const StyleNumSpan = "sm:text-xs sm:font-normal md:text-sm md:font-medium text-xs font-light dark:text-white";
-    const stylePromSpan = "sm:text-sm sm:font-medium text-xs font-light dark:text-white";
-    return (
+  const [rating, setRating] = useState(0)
+  const StyleNumSpan =
+    "sm:text-xs sm:font-normal md:text-sm md:font-medium text-xs font-light"
+  const stylePromSpan = "sm:text-sm sm:font-medium text-xs font-light"
+  return (
 
         <div>
             <div className="customer-review mt-12">
@@ -434,7 +431,4 @@ export function FeedbackPlan() {
                 </div>
             </ScrollArea>
         </div>
-
-    );
-
-}
+    )

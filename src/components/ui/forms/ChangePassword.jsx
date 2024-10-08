@@ -2,17 +2,18 @@
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useUserStore } from "@/context/user"
 import clsx from "clsx"
 import { useForm } from "react-hook-form"
 import { useEffect } from "react"
 import { toast } from "sonner"
+import useUserStore from "@/hooks/useUserStore"
+import { updateCredentials } from "@/services/user"
 
 export const ChangePassword = ({ buttonColor }) => {
   const styleLabels = clsx("text-sm font-bold md:text-base sm:text-sm ")
   const styleInputs = clsx("text-gray-600 block w-full bg-[#F4F4F5]")
 
-  const { user, changePassword } = useUserStore((state) => state)
+  const { user } = useUserStore()
 
   const formDefaultValues = {
     email: user.email,
@@ -35,14 +36,15 @@ export const ChangePassword = ({ buttonColor }) => {
   const onSubmit = handleSubmit(async (data) => {
     console.log(data)
 
-    const { message, success } = await changePassword({
-      newPassword: data.password,
+    const { res, success } = await updateCredentials({
+      userId: user.userId,
+      data: { newPassword: data.password },
     })
 
     if (success) {
-      toast.success(message)
+      toast.success(res)
     } else {
-      toast.error(message)
+      toast.error(res)
     }
 
     reset(formDefaultValues)

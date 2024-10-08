@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from 'react'
-import Image from 'next/image'
+import { useState } from "react"
+import Image from "next/image"
 
 export default function ImageGallery({ images }) {
   const [mainImage, setMainImage] = useState(images[0])
@@ -10,7 +10,7 @@ export default function ImageGallery({ images }) {
     <div className="container mx-auto py-8">
       <div className="mb-4 relative sm:h-[40vh] md:h-[50vh] lg:h-[65vh] h-[22vh]">
         <Image
-          src={mainImage}         
+          src={mainImage}
           fill
           className="object-cover rounded-lg aspect-video"
         />

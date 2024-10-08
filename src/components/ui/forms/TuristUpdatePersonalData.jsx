@@ -2,16 +2,17 @@
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useUserStore } from "@/context/user"
 import clsx from "clsx"
 import { useForm } from "react-hook-form"
 import useLocationData from "@/hooks/useLocationData"
 import { useEffect } from "react"
 import { toast } from "sonner"
+import useUserStore from "@/hooks/useUserStore"
+import { updatePersonalDataTurist } from "@/services/user"
 
 export const TuristUpdatePersonalData = () => {
   // Se extrae la info del usuario de la store
-  const { user, updateProfileTurist } = useUserStore((state) => state)
+  const { user, setUser } = useUserStore()
 
   // Se descartan atributos innecesarios para este formulario
   const { avatar, userId, tipoUsuario, edad, ciudad, estado, pais, ...otros } =
@@ -67,6 +68,7 @@ export const TuristUpdatePersonalData = () => {
       return
     }
 
+    // Se parsea la data al formato que recibe el endpoint
     const fetchData = {
       dni: data.dni,
       nombre: data.nombre,
@@ -76,12 +78,13 @@ export const TuristUpdatePersonalData = () => {
       intereses: data.intereses.map((interes) => interes.id),
     }
 
-    const success = await updateProfileTurist({
+    const { res, status } = await updatePersonalDataTurist({
       dni: user.dni,
       data: fetchData,
     })
 
-    if (success) {
+    if (status === 200) {
+      setUser(res)
       toast.success("Su informacion ha sido actualizada correctamente")
     } else {
       toast.success(

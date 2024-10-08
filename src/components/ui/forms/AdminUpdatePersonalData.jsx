@@ -2,14 +2,15 @@
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useUserStore } from "@/context/user"
+import useUserStore from "@/hooks/useUserStore"
+import { updatePersonalDataAdmin } from "@/services/user"
 import clsx from "clsx"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
 export const AdminUpdatePersonalData = () => {
-  const { user, updateProfileAdmin } = useUserStore((state) => state)
+  const { user, setUser } = useUserStore()
 
   const { userId, nombre, apellido } = user
 
@@ -35,17 +36,19 @@ export const AdminUpdatePersonalData = () => {
       return
     }
 
-    const success = await updateProfileAdmin({ userId, data })
+    const { res, status } = await updatePersonalDataAdmin({
+      userId,
+      data,
+    })
 
-    if (success) {
+    if (status === 200) {
+      setUser(res)
       toast.success("Su informacion ha sido actualizada correctamente")
     } else {
       toast.error(
         "Ha ocurrido un error al momento de actualizar si informacion :'("
       )
     }
-
-    console.log(data)
   })
 
   return (

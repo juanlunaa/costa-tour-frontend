@@ -18,29 +18,25 @@ export const login = async (data) => {
     })
 
     if (!res.ok) {
-      const { message } = await res.json()
-
       let error
 
       if (res.status === 401)
-        error = new InvalidPasswordError(
-          `Error ${res.status}: ${message || "No se pudo iniciar sesión"}`
-        )
+        error = new InvalidPasswordError("Contraseña invalida")
 
       if (res.status === 404)
         error = new UserNotFoundError(
-          `Error ${res.status}: ${message || "No se pudo iniciar sesión"}`
+          "Cuenta no existente, por favor registrese"
         )
 
       error.status = res.status
-      return error
+      throw error
     }
 
     const resJson = await res.json()
 
     return { res: resJson, status: res.status }
   } catch (err) {
-    return { error: err.message, status: err.status || 500 }
+    return { res: err.message, status: err.status || 500 }
   }
 }
 
@@ -98,6 +94,7 @@ export const registerAdmin = async (data) => {
 
     return { res: resJson, status: res.status }
   } catch (err) {
+    console.error(err)
     return { res: err.message, status: err.status || 500 }
   }
 }
@@ -106,27 +103,28 @@ export const fetchProfile = async () => {
   const res = await fetch(`${BACKEND_SERVER}/user/profile`, {
     method: "GET",
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
   })
 
   const resJson = await res.json()
   return { res: resJson, status: res.status }
 }
 
-export const logout = async () => {
-  const res = await fetch(`${BACKEND_SERVER}/user/logout`, {
-    method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
+export const logoutUser = async () => {
+  try {
+    const res = await fetch(`${BACKEND_SERVER}/user/logout`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
 
-  const resJson = await res.json()
+    const resJson = await res.json()
 
-  return { res: resJson, status: res.status }
+    return { res: resJson, status: res.status }
+  } catch (err) {
+    return { error: err.message, status: 403 }
+  }
 }
 
 export const checkEmailAvailability = async (email) => {

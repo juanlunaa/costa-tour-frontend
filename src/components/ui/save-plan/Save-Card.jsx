@@ -1,28 +1,32 @@
 import { Card, CardContent } from "@/components/ui/card"
-import { useUserStore } from "@/context/user"
 import { BACKEND_SERVER } from "@/env"
 import { StarIcon } from "lucide-react"
 import Image from "next/image"
 import { FaBookmark } from "react-icons/fa"
 import { toast } from "sonner"
+import { toggleSavePlanTurist } from "@/services/user"
 
 export function SaveCardPlan({
+  dni,
   id,
   nombre,
   miniatura,
   precioMax,
   removePlanSaved,
 }) {
-  const { toggleSavePlan } = useUserStore((state) => state)
-
   const handleRemove = async () => {
-    const { res, status } = await toggleSavePlan(id)
+    const { res, status } = await toggleSavePlanTurist({
+      dni,
+      planId: id,
+    })
 
     if (status === 200) {
-      toast.info(res)
-      removePlanSaved(id)
+      if (res === "removed") {
+        removePlanSaved(id)
+        toast.info("Favorito eliminado satisfactoriamente")
+      }
     } else {
-      toast.error(res)
+      toast.error("Hubo un problema al agregar el plan a favoritos")
     }
   }
 

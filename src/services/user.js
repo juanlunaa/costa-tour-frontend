@@ -67,11 +67,13 @@ export const updateCredentials = async ({ userId, data }) => {
       }
     }
 
-    const resJson = await res.json()
-
-    return { res: resJson, status: res.status }
+    return {
+      res: "Contraseña actualizada correctamente",
+      success: true,
+      status: res.status,
+    }
   } catch (err) {
-    return { res: err.message, status: err.status || 500 }
+    return { res: err.message, success: false, status: err.status || 500 }
   }
 }
 

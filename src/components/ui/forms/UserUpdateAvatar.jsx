@@ -2,14 +2,17 @@
 
 import { useId } from "react"
 import { useForm } from "react-hook-form"
-import { useUserStore } from "@/context/user"
+import useUserStore from "@/hooks/useUserStore"
 import usePreviewAvatar from "@/hooks/usePreviewAvatar"
 import { toast } from "sonner"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { IoIosClose, IoIosCheckmark } from "react-icons/io"
 import { MdEdit } from "react-icons/md"
+import { updateAvatar } from "@/services/user"
 
 export const UserUpdateAvatar = ({ srcAvatar }) => {
+  const { user, setUser } = useUserStore()
+
   const inputId = useId()
 
   const { register, handleSubmit, watch, reset } = useForm()
@@ -21,8 +24,6 @@ export const UserUpdateAvatar = ({ srcAvatar }) => {
     inputFile: avatarInput,
   })
 
-  const { user, updateAvatarUser } = useUserStore((state) => state)
-
   const resetImage = () => {
     reset()
     resetPreview()
@@ -33,9 +34,10 @@ export const UserUpdateAvatar = ({ srcAvatar }) => {
     formData.append("userId", user.userId)
     formData.append("avatar", data.avatar[0])
 
-    const success = await updateAvatarUser(formData)
+    const { res, status } = await updateAvatar(formData)
 
-    if (success) {
+    if (status === 200) {
+      setUser({ ...user, avatar: res.avatar })
       toast.success("Su avatar ha sido actualizado correctamente")
     } else {
       toast.success(
