@@ -1,6 +1,7 @@
 import { FeedbackPlan } from "@/components/ui/feedback/Feedback";
 import ImageGallery from "@/components/ui/gallery-img/Gallery";
 import MapComponent from "@/components/ui/mapview/Map";
+import ModeToggle from "@/components/ui/darkmode/Dark";
 export default function InfoPLan() {
     const images = [
         '/img-carousel/cartagena1.png',
@@ -9,10 +10,10 @@ export default function InfoPLan() {
         '/img-carousel/cartagena-sunset.jpg',
     ]
     return (
-        <div className="flex justify-center pt-16">
-            <div className="container relative mt-20 w-[80%] mx-auto">
+        <div className="flex justify-center pt-16 dark:bg-gray-900">
+            <div className="container relative mt-20 w-[80%] mx-auto dark:bg-gray-900">
                 <div>
-                    <h1 className="font-volkhov font-bold text-2xl sm:text-4xl">Centro Histórico de <br />Cartagena </h1>
+                    <h1 className="font-volkhov font-bold text-2xl sm:text-4xl dark:text-white">Centro Histórico de <br />Cartagena </h1>             
                 </div>
 
                 <div>
@@ -20,8 +21,8 @@ export default function InfoPLan() {
                 </div>
 
                 <div>
-                    <h1 className="font-volkhov font-bold sm:text-xl text-lg pb-3">Descripción</h1>
-                    <p className="sm:text-sm md:text-base text-xs">
+                    <h1 className="font-volkhov font-bold sm:text-xl text-lg pb-3 dark:text-white">Descripción</h1>
+                    <p className="sm:text-sm md:text-base text-xs dark:text-white">
                         El centro histórico de Cartagena es un tesoro cultural que transporta a los visitantes a través
                         de los siglos de historia y encanto caribeño. Rodeado por imponentes murallas coloniales que
                         protegían la ciudad de los piratas, este distrito es un laberinto de calles empedradas,
@@ -46,7 +47,7 @@ export default function InfoPLan() {
                 </div>
 
                 <div >
-                    <h1 className="font-volkhov font-bold sm:text-xl text-lg py-5">Ubicación</h1>
+                    <h1 className="font-volkhov font-bold sm:text-xl text-lg py-5 dark:text-white">Ubicación</h1>
                     <div className="h-[340px] rounded-lg">
                         <MapComponent />
                     </div>
