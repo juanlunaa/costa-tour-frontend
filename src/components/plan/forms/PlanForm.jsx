@@ -19,7 +19,7 @@ import { BACKEND_SERVER } from "@/env"
 import { ErrorMessage } from "@/components"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-import { createPlan } from "@/services/plan"
+import { createPlan, updatePlan } from "@/services/plan"
 
 const containerStyle = {
   width: "100%",
@@ -275,7 +275,6 @@ export const PreviewImagesPlan = ({
 }
 
 export function PlanForm({ plan, closeModal }) {
-  const inputImageId = useId()
   const router = useRouter()
 
   const formDefaultValues = plan
@@ -344,17 +343,19 @@ export function PlanForm({ plan, closeModal }) {
 
     Object.keys(data).forEach((key) => {
       if (key === "imagenesFiles") {
-        // Manejo de imágenes existentes y nuevas
-        const existingImages = data[key]
-          .filter((img) => !img.isNew)
-          .map((img) => img.url)
-        formData.append("imagenesExistentes", JSON.stringify(existingImages))
+        // Las imagenes que no son nuevas son añadidas a un array (su url de acceso en el servidor)
+        // y seran añadidas al campo imagenesExistentes en el formData
+        data[key]
+          .filter((img) => !img.isNew) // <- Va a filtrar las que no son nuevas
+          .forEach((img, index) => {
+            formData.append(`imagenesExistentes[${index}]`, img.url)
+          })
 
-        // Agregar nuevas imágenes
+        // Las imagenes nuevas son añadidas al campo imagenesFiles en el formData (su multipart file)
         data[key]
           .filter((img) => img.isNew)
-          .forEach((image) => {
-            formData.append("imagenesFiles", image.file)
+          .forEach((image, index) => {
+            formData.append(`imagenesFiles[${index}]`, image.file)
           })
       } else if (key === "caracteristicas") {
         return
@@ -382,6 +383,20 @@ export function PlanForm({ plan, closeModal }) {
         resetForm()
       } else {
         toast.error("Ha ocurrido un error al momento de crear el plan :'(")
+      }
+    }
+
+    if (plan) {
+      const { res, status } = await updatePlan({ planId: plan.id, formData })
+
+      if (status === 200) {
+        toast.success(
+          `El plan ${data.nombre} ha sido actualizado satisfactoriamente`
+        )
+        router.push("/category/activities")
+      } else {
+        console.error(res)
+        toast.error("Ha ocurrido un error al momento de actualizar el plan :'(")
       }
     }
   })
