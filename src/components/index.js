@@ -12,3 +12,4 @@ export * from "./plan/forms/PlanForm"
 
 export * from "./plan/CarouselRecomendation"
 export * from "./CarouselHome"
+export * from "./GoogleMapStatic"

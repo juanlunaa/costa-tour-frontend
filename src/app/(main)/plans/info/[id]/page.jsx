@@ -1,3 +1,4 @@
+import { GoogleMapStatic } from "@/components"
 import { FeedbackPlan } from "@/components/Feedback"
 import ImageGallery from "@/components/ui/gallery-img/Gallery"
 import { MapStatic } from "@/components/ui/mapview/Map"
@@ -14,7 +15,7 @@ export default async function InfoPLan({ params }) {
   }
 
   const plan = res
-
+  console.log(plan)
   const { nombre, descripcion, imagenes, ubicacion } = plan
 
   return (
@@ -44,11 +45,7 @@ export default async function InfoPLan({ params }) {
             Ubicación
           </h1>
           <div className="h-60 sm:h-80 sm:w-3/4 rounded-lg">
-            <MapStatic
-              lat={ubicacion?.latitud}
-              lng={ubicacion?.longitud}
-              address={ubicacion?.direccion}
-            />
+            <GoogleMapStatic lat={ubicacion.latitud} lng={ubicacion.longitud} />
           </div>
         </div>
 
