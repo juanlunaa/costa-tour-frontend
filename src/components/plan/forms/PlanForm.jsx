@@ -102,7 +102,7 @@ export const InputMap = ({ initialMarkerLocation, setInputUbicacion }) => {
   )
 }
 
-export const PreviewImagesPlan = ({
+export const InputImagesPlan = ({
   initialMiniaturaSelected,
   setInputMiniatura,
   control,
@@ -406,7 +406,7 @@ export function PlanForm({ plan, closeModal }) {
       <div className="container flex flex-col sm:flex-row gap-6 pt-5 pb-5">
         <div className="flex flex-col items-stretch gap-3 text-center w-full sm:w-1/2">
           {/* Preview imagenes del input */}
-          <PreviewImagesPlan
+          <InputImagesPlan
             setInputMiniatura={setInputMiniatura}
             initialMiniaturaSelected={plan?.miniatura}
             control={control}
