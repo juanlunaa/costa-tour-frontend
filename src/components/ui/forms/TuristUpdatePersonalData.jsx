@@ -1,93 +1,61 @@
 "use client"
 
+import { useFormContext } from "react-hook-form"
+import useLocationData from "@/hooks/useLocationData"
+import useUserStore from "@/hooks/useUserStore"
+import clsx from "clsx"
+import { updatePersonalDataTurist } from "@/services/user"
+import { ErrorMessage, RHFCombobox } from "@/components"
+import { toast } from "sonner"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import clsx from "clsx"
-import { useForm } from "react-hook-form"
-import useLocationData from "@/hooks/useLocationData"
-import { useEffect } from "react"
-import { toast } from "sonner"
-import useUserStore from "@/hooks/useUserStore"
-import { updatePersonalDataTurist } from "@/services/user"
 
 export const TuristUpdatePersonalData = () => {
   // Se extrae la info del usuario de la store
   const { user, setUser } = useUserStore()
 
-  // Se descartan atributos innecesarios para este formulario
-  const { avatar, userId, tipoUsuario, edad, ciudad, estado, pais, ...otros } =
-    user
-
-  // Se definin los atributos necesarios para inicializar la informacion del formulario
-  const formDefaultValues = {
-    ...otros,
-    idCiudad: user.ciudad.id,
-    estado: user.estado.id,
-    pais: user.pais.id,
-  }
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     watch,
-    setValue,
-  } = useForm()
+  } = useFormContext()
 
-  const { locationData, handleChange, updateLocationSelect } = useLocationData()
-
-  // Cuando la info de la store cargue o cambie, se va a resetar el formulario con la informacion por defecto
-  // y se le actualiza las ubicaciones asociadas al usuario para que haga las peticiones
-  useEffect(() => {
-    reset(formDefaultValues)
-    updateLocationSelect({
-      estado: formDefaultValues.estado,
-      pais: formDefaultValues.pais,
-    })
-  }, [user])
-
-  /**
-   * El objetivo de este useEffect es recargar el formulario una vez se haya pedido la info de los estados y ciudades
-   * porque inicialmente siempre se pediran los paises, pero como toca esperar a que cargue la data de la store
-   * (que es donde dice a que pais, estado y ciudad esta asociado al usuario) entonces toca hacer un rellamado a la api
-   * cuando esta info cargue y toca reiniciar el formulario para que se aplique la seleccion con los selects
-   */
-  useEffect(() => {
-    const prevState = watch()
-    reset(prevState)
-  }, [locationData])
+  const { locationData } = useLocationData({
+    inputPais: watch("pais"),
+    inputEstado: watch("estado"),
+  })
 
   const styleLabels = clsx("text-sm font-bold md:text-base sm:text-sm ")
   const styleInputs = clsx("text-gray-600 block w-full bg-[#F4F4F5]")
 
   const onSubmit = handleSubmit(async (data) => {
-    // Si no se ha modificacido nd no se ejecuta el fecth
-    if (JSON.stringify(data) === JSON.stringify(formDefaultValues)) {
-      toast.info("No ha ingresado nueva informacion")
-      return
-    }
+    // => FALTA VALIDAR SI LA INFO ES IGUAL A LA INICIAL
+    // if (JSON.stringify(data) === JSON.stringify(defaultValues)) {
+    //   toast.info("No ha ingresado nueva informacion")
+    //   return
+    // }
 
     // Se parsea la data al formato que recibe el endpoint
-    const fetchData = {
+    const updateTuristData = {
       dni: data.dni,
       nombre: data.nombre,
       apellido: data.apellido,
       fechaNacimiento: data.fechaNacimiento,
-      idCiudad: Number(data.idCiudad),
-      intereses: data.intereses.map((interes) => interes.id),
+      idCiudad: Number(data.ciudad),
+      intereses: data.intereses,
     }
 
     const { res, status } = await updatePersonalDataTurist({
-      dni: user.dni,
-      data: fetchData,
+      dni: data.dni,
+      data: updateTuristData,
     })
 
     if (status === 200) {
       setUser(res)
       toast.success("Su informacion ha sido actualizada correctamente")
     } else {
-      toast.success(
+      toast.error(
         "Ha ocurrido un error al momento de actualizar si informacion :'("
       )
     }
@@ -117,11 +85,7 @@ export const TuristUpdatePersonalData = () => {
             },
           })}
         />
-        {errors.nombre && (
-          <span className="text-xs text-red-600 font-bold">
-            {errors.nombre.message}
-          </span>
-        )}
+        {errors.nombre && <ErrorMessage message={errors.nombre.message} />}
       </div>
 
       <div className="space-y-2">
@@ -140,11 +104,7 @@ export const TuristUpdatePersonalData = () => {
             },
           })}
         />
-        {errors.apellido && (
-          <span className="text-xs text-red-600 font-bold">
-            {errors.apellido.message}
-          </span>
-        )}
+        {errors.apellido && <ErrorMessage message={errors.apellido.message} />}
       </div>
 
       <div className="space-y-2">
@@ -177,9 +137,7 @@ export const TuristUpdatePersonalData = () => {
           })}
         />
         {errors.fechaNacimiento && (
-          <span className="text-xs text-red-600 font-bold">
-            {errors.fechaNacimiento.message}
-          </span>
+          <ErrorMessage message={errors.fechaNacimiento.message} />
         )}
       </div>
 
@@ -187,90 +145,47 @@ export const TuristUpdatePersonalData = () => {
         <Label htmlFor="ciudad" className={styleLabels}>
           Ciudad
         </Label>
-        <select
-          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-          {...register("idCiudad", {
-            required: {
-              value: true,
-              message: "Ciudad es requerida",
-            },
-          })}
-        >
-          <option value="">Selecciona una ciudad</option>
-          {locationData.ciudades.map((c) => (
-            <option value={c.id} key={c.id}>
-              {c.name}
-            </option>
-          ))}
-        </select>
-        {errors.idCiudad && (
-          <span className="text-xs text-red-600 font-bold">
-            {errors.idCiudad.message}
-          </span>
-        )}
+        <RHFCombobox
+          name="ciudad"
+          options={locationData.ciudades}
+          placeholderSelect="Selecciona una ciudad"
+          notFoundMessage={
+            locationData.ciudades.length === 0
+              ? "Selecciona un estado"
+              : "No se encontraron ciudades"
+          }
+        />
+        {errors.ciudad && <ErrorMessage message={errors.ciudad.message} />}
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="estado" className={styleLabels}>
           Estado
         </Label>
-        <select
-          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-          {...register("estado", {
-            required: {
-              value: true,
-              message: "Estado es requerido",
-            },
-            onChange: (event) => {
-              setValue("idCiudad", "")
-              handleChange(event)
-            },
-          })}
-        >
-          <option value="">Selecciona un estado</option>
-          {locationData.estados.map((e) => (
-            <option value={e.id} key={e.id}>
-              {e.name}
-            </option>
-          ))}
-        </select>
-        {errors.estado && (
-          <span className="text-xs text-red-600 font-bold">
-            {errors.estado.message}
-          </span>
-        )}
+        <RHFCombobox
+          name="estado"
+          options={locationData.estados}
+          placeholderSelect="Selecciona un estado/provincia"
+          notFoundMessage={
+            locationData.estados.length === 0
+              ? "Selecciona un pais"
+              : "No se encontraron estados"
+          }
+        />
+        {errors.estado && <ErrorMessage message={errors.estado.message} />}
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="pais" className={styleLabels}>
           Pais
         </Label>
-        <select
-          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-          {...register("pais", {
-            required: {
-              value: true,
-              message: "Pais es requerido",
-            },
-            onChange: (event) => {
-              setValue("estado", "")
-              setValue("idCiudad", "")
-              handleChange(event)
-            },
-          })}
-        >
-          <option value="">Selecciona un pais</option>
-          {locationData.paises.map((p) => (
-            <option value={p.id} key={p.id}>
-              {p.name}
-            </option>
-          ))}
-        </select>
-        {errors.pais && (
-          <span className="text-xs text-red-600 font-bold">
-            {errors.pais.message}
-          </span>
-        )}
+        <RHFCombobox
+          name="pais"
+          options={locationData.paises}
+          placeholderSelect="Selecciona un pais"
+          notFoundMessage="No se encontraron paises"
+        />
+        {errors.pais && <ErrorMessage message={errors.pais.message} />}
       </div>
 
       <button
