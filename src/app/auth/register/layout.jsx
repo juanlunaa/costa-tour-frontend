@@ -1,5 +1,22 @@
-import { RegisterFormProvider } from "@/context/register"
+"use client"
+
+import { FormProvider, useForm } from "react-hook-form"
 
 export default function RegisterLayout({ children }) {
-  return <RegisterFormProvider>{children}</RegisterFormProvider>
+  const defaultValues = {
+    nombre: "",
+    apellido: "",
+    dni: "",
+    fechaNacimiento: "",
+    email: "",
+    password: "",
+    pais: "",
+    estado: "",
+    ciudad: "",
+    intereses: [],
+  }
+
+  const methods = useForm({ defaultValues })
+
+  return <FormProvider {...methods}>{children}</FormProvider>
 }

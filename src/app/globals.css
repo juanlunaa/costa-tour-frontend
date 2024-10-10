@@ -29,7 +29,8 @@ p,
 span,
 a,
 button,
-label {
+label,
+input {
   @apply font-mulish;
 }
 

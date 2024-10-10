@@ -1,13 +1,14 @@
 "use client"
 
-import { useRegisterFormData } from "@/context/register"
+import { useCallback } from "react"
+import { useRouter } from "next/navigation"
 import useLocationData from "@/hooks/useLocationData"
 import { checkDniAvailability, checkEmailAvailability } from "@/services/auth"
 import debounce from "lodash.debounce"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useCallback } from "react"
-import { useForm } from "react-hook-form"
+import { Input } from "@/components/ui/input"
+import { ErrorMessage, RHFComboboxLocation } from "@/components"
+import { useFormContext } from "react-hook-form"
 import { AiOutlineIdcard } from "react-icons/ai"
 import { CiCalendarDate } from "react-icons/ci"
 import { FaRegUser } from "react-icons/fa"
@@ -16,25 +17,21 @@ import { RiLockPasswordLine } from "react-icons/ri"
 import { TiWorld } from "react-icons/ti"
 
 export default function Register() {
-  const { locationData, locationSelect, handleChange } = useLocationData()
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      pais: locationSelect.pais,
-      estado: locationSelect.estado,
-    },
-  })
+    watch,
+  } = useFormContext()
 
-  const { updateFormData } = useRegisterFormData()
+  const { locationData } = useLocationData({
+    inputPais: watch("pais"),
+    inputEstado: watch("estado"),
+  })
 
   const router = useRouter()
 
   const onSubmit = handleSubmit((data) => {
-    updateFormData(data)
     router.push("/auth/register/interests")
   })
 
@@ -73,9 +70,9 @@ export default function Register() {
         <div className="grid grid-cols-2 gap-2">
           <div>
             <div className="relative">
-              <input
+              <Input
                 placeholder="Nombre"
-                className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                className="bg-customBlueInputAuth p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
                 {...register("nombre", {
                   required: {
                     value: true,
@@ -85,17 +82,13 @@ export default function Register() {
               />
               <FaRegUser className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
             </div>
-            {errors.nombre && (
-              <span className="text-xs text-red-600 font-bold">
-                {errors.nombre.message}
-              </span>
-            )}
+            {errors.nombre && <ErrorMessage message={errors.nombre.message} />}
           </div>
 
           <div>
-            <input
+            <Input
               placeholder="Apellido"
-              className="bg-[#D1EEF2] p-3 rounded-lg w-full placeholder:text-black/60"
+              className="bg-customBlueInputAuth p-3 rounded-lg w-full placeholder:text-black/60"
               {...register("apellido", {
                 required: {
                   value: true,
@@ -104,17 +97,15 @@ export default function Register() {
               })}
             />
             {errors.apellido && (
-              <span className="text-xs text-red-600 font-bold">
-                {errors.apellido.message}
-              </span>
+              <ErrorMessage message={errors.apellido.message} />
             )}
           </div>
 
           <div>
             <div className="relative">
-              <input
+              <Input
                 placeholder="N° Identificación"
-                className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                className="bg-customBlueInputAuth p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
                 {...register("dni", {
                   required: {
                     value: true,
@@ -129,19 +120,15 @@ export default function Register() {
 
               <AiOutlineIdcard className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
             </div>
-            {errors.dni && (
-              <span className="text-xs text-red-600 font-bold">
-                {errors.dni.message}
-              </span>
-            )}
+            {errors.dni && <ErrorMessage message={errors.dni.message} />}
           </div>
 
           <div>
             <div className="relative">
-              <input
+              <Input
                 type="date"
                 placeholder="Fecha Nacimiento"
-                className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                className="bg-customBlueInputAuth p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
                 {...register("fechaNacimiento", {
                   required: {
                     value: true,
@@ -153,18 +140,16 @@ export default function Register() {
               <CiCalendarDate className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
             </div>
             {errors.fechaNacimiento && (
-              <span className="text-xs text-red-600 font-bold">
-                {errors.fechaNacimiento.message}
-              </span>
+              <ErrorMessage message={errors.fechaNacimiento.message} />
             )}
           </div>
 
           <div>
             <div className="relative col-span-2">
-              <input
+              <Input
                 type="email"
                 placeholder="Email"
-                className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                className="bg-customBlueInputAuth p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
                 {...register("email", {
                   required: {
                     value: true,
@@ -183,19 +168,15 @@ export default function Register() {
 
               <MdOutlineEmail className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
             </div>
-            {errors.email && (
-              <span className="text-xs text-red-600 font-bold">
-                {errors.email.message}
-              </span>
-            )}
+            {errors.email && <ErrorMessage message={errors.email.message} />}
           </div>
 
           <div>
             <div className="relative col-span-2">
-              <input
+              <Input
                 type="password"
                 placeholder="Contraseña"
-                className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                className="bg-customBlueInputAuth p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
                 {...register("password", {
                   required: {
                     value: true,
@@ -211,96 +192,53 @@ export default function Register() {
               <RiLockPasswordLine className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
             </div>
             {errors.password && (
-              <span className="text-xs text-red-600 font-bold">
-                {errors.password.message}
-              </span>
+              <ErrorMessage message={errors.password.message} />
             )}
           </div>
 
           <div className="col-span-2">
             <div className="relative">
-              <select
+              <RHFComboboxLocation
                 name="pais"
-                className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
-                {...register("pais", {
-                  required: {
-                    value: true,
-                    message: "Pais es requerido",
-                  },
-                  onChange: (event) => {
-                    handleChange(event)
-                  },
-                })}
-              >
-                <option value="">Selecciona un pais</option>
-                {locationData.paises.map((p) => (
-                  <option value={p.id} key={p.id}>
-                    {p.name}
-                  </option>
-                ))}
-              </select>
+                options={locationData.paises}
+                placeholderSelect="Selecciona un pais"
+                notFoundMessage="No se encontraron paises"
+                classname={"pl-10 bg-customBlueInputAuth"}
+              />
 
               <TiWorld className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
             </div>
-            {errors.pais && (
-              <span className="text-xs text-red-600 font-bold">
-                {errors.pais.message}
-              </span>
-            )}
+            {errors.pais && <ErrorMessage message={errors.pais.message} />}
           </div>
 
           <div>
-            <select
+            <RHFComboboxLocation
               name="estado"
-              className="bg-[#D1EEF2] p-3 rounded-lg w-full placeholder:text-black/60"
-              {...register("estado", {
-                required: {
-                  value: true,
-                  message: "Estado es requerido",
-                },
-                onChange: (event) => {
-                  handleChange(event)
-                },
-              })}
-            >
-              <option value="">Selecciona un estado</option>
-              {locationData.estados.map((e) => (
-                <option value={e.id} key={e.id}>
-                  {e.name}
-                </option>
-              ))}
-            </select>
-            {errors.estado && (
-              <span className="text-xs text-red-600 font-bold">
-                {errors.estado.message}
-              </span>
-            )}
+              options={locationData.estados}
+              placeholderSelect="Selecciona un estado/provincia"
+              notFoundMessage={
+                locationData.estados.length === 0
+                  ? "Selecciona un pais"
+                  : "No se encontraron estados"
+              }
+              classname={"bg-customBlueInputAuth"}
+            />
+            {errors.estado && <ErrorMessage message={errors.estado.message} />}
           </div>
 
           <div>
-            <select
-              className="bg-[#D1EEF2] p-3 rounded-lg w-full placeholder:text-black/60"
-              {...register("idCiudad", {
-                required: {
-                  value: true,
-                  message: "Ciudad es requerida",
-                },
-              })}
-            >
-              <option value="" default>
-                Selecciona una ciudad
-              </option>
-              {locationData.ciudades.map((c) => (
-                <option value={c.id} key={c.id}>
-                  {c.name}
-                </option>
-              ))}
-            </select>
-            {errors.idCiudad && (
-              <span className="text-xs text-red-600 font-bold">
-                {errors.idCiudad.message}
-              </span>
-            )}
+            <RHFComboboxLocation
+              name="ciudad"
+              options={locationData.ciudades}
+              placeholderSelect="Selecciona una ciudad"
+              notFoundMessage={
+                locationData.ciudades.length === 0
+                  ? "Selecciona un estado"
+                  : "No se encontraron ciudades"
+              }
+              classname={"bg-customBlueInputAuth"}
+            />
+            {errors.ciudad && <ErrorMessage message={errors.ciudad.message} />}
           </div>
         </div>
 
