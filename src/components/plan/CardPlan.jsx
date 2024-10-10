@@ -51,12 +51,12 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
   }
 
   return (
-    <div className="w-80 flex flex-col items-center mx-auto">
-      <div className="relative w-80 h-72">
+    <div className="lg:w-full md:w-full sm:full flex flex-col items-center">
+      <div className="relative w-3/4 h-36 md:w-3/4 md:h-48 lg:w-4/5 lg:h-72">
         <Image
           src={`${BACKEND_SERVER}${miniatura}`}
           fill
-          className="object-cover rounded-xl"
+          className="object-cover rounded-xl aspect-video"
           alt={nombre}
         />
 
@@ -78,7 +78,7 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
         )}
       </div>
 
-      <p className="p-3 text-sm text-center">{descripcionRecortada}</p>
+      <p className="p-3 text-xs sm:text-sm dm:text-dm text-center max-w-fit">{descripcionRecortada}</p>
 
       <div className="flex gap-2">
         {user?.tipoUsuario === "ADMINISTRADOR" && (

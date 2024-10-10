@@ -14,17 +14,18 @@ const CategoryBar = ({ pathname }) => {
 
   return (
     <div
-      className="absolute left-1/2 transform -translate-x-1/2 -mt-12
+      className="absolute left-1/2 transform -translate-x-1/2 sm:-mt-12 -mt-8 
     bg-white rounded-full shadow-customBlueShadow
-      w-[90%] p-4 flex flex-col gap-6 items-center sm:w-[60%] sm:flex-row sm:justify-center sm:p-8 sm:gap-8"
+      w-[75%] p-4 flex justify-center gap-6 items-center sm:w-[70%] md:w-[60%] sm:flex-row sm:justify-center sm:p-8 sm:gap-8
+      dark:text-white dark:bg-gray-800"
     >
       <Link
         href="/category/activities"
-        className={`sm:text-2xl font-volkhov
+        className={`lg:text-2xl md:text-xl sm:text-base text-xs font-volkhov
           ${
             isLinkActive("/activities")
-              ? "border-b-4 border-[#363636]"
-              : "hover:border-b-4 border-[#363636]"
+              ? "border-b-4 border-[#363636] dark:border-white dark:hover:border-white"
+              : "hover:border-b-4 border-[#363636] dark:hover:border-white"
           }`}
       >
         Actividades
@@ -32,11 +33,11 @@ const CategoryBar = ({ pathname }) => {
       {isLoggedIn && role === UserRoles.TURISTA ? (
         <Link
           href="/category/recomendations"
-          className={`sm:text-2xl font-volkhov
+          className={`lg:text-2xl md:text-xl sm:text-base text-xs font-volkhov
               ${
                 isLinkActive("/recomendations")
-                  ? "border-b-4 border-[#363636]"
-                  : "hover:border-b-4 border-[#363636]"
+                  ? "border-b-4 border-[#363636] dark:border-white dark:hover:border-white"
+                  : "hover:border-b-4 border-[#363636] dark:hover:border-white"
               }`}
         >
           Recomendaciones
@@ -46,11 +47,11 @@ const CategoryBar = ({ pathname }) => {
       )}
       <Link
         href="/category/extreme"
-        className={`sm:text-2xl font-volkhov
+        className={`lg:text-2xl md:text-xl sm:text-base text-xs font-volkhov
           ${
             isLinkActive("/extreme")
-              ? "border-b-4 border-[#363636]"
-              : "hover:border-b-4 border-[#363636]"
+              ? "border-b-4 border-[#363636] dark:border-white dark:hover:border-white"
+              : "hover:border-b-4 border-[#363636] dark:hover:border-white"
           }`}
       >
         Planes Extremos
