@@ -1,295 +1,51 @@
 "use client"
 
-import { ImageIcon } from "lucide-react"
-import Image from "next/image"
-import { useCallback, useId, useState } from "react"
-import { IoIosClose } from "react-icons/io"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api"
-import { useController, useForm } from "react-hook-form"
-import { FaUpload } from "react-icons/fa"
+import { Controller, useForm } from "react-hook-form"
 import { Textarea } from "@/components/ui/textarea"
 import MultiCaracterist from "@/components/ui/multi-select/MultiSelect"
 import { FiEdit } from "react-icons/fi"
 import { MdOutlineCancel } from "react-icons/md"
 import { Button } from "@/components/ui/button"
-import { BACKEND_SERVER } from "@/env"
 import { ErrorMessage } from "@/components"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { createPlan, updatePlan } from "@/services/plan"
-
-const containerStyle = {
-  width: "100%",
-  height: "100%",
-}
-const center = {
-  lat: 10.378,
-  lng: -75.477,
-}
-
-export const InputMap = ({ initialMarkerLocation, setInputUbicacion }) => {
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: "AIzaSyD8aMwPr-AAPEW1j9U8ew6mSN05USal5Po",
-  })
-
-  const [map, setMap] = useState(null)
-  const [markerPosition, setMarkerPosition] = useState(
-    {
-      lat: initialMarkerLocation?.latitud,
-      lng: initialMarkerLocation?.longitud,
-    } || null
-  )
-
-  const onLoad = useCallback(function callback(map) {
-    setMap(map)
-  }, [])
-
-  const onUnmount = useCallback(function callback(map) {
-    setMap(null)
-  }, [])
-
-  const placeMarkerAndPanTo = async (event) => {
-    const lat = event.latLng.lat()
-    const lng = event.latLng.lng()
-    setMarkerPosition({ lat, lng })
-
-    const address = await getAddressFromLatLng({ lat, lng })
-
-    setInputUbicacion({ lat, lng, dir: address })
-  }
-
-  const getAddressFromLatLng = async ({ lat, lng }) => {
-    try {
-      const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
-
-      const res = await fetch(url)
-
-      const resJson = await res.json()
-
-      const address = resJson?.display_name
-
-      return address
-    } catch (err) {
-      console.error(
-        `Error al obtener la direccion con latitud ${lat} y longitud ${lng}`
-      )
-    }
-  }
-
-  return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={center}
-      zoom={12}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-      onClick={(e) => placeMarkerAndPanTo(e)}
-    >
-      {markerPosition !== null ? (
-        <Marker position={markerPosition}></Marker>
-      ) : (
-        <></>
-      )}
-    </GoogleMap>
-  ) : (
-    <>
-      <h1>Hubo un problema al cargar el mapa</h1>
-    </>
-  )
-}
-
-export const InputImagesPlan = ({
-  initialMiniaturaSelected,
-  setInputMiniatura,
-  control,
-  name,
-  rules,
-}) => {
-  const inputImageId = useId()
-
-  /**
-   * Se usa el hook useContoller() para conectarnos con el estado del formulario por medio del control
-   *  y el nombre del control que recibe el componente por parametro
-   *
-   * useController({
-   *  name, -> nombre del control al que se quiere acceder
-   *  control, -> control del formulario
-   *  defaultValue: [], -> valor por defecto de las imagenes (vacio)
-   * })
-   */
-  const {
-    field: { onChange, value },
-    fieldState: { error },
-  } = useController({
-    name,
-    control,
-    rules,
-    defaultValue: [],
-  })
-
-  // Se define cual es la miniatura del plan en caso de que este siendo editado
-  const formatedMiniaturaSelected = value?.findIndex((img) => {
-    return (
-      `${BACKEND_SERVER}${img.url}` ===
-      `${BACKEND_SERVER}${initialMiniaturaSelected}`
-    )
-  })
-
-  const [miniatura, setMiniatura] = useState(
-    formatedMiniaturaSelected === -1 ? 0 : formatedMiniaturaSelected
-  )
-
-  setInputMiniatura(miniatura)
-
-  // Metodo para controlar cuando se suban las imagenes al input
-  const handleFileChange = (e) => {
-    // Se convierte en un array las imagenes que vienen desde el evento del input
-    // para poder itererar sobre ellas
-    const newFiles = Array.from(e.target.files)
-    // Iteramos sobre las imagenes y transformamos a un array de objetos con el valor del input
-    // y la url de la imagen para poder previsualizarla
-    // [{ file, preview }]
-    const newImages = newFiles.map((file) => ({
-      file,
-      preview: URL.createObjectURL(file),
-      isNew: true,
-    }))
-
-    // Se actualiza el estado del input con el metodo onChange que nos proporciona el useController
-    // para interactuar con el form
-    onChange([...value, ...newImages])
-    console.log([...value, ...newImages])
-  }
-
-  const handleMiniatura = (index) => {
-    setMiniatura(index)
-    setInputMiniatura(index)
-  }
-
-  // Metodo para controlar cuando se elimina una imagen del preview
-  const handleRemoveImage = (index) => {
-    // Se hace una copia de lo que esta en el estado del form (para este input)
-    const newImages = [...value]
-
-    // Se revoca (elimina) la URL que se habia generado para hacer el preview
-    URL.revokeObjectURL(newImages[index].preview)
-
-    // Eliminamos la imagen segun el index
-    newImages.splice(index, 1)
-
-    // Se actualiza el estado del input
-    onChange(newImages)
-    if (miniatura === index && miniatura > 0) {
-      const newMiniatura = miniatura - 1
-      setMiniatura(newMiniatura)
-      setInputMiniatura(newMiniatura)
-    }
-  }
-
-  return (
-    <>
-      <div>
-        <h1>Imagenes del Plan</h1>
-        <p>(Max. 4)</p>
-      </div>
-      <div className="aspect-video bg-muted flex flex-col items-center justify-center relative rounded-lg overflow-hidden">
-        {value.length > 0 ? (
-          <>
-            <Image
-              src={
-                value[miniatura]?.isNew
-                  ? value[miniatura].preview
-                  : `${BACKEND_SERVER}${value[miniatura].url}`
-              }
-              alt={`preview thumbnail`}
-              fill
-              className="max-h-full max-w-full object-cover"
-            />
-            <span className="absolute top-2 left-2 bg-white/50 py-1 px-2 rounded-3xl">
-              Esta sera la miniatura del plan
-            </span>
-          </>
-        ) : (
-          <>
-            <ImageIcon className="sm:w-16 sm:h-16 mb-2 w-8 h-8 " />
-            <span className="sm:text-base text-xs">
-              No hay imágenes cargadas
-            </span>
-          </>
-        )}
-      </div>
-      <div className="grid grid-cols-4 gap-3">
-        {value.map((img, index) => (
-          <div
-            key={index}
-            className="relative aspect-square rounded-lg overflow-hidden transition-all hover:scale-105 hover:cursor-pointer"
-          >
-            <Image
-              src={img.isNew ? img.preview : `${BACKEND_SERVER}${img.url}`}
-              alt={`Preview ${index}`}
-              fill
-              className="max-h-full max-w-full object-cover"
-              onClick={() => handleMiniatura(index)}
-            />
-            <span
-              className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full cursor-pointer hover:bg-red-700"
-              onClick={() => handleRemoveImage(index)}
-            >
-              <IoIosClose />
-            </span>
-          </div>
-        ))}
-        {value.length === 0 &&
-          Array.from({ length: Math.max(0, 4 - value.length) }).map(
-            (_, index) => (
-              <div
-                key={`empty-${index}`}
-                className="aspect-square bg-muted flex items-center justify-center"
-              >
-                <ImageIcon className="w-8 h-8 text-muted-foreground" />
-              </div>
-            )
-          )}
-      </div>
-      <Label
-        htmlFor={inputImageId}
-        className="mx-auto flex gap-2 bg-customBlue text-white p-4 rounded-full cursor-pointer hover:bg-light-blue-800"
-      >
-        <FaUpload /> <span>Elija sus archivos</span>
-      </Label>
-      <Input
-        id={inputImageId}
-        type="file"
-        multiple
-        onChange={handleFileChange}
-        accept="image/*"
-        className="hidden"
-      />
-      {error && <ErrorMessage message={error.message} />}
-    </>
-  )
-}
+import { InteractiveMap } from "./InteractiveMap"
+import { ImagesPlan } from "./ImagesPlan"
 
 export function PlanForm({ plan, closeModal }) {
   const router = useRouter()
 
   const formDefaultValues = plan
     ? {
-        ...plan,
-        imagenesFiles: plan.imagenes
-          ? plan.imagenes.map((url) => ({ url, isNew: false }))
+        nombre: plan.nombre,
+        descripcion: plan.descripcion,
+        categoria: plan.categoria,
+        rangoMinDinero: plan.rangoMinDinero,
+        rangoMaxDinero: plan.rangoMaxDinero,
+        imagenes: {
+          files: plan.imagenes
+            ? plan.imagenes.map((preview) => ({ preview, isNew: false }))
+            : [],
+          miniatura: plan.imagenes.findIndex((img) => img === plan.miniatura),
+        },
+        ubicacion: plan.ubicacion,
+        caracteristicas: plan.caracteristicas
+          ? plan.caracteristicas.map((item) => item.id)
           : [],
       }
     : {
-        caracteristicas: [],
+        nombre: "",
+        descripcion: "",
+        categoria: "",
+        rangoMinDinero: "",
+        rangoMaxDinero: "",
+        imagenes: { files: [], miniaturaSelect: 0 },
+        ubicacion: null,
         miniaturaSelect: "",
-        latitud: "",
-        longitud: "",
-        direccion: "",
+        caracteristicas: [],
       }
 
   const {
@@ -301,16 +57,6 @@ export function PlanForm({ plan, closeModal }) {
     reset,
     control,
   } = useForm({ defaultValues: { ...formDefaultValues } })
-
-  const setInputMiniatura = (miniatura) => {
-    setValue("miniaturaSelect", miniatura)
-  }
-
-  const setInputUbicacion = ({ lat, lng, dir }) => {
-    setValue("latitud", lat)
-    setValue("longitud", lng)
-    setValue("direccion", dir)
-  }
 
   const setInputCaracteristicas = (caracteristicasSeleccionadas) => {
     setValue("caracteristicas", caracteristicasSeleccionadas)
@@ -329,11 +75,6 @@ export function PlanForm({ plan, closeModal }) {
   const onSubmit = handleSubmit(async (data) => {
     data.caracteristicas = data.caracteristicas.map((c) => c.value)
 
-    if (data.latitud === "" || data.longitud === "" || data.direccion === "") {
-      toast.error("Seleccione una ubicacion")
-      return
-    }
-
     if (data.caracteristicas.length < 3) {
       toast.error("Seleccione una por lo menor 3 caracteristicas")
       return
@@ -342,30 +83,33 @@ export function PlanForm({ plan, closeModal }) {
     const formData = new FormData()
 
     Object.keys(data).forEach((key) => {
-      if (key === "imagenesFiles") {
-        // Las imagenes que no son nuevas son añadidas a un array (su url de acceso en el servidor)
-        // y seran añadidas al campo imagenesExistentes en el formData
-        data[key]
-          .filter((img) => !img.isNew) // <- Va a filtrar las que no son nuevas
+      if (key === "imagenes") {
+        // Las imagenes que no son nuevas son añadidas al campo imagenesExistentes en el formData (su url de acceso en el servidor)
+        data[key].files
+          .filter((img) => !img.isNew) // <- NO NUEVAS
           .forEach((img, index) => {
-            formData.append(`imagenesExistentes[${index}]`, img.url)
+            formData.append(`imagenesExistentes[${index}]`, img.preview)
           })
 
         // Las imagenes nuevas son añadidas al campo imagenesFiles en el formData (su multipart file)
-        data[key]
-          .filter((img) => img.isNew)
+        data[key].files
+          .filter((img) => img.isNew) // <- NUEVAS
           .forEach((image, index) => {
             formData.append(`imagenesFiles[${index}]`, image.file)
           })
+
+        formData.append("miniaturaSelect", data[key].miniatura)
       } else if (key === "caracteristicas") {
-        return
+        data[key].forEach((caracteristica, index) => {
+          formData.append(`caracteristicas[${index}]`, caracteristica)
+        })
+      } else if (key === "ubicacion") {
+        formData.append("latitud", data[key].latitud)
+        formData.append("longitud", data[key].longitud)
+        formData.append("direccion", data[key].direccion)
       } else {
         formData.append(key, data[key])
       }
-    })
-
-    data.caracteristicas.forEach((caracteristica, index) => {
-      formData.append(`caracteristicas[${index}]`, caracteristica)
     })
 
     // Para ve la info que va en el form data
@@ -406,23 +150,32 @@ export function PlanForm({ plan, closeModal }) {
       <div className="container flex flex-col sm:flex-row gap-6 pt-5 pb-5">
         <div className="flex flex-col items-stretch gap-3 text-center w-full sm:w-1/2">
           {/* Preview imagenes del input */}
-          <InputImagesPlan
-            setInputMiniatura={setInputMiniatura}
-            initialMiniaturaSelected={plan?.miniatura}
+          <ImagesPlan
             control={control}
-            name="imagenesFiles"
+            name="imagenes"
             rules={{
               validate: (value) => {
-                return value.length <= 4 || "No puedes subir más de 4 imágenes"
+                return (
+                  value.files.length <= 4 || "No puedes subir más de 4 imágenes"
+                )
               },
             }}
           />
 
           {/* Input de tipo mapa para la ubicacion */}
           <div className="relative aspect-square w-full bg-muted flex items-center justify-center mb-4">
-            <InputMap
-              setInputUbicacion={setInputUbicacion}
-              initialMarkerLocation={plan?.ubicacion}
+            <Controller
+              name="ubicacion"
+              control={control}
+              render={({ field: { value, onChange } }) => (
+                <InteractiveMap
+                  value={value}
+                  onChange={(newLocation) => {
+                    console.log({ newLocation, value })
+                    onChange(newLocation)
+                  }}
+                />
+              )}
             />
           </div>
         </div>
