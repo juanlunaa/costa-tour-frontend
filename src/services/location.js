@@ -39,3 +39,17 @@ export const fetchCiudadesByEstado = async (idEstado) => {
     return []
   }
 }
+
+export const getAddressFromLatLng = async ({ lat, lng }) => {
+  try {
+    const { data } = await axios.get(
+      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
+    )
+    const address = data?.display_name
+    return address
+  } catch (err) {
+    console.error(
+      `Error al obtener la direccion con latitud ${lat} y longitud ${lng}`
+    )
+  }
+}
