@@ -4,7 +4,7 @@ import { PiBuildingApartment } from "react-icons/pi"
 import { TbGps } from "react-icons/tb"
 import { CardPlan } from "@/components"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import  CheckboxGroupDemo  from "@/components/ui/checkbox-group/Checkbox"
+import CheckboxGroupDemo from "@/components/ui/checkbox-group/Checkbox"
 import { fetchAllPlans } from "@/services/plan"
 
 export default async function Activity() {
@@ -45,9 +45,11 @@ export default async function Activity() {
           </TabsTrigger>
         </TabsList>
         <div className="grid-filter-tabContent flex flex-col items-center sm:items-start sm:flex-row sm:justify-between sm:mt-24 mt-8  gap-5">
-          <div className="filter shadow-customBoxShadow rounded-sm sm:max-w-[150px] md:max-w-[200px] max-w-[600px] 
-                          w-[90%] sm:ml-[3%] h-fit sm:flex-row dark:bg-gray-800">          
-            <CheckboxGroupDemo/>
+          <div
+            className="filter shadow-customBoxShadow rounded-sm sm:max-w-[150px] md:max-w-[200px] max-w-[600px] 
+                          w-[90%] sm:ml-[3%] h-fit sm:flex-row dark:bg-gray-800"
+          >
+            <CheckboxGroupDemo />
           </div>
           <TabsContent value="restaurante" className="relative sm:w-3/4 w-full">
             <div className=" grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
@@ -62,7 +64,10 @@ export default async function Activity() {
               ))}
             </div>
           </TabsContent>
-          <TabsContent value="sitio-turistico" className="relative sm:w-3/4 w-full">
+          <TabsContent
+            value="sitio-turistico"
+            className="relative sm:w-3/4 w-full"
+          >
             <div className="grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
               {touristSites.map((p) => (
                 <CardPlan

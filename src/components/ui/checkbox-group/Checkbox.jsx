@@ -43,7 +43,7 @@
 //     </div>
 //   )
 // }
-'use client'
+"use client"
 
 import React, { useState, useEffect } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -75,9 +75,9 @@ export default function ResponsiveAccordionCheckboxDemo() {
     }
 
     checkScreenSize()
-    window.addEventListener('resize', checkScreenSize)
+    window.addEventListener("resize", checkScreenSize)
 
-    return () => window.removeEventListener('resize', checkScreenSize)
+    return () => window.removeEventListener("resize", checkScreenSize)
   }, [])
 
   const handleCheckboxChange = (itemId) => {
@@ -123,7 +123,9 @@ export default function ResponsiveAccordionCheckboxDemo() {
         </Accordion>
       ) : (
         <div>
-          <h3 className="md:text-base sm:text-sm pl-4 font-medium my-4 ">Filtrar por</h3>
+          <h3 className="md:text-base sm:text-sm pl-4 font-medium my-4 ">
+            Filtrar por
+          </h3>
           <CheckboxGroup />
         </div>
       )}

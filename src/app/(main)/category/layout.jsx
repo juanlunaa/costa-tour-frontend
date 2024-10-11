@@ -20,7 +20,9 @@ export default function CostaTourLayout({ children }) {
       </div>
       <div className="container-main relative flex  flex-col rounded-t-[45px] top-[-50px] bg-white dark:bg-gray-900 dark:text-white">
         <CategoryBar pathname={{ pathname }} />
-        <div className="container-info-plan sm:mt-[7rem] mt-20 dark:bg-gray-900">{children}</div>
+        <div className="container-info-plan sm:mt-[7rem] mt-20 dark:bg-gray-900">
+          {children}
+        </div>
       </div>
     </div>
   )

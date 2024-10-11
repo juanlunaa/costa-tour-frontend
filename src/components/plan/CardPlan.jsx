@@ -78,7 +78,9 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
         )}
       </div>
 
-      <p className="p-3 text-xs sm:text-sm dm:text-dm text-center max-w-fit">{descripcionRecortada}</p>
+      <p className="p-3 text-xs sm:text-sm dm:text-dm text-center max-w-fit">
+        {descripcionRecortada}
+      </p>
 
       <div className="flex gap-2">
         {user?.tipoUsuario === "ADMINISTRADOR" && (
