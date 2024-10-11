@@ -1,5 +1,4 @@
 import { useEffect } from "react"
-import { useState } from "react"
 import {
   MapContainer,
   TileLayer,
@@ -31,7 +30,7 @@ const LocationMarker = ({ value, onChange }) => {
   )
 }
 
-export const InteractiveMap = ({ value, onChange }) => {
+const InteractiveMap = ({ value, onChange }) => {
   useEffect(() => {
     // Configurar los íconos de Leaflet
     delete L.Icon.Default.prototype._getIconUrl
@@ -59,3 +58,5 @@ export const InteractiveMap = ({ value, onChange }) => {
     </MapContainer>
   )
 }
+
+export default InteractiveMap

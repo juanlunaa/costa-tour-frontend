@@ -9,6 +9,7 @@ import { useState } from "react"
 import { UserRoles } from "@/logic/auth"
 import useUserStore from "@/hooks/useUserStore"
 import { login } from "@/services/auth"
+import { Input } from "@/components/ui/input"
 
 export default function Login() {
   const {
@@ -62,10 +63,10 @@ export default function Login() {
         )}
         <div>
           <div className="relative">
-            <input
+            <Input
               type="email"
               placeholder="Email"
-              className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+              className="bg-customBlueInputAuth p-3 pl-10 rounded-lg w-full placeholder:text-black/60"
               {...register("email", {
                 required: {
                   value: true,
@@ -88,10 +89,10 @@ export default function Login() {
 
         <div>
           <div className="relative">
-            <input
+            <Input
               type="password"
               placeholder="Contraseña"
-              className="bg-[#D1EEF2] p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+              className="bg-customBlueInputAuth p-3 pl-10 rounded-lg w-full placeholder:text-black/60"
               {...register("password", {
                 required: {
                   value: true,

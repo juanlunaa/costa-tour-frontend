@@ -4,19 +4,28 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Controller, useForm } from "react-hook-form"
 import { Textarea } from "@/components/ui/textarea"
-import MultiCaracterist from "@/components/ui/multi-select/MultiSelect"
-import { FiEdit } from "react-icons/fi"
+import { FiEdit, FiPlusCircle } from "react-icons/fi"
 import { MdOutlineCancel } from "react-icons/md"
 import { Button } from "@/components/ui/button"
 import { ErrorMessage } from "@/components"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { createPlan, updatePlan } from "@/services/plan"
-import { InteractiveMap } from "./InteractiveMap"
 import { ImagesPlan } from "./ImagesPlan"
+import { RHFMultiselect } from "@/components"
+
+import dynamic from "next/dynamic"
+import { useEffect, useState } from "react"
+import { fetchCharacteristics } from "@/services/utils"
+
+const InteractiveMap = dynamic(() => import("./InteractiveMap"), {
+  ssr: false, // Desactiva el SSR para este componente
+})
 
 export function PlanForm({ plan, closeModal }) {
   const router = useRouter()
+
+  const [caracteristicasBd, setCaracteristicasBd] = useState([])
 
   const formDefaultValues = plan
     ? {
@@ -33,7 +42,7 @@ export function PlanForm({ plan, closeModal }) {
         },
         ubicacion: plan.ubicacion,
         caracteristicas: plan.caracteristicas
-          ? plan.caracteristicas.map((item) => item.id)
+          ? plan.caracteristicas.map((item) => item.id?.toString())
           : [],
       }
     : {
@@ -53,14 +62,9 @@ export function PlanForm({ plan, closeModal }) {
     handleSubmit,
     formState: { errors },
     watch,
-    setValue,
     reset,
     control,
   } = useForm({ defaultValues: { ...formDefaultValues } })
-
-  const setInputCaracteristicas = (caracteristicasSeleccionadas) => {
-    setValue("caracteristicas", caracteristicasSeleccionadas)
-  }
 
   const resetForm = () => {
     reset()
@@ -73,13 +77,6 @@ export function PlanForm({ plan, closeModal }) {
   }
 
   const onSubmit = handleSubmit(async (data) => {
-    data.caracteristicas = data.caracteristicas.map((c) => c.value)
-
-    if (data.caracteristicas.length < 3) {
-      toast.error("Seleccione una por lo menor 3 caracteristicas")
-      return
-    }
-
     const formData = new FormData()
 
     Object.keys(data).forEach((key) => {
@@ -144,6 +141,15 @@ export function PlanForm({ plan, closeModal }) {
       }
     }
   })
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchCharacteristics()
+      setCaracteristicasBd(data)
+    }
+
+    fetchData()
+  }, [])
 
   return (
     <form onSubmit={onSubmit}>
@@ -265,11 +271,12 @@ export function PlanForm({ plan, closeModal }) {
                   message: "Rango maximo de dinero es requerido",
                 },
                 validate: (value) => {
-                  const rangoMin = watch("rangoMinDinero")
+                  const rangoMin = parseFloat(watch("rangoMinDinero"))
+                  const rangoMax = parseFloat(value)
 
-                  if (rangoMin < value) return true
+                  if (rangoMin < rangoMax) return true
 
-                  return "El rango maximo no puede ser menor al rango minimo"
+                  return "El rango máximo no puede ser menor al rango mínimo"
                 },
               })}
             />
@@ -280,10 +287,28 @@ export function PlanForm({ plan, closeModal }) {
 
           <div>
             <Label htmlFor="Caracteristicas">Caracteristicas</Label>
-            <MultiCaracterist
-              setInputCaracteristicas={setInputCaracteristicas}
-              initialSelection={plan?.caracteristicas}
+            <RHFMultiselect
+              name={"caracteristicas"}
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: "Caracteristicas son requeridas",
+                },
+                validate: (value) => {
+                  return (
+                    value.length >= 3 ||
+                    "Seleccione por lo menos 3 caracteristicas"
+                  )
+                },
+              }}
+              options={caracteristicasBd}
+              placeholderSelect={"Selecciona las caracteristicas"}
+              notFoundMessage={"No se encontraron caracteristicas"}
             />
+            {errors.caracteristicas && (
+              <ErrorMessage message={errors.caracteristicas.message} />
+            )}
           </div>
 
           <div>
@@ -301,8 +326,15 @@ export function PlanForm({ plan, closeModal }) {
                 type="submit"
                 className=" sm:w-[40%] sm:text-base w-[45%] text-xs bg-[#37B1E2] hover:bg-[#34c6ffd0] rounded-full"
               >
-                <FiEdit className="mr-1" />
-                {plan ? "Modificar Plan" : "Agregar Plan"}
+                {plan ? (
+                  <>
+                    <FiEdit className="mr-1" /> Modificar
+                  </>
+                ) : (
+                  <>
+                    <FiPlusCircle className="mr-1" /> Agregar
+                  </>
+                )}
               </Button>
             </div>
           </div>
