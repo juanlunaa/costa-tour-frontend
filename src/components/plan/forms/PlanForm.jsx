@@ -306,7 +306,6 @@ export function PlanForm({ plan, closeModal }) {
                 },
               }}
               options={caracteristicasBd}
-              placeholderSelect={"Selecciona las caracteristicas"}
               notFoundMessage={"No se encontraron caracteristicas"}
             />
             {errors.caracteristicas && (
