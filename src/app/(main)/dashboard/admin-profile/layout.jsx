@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import useUserStore from "@/hooks/useUserStore"
 import { Badge } from "@/components/ui/badge"
 import { BACKEND_SERVER } from "@/env"
-import { UserUpdateAvatar } from "@/components"
+import { Loading, UserUpdateAvatar } from "@/components"
 import { logoutUser } from "@/services/auth"
 
 export default function AdminProfileLayout({ children }) {
@@ -25,13 +25,13 @@ export default function AdminProfileLayout({ children }) {
     const { status } = await logoutUser()
 
     if (status === 200) {
+      logout()
       router.push("/")
-      // Se da un tiempo a que se haga la redireccion para actualizar el estado
-      setTimeout(
-        () => logout(), // <- afecta al estado global del usuario
-        [500]
-      )
     }
+  }
+
+  if (!user) {
+    return <Loading />
   }
 
   return (

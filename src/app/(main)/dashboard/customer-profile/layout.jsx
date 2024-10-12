@@ -2,13 +2,13 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { FaMapMarkerAlt } from "react-icons/fa"
 import { useRouter } from "next/navigation"
 import useUserStore from "@/hooks/useUserStore"
 import { logoutUser } from "@/services/auth"
-import { UserUpdateAvatar } from "@/components"
+import { Loading, UserUpdateAvatar } from "@/components"
 import { BACKEND_SERVER } from "@/env"
+import { useState } from "react"
 
 export default function CustomerProfileLayout({ children }) {
   const pathname = usePathname()
@@ -21,20 +21,20 @@ export default function CustomerProfileLayout({ children }) {
 
   const { user, logout } = useUserStore()
 
-  const { nombre, apellido, avatar, ciudad } = user
-
   const handleLogout = async () => {
     const { status } = await logoutUser()
 
     if (status === 200) {
+      logout()
       router.push("/")
-      // Se da un tiempo a que se haga la redireccion para actualizar el estado
-      setTimeout(
-        () => logout(), // <- afecta al estado global del usuario
-        [500]
-      )
     }
   }
+
+  if (!user) {
+    return <Loading />
+  }
+
+  const { nombre, apellido, avatar, ciudad } = user
 
   return (
     <div className="container max-w-screen-xl pt-28 mb-[8%] px-4 sm:px-8 md:px-16  mx-auto">
