@@ -1,3 +1,5 @@
+"use client"
+
 import { Multiselect } from "@/components"
 import { Controller } from "react-hook-form"
 

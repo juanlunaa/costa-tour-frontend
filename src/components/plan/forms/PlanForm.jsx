@@ -38,7 +38,10 @@ export function PlanForm({ plan, closeModal }) {
           files: plan.imagenes
             ? plan.imagenes.map((preview) => ({ preview, isNew: false }))
             : [],
-          miniatura: plan.imagenes.findIndex((img) => img === plan.miniatura),
+          miniatura:
+            plan.imagenes.length > 0
+              ? plan.imagenes.findIndex((img) => img === plan.miniatura)
+              : 0,
         },
         ubicacion: plan.ubicacion,
         caracteristicas: plan.caracteristicas

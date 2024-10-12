@@ -80,8 +80,8 @@ export const ImagesPlan = ({ control, name, rules }) => {
     const newState = {
       files: newImages,
       miniatura:
-        value.miniatura === index || value.miniatura > 0
-          ? value.miniaturaSelect - 1
+        value.miniatura === index && value.miniatura > 0
+          ? value.miniatura - 1
           : value.miniatura,
     }
     onChange(newState)

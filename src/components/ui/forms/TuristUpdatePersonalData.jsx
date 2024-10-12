@@ -5,7 +5,7 @@ import useLocationData from "@/hooks/useLocationData"
 import useUserStore from "@/hooks/useUserStore"
 import clsx from "clsx"
 import { updatePersonalDataTurist } from "@/services/user"
-import { ErrorMessage, RHFCombobox } from "@/components"
+import { ErrorMessage, RHFComboboxLocation } from "@/components"
 import { toast } from "sonner"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -145,7 +145,7 @@ export const TuristUpdatePersonalData = () => {
         <Label htmlFor="ciudad" className={styleLabels}>
           Ciudad
         </Label>
-        <RHFCombobox
+        <RHFComboboxLocation
           name="ciudad"
           options={locationData.ciudades}
           placeholderSelect="Selecciona una ciudad"
@@ -162,7 +162,7 @@ export const TuristUpdatePersonalData = () => {
         <Label htmlFor="estado" className={styleLabels}>
           Estado
         </Label>
-        <RHFCombobox
+        <RHFComboboxLocation
           name="estado"
           options={locationData.estados}
           placeholderSelect="Selecciona un estado/provincia"
@@ -179,7 +179,7 @@ export const TuristUpdatePersonalData = () => {
         <Label htmlFor="pais" className={styleLabels}>
           Pais
         </Label>
-        <RHFCombobox
+        <RHFComboboxLocation
           name="pais"
           options={locationData.paises}
           placeholderSelect="Selecciona un pais"

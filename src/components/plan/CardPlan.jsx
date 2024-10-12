@@ -64,7 +64,7 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
         <span className="absolute top-2 left-2 py-1 px-3 bg-[#2D3134] text-white text-xs rounded-full">
           4.0
         </span>
-        {isLoggedIn && (
+        {isLoggedIn && user?.tipoUsuario === "TURISTA" ? (
           <button
             onClick={handleClickBookmark}
             className="absolute top-2 right-2 text-xl rounded-full text-black bg-white py-2 px-3"
@@ -75,6 +75,8 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
               <FaRegBookmark />
             )}
           </button>
+        ) : (
+          <></>
         )}
       </div>
 
@@ -85,7 +87,7 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
       <div className="flex gap-2">
         {user?.tipoUsuario === "ADMINISTRADOR" && (
           <Link
-            href="#"
+            href={`/plans/edit/${id}`}
             className="py-1 px-4 bg-customBlue text-white rounded-full"
           >
             Modificar
