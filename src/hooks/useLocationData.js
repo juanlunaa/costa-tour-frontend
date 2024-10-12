@@ -6,8 +6,6 @@ import {
 import { useEffect, useState } from "react"
 
 export default function useLocationData({ inputPais, inputEstado }) {
-  console.log({ inputPais, inputEstado })
-  console.log(inputEstado)
   const [locationData, setLocationData] = useState({
     paises: [],
     estados: [],
