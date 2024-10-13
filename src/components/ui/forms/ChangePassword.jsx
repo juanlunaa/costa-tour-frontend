@@ -11,7 +11,8 @@ import { updateCredentials } from "@/services/user"
 
 export const ChangePassword = ({ buttonColor }) => {
   const styleLabels = clsx("text-sm font-bold md:text-base sm:text-sm ")
-  const styleInputs = clsx("text-gray-600 block w-full bg-[#F4F4F5]")
+  const styleInputs = clsx("text-gray-600 block w-full bg-[#F4F4F5] dark:bg-gray-700 dark:text-white")
+  const stylebtn = clsx("w-[50%] sm:w-[40%] text-xs sm:text-sm md:text-base font-bold mt-5 py-4 dark:text-black")
 
   const { user } = useUserStore()
 
@@ -53,7 +54,7 @@ export const ChangePassword = ({ buttonColor }) => {
   return (
     <form
       onSubmit={onSubmit}
-      className="grid grid-cols-1 gap-4 mb-10 mx-auto w-[85%] mt-[2%]"
+      className="grid grid-cols-1 gap-4 mb-10 mx-auto w-[85%] mt-[2%] dark:text-white"
     >
       <h1 className="font-bold text-2xl mt-12">Seguridad </h1>
 
@@ -134,7 +135,7 @@ export const ChangePassword = ({ buttonColor }) => {
 
       <button
         type="submit"
-        className={`${styleLabels} ${buttonColor} w-[50%] sm:w-[40%] mt-5 py-4`}
+        className={`${stylebtn} ${buttonColor}`}
       >
         Guardar
       </button>

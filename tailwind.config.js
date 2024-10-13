@@ -11,6 +11,9 @@ module.exports = withMT({
   ],
   theme: {
     extend: {
+      textShadow: {
+        'custom': '2px 2px 1px rgba(0, 0, 0, 1), 0px 0px 18px rgba(0, 0, 0, 1)',
+      },
       fontFamily: {
         volkhov: ["var(--font-volkhov)"],
         mulish: ["var(--font-mulish)"],
@@ -67,6 +70,8 @@ module.exports = withMT({
         customBlueShadow: "0 4px 6px rgba(123, 188, 176, 0.5)",
         customBoxShadow:
           "0 0px 15px 2px rgb(0 0 0 / 0.1), 0 4px 6px 2px rgb(0 0 0 / 0.1)",
+        customBoxShadowDark:
+          "0 0px 15px 2px rgb(255 255 255 / 0.1), 0 4px 6px 2px rgb(255 255 255 / 0.05)",
       },
       gridTemplateColumns: {
         "auto-fit": "repeat(auto-fit, minmax(320px, 1fr))",
@@ -101,4 +106,5 @@ module.exports = withMT({
     },
   },
   plugins: [require("tailwindcss-animate")],
+  plugins: [require('tailwindcss-textshadow')],
 })
