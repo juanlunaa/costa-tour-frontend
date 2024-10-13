@@ -17,6 +17,7 @@ import { RHFMultiselect } from "@/components"
 import dynamic from "next/dynamic"
 import { useEffect, useState } from "react"
 import { fetchCharacteristics } from "@/services/utils"
+import clsx from "clsx"
 
 const InteractiveMap = dynamic(() => import("./InteractiveMap"), {
   ssr: false, // Desactiva el SSR para este componente
@@ -29,33 +30,33 @@ export function PlanForm({ plan, closeModal }) {
 
   const formDefaultValues = plan
     ? {
-        nombre: plan.nombre,
-        descripcion: plan.descripcion,
-        categoria: plan.categoria,
-        rangoMinDinero: plan.rangoMinDinero,
-        rangoMaxDinero: plan.rangoMaxDinero,
-        imagenes: {
-          files: plan.imagenes
-            ? plan.imagenes.map((preview) => ({ preview, isNew: false }))
-            : [],
-          miniatura: plan.imagenes.findIndex((img) => img === plan.miniatura),
-        },
-        ubicacion: plan.ubicacion,
-        caracteristicas: plan.caracteristicas
-          ? plan.caracteristicas.map((item) => item.id?.toString())
+      nombre: plan.nombre,
+      descripcion: plan.descripcion,
+      categoria: plan.categoria,
+      rangoMinDinero: plan.rangoMinDinero,
+      rangoMaxDinero: plan.rangoMaxDinero,
+      imagenes: {
+        files: plan.imagenes
+          ? plan.imagenes.map((preview) => ({ preview, isNew: false }))
           : [],
-      }
+        miniatura: plan.imagenes.findIndex((img) => img === plan.miniatura),
+      },
+      ubicacion: plan.ubicacion,
+      caracteristicas: plan.caracteristicas
+        ? plan.caracteristicas.map((item) => item.id?.toString())
+        : [],
+    }
     : {
-        nombre: "",
-        descripcion: "",
-        categoria: "",
-        rangoMinDinero: "",
-        rangoMaxDinero: "",
-        imagenes: { files: [], miniaturaSelect: 0 },
-        ubicacion: null,
-        miniaturaSelect: "",
-        caracteristicas: [],
-      }
+      nombre: "",
+      descripcion: "",
+      categoria: "",
+      rangoMinDinero: "",
+      rangoMaxDinero: "",
+      imagenes: { files: [], miniaturaSelect: 0 },
+      ubicacion: null,
+      miniaturaSelect: "",
+      caracteristicas: [],
+    }
 
   const {
     register,
@@ -151,8 +152,11 @@ export function PlanForm({ plan, closeModal }) {
     fetchData()
   }, [])
 
+  const styleInputs = clsx("text-gray-600 block w-full bg-[#F4F4F5] dark:bg-gray-700 dark:text-white")
+  const styleSelect = clsx("flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:text-white")
+  
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="dark:text-white">
       <div className="container flex flex-col sm:flex-row gap-6 pt-5 pb-5">
         <div className="flex flex-col items-stretch gap-3 text-center w-full sm:w-1/2">
           {/* Preview imagenes del input */}
@@ -169,7 +173,7 @@ export function PlanForm({ plan, closeModal }) {
           />
 
           {/* Input de tipo mapa para la ubicacion */}
-          <div className="relative aspect-square w-full bg-muted flex items-center justify-center mb-4">
+          <div className="relative aspect-square w-full flex items-center justify-center mb-4">
             <Controller
               name="ubicacion"
               control={control}
@@ -191,7 +195,7 @@ export function PlanForm({ plan, closeModal }) {
           <div>
             <Label>Categoria</Label>
             <select
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className={`${styleSelect} ${styleInputs}`}
               {...register("categoria", {
                 required: {
                   value: true,
@@ -205,10 +209,12 @@ export function PlanForm({ plan, closeModal }) {
               <option value="PLAYA">Playas</option>
               <option value="ALOJAMIENTO">Alojamientos</option>
               <option value="EXTREMO">Extremos</option>
+              
             </select>
             {errors.categoria && (
               <ErrorMessage message={errors.categoria.message} />
             )}
+            
           </div>
 
           <div>
@@ -221,6 +227,7 @@ export function PlanForm({ plan, closeModal }) {
                   message: "Nombre es requerido",
                 },
               })}
+              className={styleInputs}
             />
             {errors.nombre && <ErrorMessage message={errors.nombre.message} />}
           </div>
@@ -235,6 +242,7 @@ export function PlanForm({ plan, closeModal }) {
                   message: "Descripcion es requerida",
                 },
               })}
+              className={styleInputs}
             />
             {errors.descripcion && (
               <ErrorMessage message={errors.descripcion.message} />
@@ -253,6 +261,7 @@ export function PlanForm({ plan, closeModal }) {
                   message: "Rango minimo de dinero es requerido",
                 },
               })}
+              className={styleInputs}
             />
             {errors.rangoMinDinero && (
               <ErrorMessage message={errors.rangoMinDinero.message} />
@@ -279,13 +288,14 @@ export function PlanForm({ plan, closeModal }) {
                   return "El rango máximo no puede ser menor al rango mínimo"
                 },
               })}
+              className={styleInputs}
             />
             {errors.rangoMaxDinero && (
               <ErrorMessage message={errors.rangoMaxDinero.message} />
             )}
           </div>
 
-          <div>
+          <div className={"dark:bg-gray-800"}>
             <Label htmlFor="Caracteristicas">Caracteristicas</Label>
             <RHFMultiselect
               name={"caracteristicas"}
@@ -304,7 +314,7 @@ export function PlanForm({ plan, closeModal }) {
               }}
               options={caracteristicasBd}
               placeholderSelect={"Selecciona las caracteristicas"}
-              notFoundMessage={"No se encontraron caracteristicas"}
+              notFoundMessage={"No se encontraron caracteristicas"}                   
             />
             {errors.caracteristicas && (
               <ErrorMessage message={errors.caracteristicas.message} />
@@ -317,14 +327,14 @@ export function PlanForm({ plan, closeModal }) {
               <Button
                 type="button"
                 onClick={() => resetForm()}
-                className="sm:w-[40%] sm:text-base w-[45%] text-xs bg-[#37B1E2] hover:bg-[#34c6ffd0] rounded-full"
+                className="sm:w-[40%] sm:text-base w-[45%] text-xs bg-[#37B1E2] hover:hover:bg-light-blue-800 rounded-full dark:text-white"
               >
                 <MdOutlineCancel className="mr-1" />
                 Cancelar
               </Button>
               <Button
                 type="submit"
-                className=" sm:w-[40%] sm:text-base w-[45%] text-xs bg-[#37B1E2] hover:bg-[#34c6ffd0] rounded-full"
+                className=" sm:w-[40%] sm:text-base w-[45%] text-xs bg-[#37B1E2] hover:hover:bg-light-blue-800 rounded-full dark:text-white"
               >
                 {plan ? (
                   <>

@@ -6,6 +6,7 @@ import { CardPlan } from "@/components"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import CheckboxGroupDemo from "@/components/ui/checkbox-group/Checkbox"
 import { fetchAllPlans } from "@/services/plan"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export default async function Activity() {
   const plans = await fetchAllPlans()
@@ -44,68 +45,72 @@ export default async function Activity() {
             <PiBuildingApartment className="w-6 h-6" /> Alojamientos
           </TabsTrigger>
         </TabsList>
-        <div className="grid-filter-tabContent flex flex-col items-center sm:items-start sm:flex-row sm:justify-between sm:mt-24 mt-8  gap-5">
+        <div className="grid-filter-tabContent flex flex-col items-center sm:items-start sm:flex-row sm:justify-between sm:mt-24 mt-8 sm:gap-1 gap-5">
           <div
             className="filter shadow-customBoxShadow rounded-sm sm:max-w-[150px] md:max-w-[200px] max-w-[600px] 
                           w-[90%] sm:ml-[3%] h-fit sm:flex-row dark:bg-gray-800"
           >
             <CheckboxGroupDemo />
           </div>
-          <TabsContent value="restaurante" className="relative sm:w-3/4 w-full">
-            <div className=" grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
-              {restaurants.map((p) => (
-                <CardPlan
-                  key={p.id}
-                  id={p.id}
-                  nombre={p.nombre}
-                  miniatura={p.miniatura}
-                  descripcion={p.descripcion}
-                />
-              ))}
+          <ScrollArea className="relative h-[700px] sm:mr-1  md:mr-5 overflow-auto">
+            <div className="flex justify-end">
+              <TabsContent value="restaurante" className="relative w-full">
+                <div className=" grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-y-5 gap-y-4">
+                  {restaurants.map((p) => (
+                    <CardPlan
+                      key={p.id}
+                      id={p.id}
+                      nombre={p.nombre}
+                      miniatura={p.miniatura}
+                      descripcion={p.descripcion}
+                    />
+                  ))}
+                </div>
+              </TabsContent>
+              <TabsContent
+                value="sitio-turistico"
+                className="relative w-full"
+              >
+                <div className="grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
+                  {touristSites.map((p) => (
+                    <CardPlan
+                      key={p.id}
+                      id={p.id}
+                      nombre={p.nombre}
+                      miniatura={p.miniatura}
+                      descripcion={p.descripcion}
+                    />
+                  ))}
+                </div>
+              </TabsContent>
+              <TabsContent value="playa" className="relative w-full">
+                <div className="grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
+                  {beaches.map((p) => (
+                    <CardPlan
+                      key={p.id}
+                      id={p.id}
+                      nombre={p.nombre}
+                      miniatura={p.miniatura}
+                      descripcion={p.descripcion}
+                    />
+                  ))}
+                </div>
+              </TabsContent>
+              <TabsContent value="alojamiento" className="relative w-full">
+                <div className="grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
+                  {accommodations.map((p) => (
+                    <CardPlan
+                      key={p.id}
+                      id={p.id}
+                      nombre={p.nombre}
+                      miniatura={p.miniatura}
+                      descripcion={p.descripcion}
+                    />
+                  ))}
+                </div>
+              </TabsContent>
             </div>
-          </TabsContent>
-          <TabsContent
-            value="sitio-turistico"
-            className="relative sm:w-3/4 w-full"
-          >
-            <div className="grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
-              {touristSites.map((p) => (
-                <CardPlan
-                  key={p.id}
-                  id={p.id}
-                  nombre={p.nombre}
-                  miniatura={p.miniatura}
-                  descripcion={p.descripcion}
-                />
-              ))}
-            </div>
-          </TabsContent>
-          <TabsContent value="playa" className="relative sm:w-3/4 w-full">
-            <div className="grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
-              {beaches.map((p) => (
-                <CardPlan
-                  key={p.id}
-                  id={p.id}
-                  nombre={p.nombre}
-                  miniatura={p.miniatura}
-                  descripcion={p.descripcion}
-                />
-              ))}
-            </div>
-          </TabsContent>
-          <TabsContent value="alojamiento" className="relative sm:w-3/4 w-full">
-            <div className="grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
-              {accommodations.map((p) => (
-                <CardPlan
-                  key={p.id}
-                  id={p.id}
-                  nombre={p.nombre}
-                  miniatura={p.miniatura}
-                  descripcion={p.descripcion}
-                />
-              ))}
-            </div>
-          </TabsContent>
+          </ScrollArea>
         </div>
       </Tabs>
     </div>

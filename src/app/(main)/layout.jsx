@@ -10,11 +10,12 @@ export default function CostaTourLayout({ children }) {
     if (pathname.includes("/customer-profile")) return false
     if (pathname.includes("/admin-profile")) return false
     if (pathname.includes("/dashboard")) return false
+    if (pathname.includes("/edit")) return false
     return true
   }
 
   return (
-    <main className="min-h-screen relative">
+    <main className="min-h-screen relative dark:bg-gray-900">
       <NavBar pathname={{ pathname }} />
       {children}
       {showFooter() ? <Footer /> : <></>}

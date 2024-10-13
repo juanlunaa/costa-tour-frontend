@@ -4,6 +4,7 @@ import useUserStore from "@/hooks/useUserStore"
 import { useEffect, useState } from "react"
 import { fetchFavoritePlansByTurist } from "@/services/user"
 import { CardPlanSaved } from "@/components"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export default function CustomerProfile() {
   const { user, removePlanFavorito } = useUserStore()
@@ -32,8 +33,8 @@ export default function CustomerProfile() {
 
   return (
     <div className="relative flex w-full h-auto">
-      <div className="container relative mx-auto pl-4 sm:pl-6 lg:pl-8 bg-white shadow-customBoxShadow">
-        <div className="relative mt-12">
+      <div className="container relative mx-auto pl-4 sm:pl-6 lg:pl-8 bg-white shadow-customBoxShadow dark:shadow-customBoxShadowDark dark:bg-gray-800">
+        <div className="relative mt-12 dark:text-white">
           <h1 className="text-lg sm:text-xl md:text-2xl font-bold">
             Solo para mí
           </h1>
@@ -43,7 +44,7 @@ export default function CustomerProfile() {
             aventura en Cartagena con facilidad.
           </p>
         </div>
-        <div className="w-full pr-5 overflow-y-scroll h-[590px] mt-12">
+        <ScrollArea className="w-full pr-5 h-[590px] mt-12 flex justify-center sm:justify-items-end">
           <div className="grid gap-4 sm:grid-cols-1  md:grid-cols-2  lg:grid-cols-auto-fit ">
             {plansSaved.map((p) => (
               <CardPlanSaved
@@ -57,7 +58,7 @@ export default function CustomerProfile() {
               />
             ))}
           </div>
-        </div>
+        </ScrollArea>
       </div>
     </div>
   )

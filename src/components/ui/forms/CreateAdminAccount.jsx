@@ -32,7 +32,8 @@ export const CreateAdminAccount = () => {
   )
 
   const styleLabels = clsx("text-sm font-bold md:text-base sm:text-sm ")
-  const styleInputs = clsx("text-gray-600 block w-full bg-[#F4F4F5]")
+  const styleInputs = clsx("text-gray-600 block w-full bg-[#F4F4F5] dark:bg-gray-700 dark:text-white")
+  const stylebtn = clsx("w-[50%] sm:w-[40%] text-xs sm:text-sm md:text-base font-bold mt-5 py-4 dark:text-black")
 
   const onSubmit = handleSubmit(async (data) => {
     const { confirmPassword, ...adminCreate } = data
@@ -51,7 +52,7 @@ export const CreateAdminAccount = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="grid grid-cols-1 gap-4 w-[85%] py-[4%] mx-auto"
+      className="grid grid-cols-1 gap-4 w-[85%] py-[4%] mx-auto dark:text-white"
     >
       <div className="space-y-2">
         <Label htmlFor="nombre" className={styleLabels}>
@@ -175,7 +176,7 @@ export const CreateAdminAccount = () => {
 
       <button
         type="submit"
-        className={`${styleLabels} bg-yellowProfile w-[50%] sm:w-[40%] mt-5 py-4`}
+        className={`${stylebtn} bg-blueProfile hover:bg-[#2e98a6] w-[50%] sm:w-[40%] mt-5 py-4`}
       >
         Crear Cuenta
       </button>

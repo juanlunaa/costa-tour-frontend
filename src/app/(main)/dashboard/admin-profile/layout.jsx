@@ -35,14 +35,14 @@ export default function AdminProfileLayout({ children }) {
   }
 
   return (
-    <div className="container max-w-screen-xl pt-28 mb-[8%] px-4 sm:px-8 md:px-16  mx-auto">
-      <div>
+    <div className="container max-w-screen-xl py-28 px-4 sm:px-8 md:px-16 mx-auto  dark:bg-gray-900">
+      <div className="dark:text-white">
         <h1 className="text-2xl font-bold">Mi Perfil</h1>
         <p>Bienvenido {user.nombre}</p>
       </div>
 
       <div className="flex items-stretch justify-between mt-4">
-        <div className="profile flex sm:w-[30%] md:w-[25%] flex-col p-[1%] ml-auto bg-white shadow-customBoxShadow">
+        <div className="profile flex sm:w-[30%] md:w-[25%] flex-col p-[1%] ml-auto bg-white shadow-customBoxShadow dark:shadow-customBoxShadowDark dark:bg-gray-900 dark:text-white">
           <div className="user-details mt-[10%]">
             <UserUpdateAvatar srcAvatar={`${BACKEND_SERVER}${user.avatar}`} />
 
@@ -61,8 +61,8 @@ export default function AdminProfileLayout({ children }) {
                               isLinkActive(
                                 "/dashboard/admin-profile/info-profile"
                               )
-                                ? "bg-yellowProfile"
-                                : "hover:bg-yellowProfile"
+                                ? "bg-blueProfile dark:text-black"
+                                : "hover:bg-blueProfile hover:dark:text-black"
                             }`}
             >
               Informacion del perfil
@@ -74,8 +74,8 @@ export default function AdminProfileLayout({ children }) {
                               isLinkActive(
                                 "/dashboard/admin-profile/create-account"
                               )
-                                ? "bg-yellowProfile"
-                                : "hover:bg-yellowProfile"
+                                ? "bg-blueProfile dark:text-black"
+                                : "hover:bg-blueProfile hover:dark:text-black"
                             }`}
             >
               Crear cuenta
@@ -88,8 +88,8 @@ export default function AdminProfileLayout({ children }) {
                               isLinkActive(
                                 "/dashboard/admin-profile/add-new-plan"
                               )
-                                ? "bg-yellowProfile"
-                                : "hover:bg-yellowProfile"
+                                ? "bg-blueProfile dark:text-black"
+                                : "hover:bg-blueProfile hover:dark:text-black"
                             }`}
             >
               Agregar planes turisticos
@@ -102,8 +102,8 @@ export default function AdminProfileLayout({ children }) {
                               isLinkActive(
                                 "/dashboard/admin-profile/statistics"
                               )
-                                ? "bg-yellowProfile"
-                                : "hover:bg-yellowProfile"
+                                ? "bg-blueProfile dark:text-black"
+                                : "hover:bg-blueProfile hover:dark:text-black"
                             }`}
             >
               Ver estadisticas
@@ -116,8 +116,8 @@ export default function AdminProfileLayout({ children }) {
                               isLinkActive(
                                 "/dashboard/admin-profile/solicitude"
                               )
-                                ? "bg-yellowProfile"
-                                : "hover:bg-yellowProfile"
+                                ? "bg-blueProfile dark:text-black"
+                                : "hover:bg-blueProfile hover:dark:text-black"
                             }`}
             >
               <span>Ver solicitud</span>
@@ -135,7 +135,7 @@ export default function AdminProfileLayout({ children }) {
 
             <button
               onClick={handleLogout}
-              className="sm:text-xs md:text-sm lg:text-lg sm:pl-3 sm:pr-0 pl-3 text-start text-xs font-bold h-16 w-full hover:bg-yellowProfile"
+              className="sm:text-xs md:text-sm lg:text-lg sm:pl-3 sm:pr-0 pl-3 text-start text-xs font-bold h-16 w-full hover:bg-blueProfile dark:hover:text-black"
             >
               Cerrar sesion
             </button>
