@@ -1,7 +1,6 @@
 "use client"
 
 import useUserStore from "@/hooks/useUserStore"
-import { useEffect } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 
 export function UpdateTuristProvider({ children }) {
@@ -16,7 +15,7 @@ export function UpdateTuristProvider({ children }) {
         pais: user.pais.id?.toString(),
         estado: user.estado.id?.toString(),
         ciudad: user.ciudad.id?.toString(),
-        intereses: user.intereses.map((interes) => interes.id),
+        intereses: user.intereses.map((interes) => interes.id?.toString()),
       }
     : {
         nombre: "",
@@ -29,11 +28,7 @@ export function UpdateTuristProvider({ children }) {
         intereses: [],
       }
 
-  const methods = useForm(defaultValues)
-
-  useEffect(() => {
-    methods.reset(defaultValues)
-  }, [user])
+  const methods = useForm({ defaultValues })
 
   return <FormProvider {...methods}>{children}</FormProvider>
 }

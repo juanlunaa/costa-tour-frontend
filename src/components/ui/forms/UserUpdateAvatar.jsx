@@ -54,7 +54,7 @@ export const UserUpdateAvatar = ({ srcAvatar }) => {
     >
       <label
         htmlFor={inputId}
-        className={`absolute bottom-0 right-1 z-10 bg-yellowProfile text-white border-2 border-white p-2 rounded-full hover:cursor-pointer hover:bg-orange-700
+        className={`absolute bottom-0 right-0 sm:right-1 z-10 bg-yellowProfile text-white border-2 border-white p-1 sm:p-2 rounded-full hover:cursor-pointer hover:bg-orange-700
           ${isNewAvatarLoad && "hidden"}
         `}
       >
@@ -75,7 +75,7 @@ export const UserUpdateAvatar = ({ srcAvatar }) => {
 
       <button
         type="submit"
-        className={`absolute bottom-0 left-1 z-10 bg-yellowProfile text-white border-2 border-white p-2 rounded-full hover:cursor-pointer hover:bg-orange-700
+        className={`absolute bottom-0 left-0 sm:left-1 z-10 bg-yellowProfile text-white border-2 border-white p-1 sm:p-2 rounded-full hover:cursor-pointer hover:bg-orange-700
           ${!isNewAvatarLoad && "hidden"}
         `}
       >
@@ -85,7 +85,7 @@ export const UserUpdateAvatar = ({ srcAvatar }) => {
       <button
         type="reset"
         onClick={() => resetImage()}
-        className={`absolute bottom-0 right-1 z-10 bg-yellowProfile text-white border-2 border-white p-2 rounded-full hover:cursor-pointer hover:bg-orange-700
+        className={`absolute bottom-0 right-0 sm:right-1 z-10 bg-yellowProfile text-white border-2 border-white p-1 sm:p-2 rounded-full hover:cursor-pointer hover:bg-orange-700
           ${!isNewAvatarLoad && "hidden"}
         `}
       >

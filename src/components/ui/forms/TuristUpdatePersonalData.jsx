@@ -5,20 +5,25 @@ import useLocationData from "@/hooks/useLocationData"
 import useUserStore from "@/hooks/useUserStore"
 import clsx from "clsx"
 import { updatePersonalDataTurist } from "@/services/user"
-import { ErrorMessage, RHFCombobox } from "@/components"
+import { ErrorMessage, RHFComboboxLocation, RHFMultiselect } from "@/components"
 import { toast } from "sonner"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useEffect, useState } from "react"
+import { fetchInterests } from "@/services/utils"
 
 export const TuristUpdatePersonalData = () => {
   // Se extrae la info del usuario de la store
   const { user, setUser } = useUserStore()
+
+  const [interesesBd, setInteresesBd] = useState([])
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
+    control,
   } = useFormContext()
 
   const { locationData } = useLocationData({
@@ -60,6 +65,16 @@ export const TuristUpdatePersonalData = () => {
       )
     }
   })
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchInterests()
+      console.log(data)
+      setInteresesBd(data)
+    }
+
+    fetchData()
+  }, [])
 
   return (
     <form
@@ -145,7 +160,7 @@ export const TuristUpdatePersonalData = () => {
         <Label htmlFor="ciudad" className={styleLabels}>
           Ciudad
         </Label>
-        <RHFCombobox
+        <RHFComboboxLocation
           name="ciudad"
           options={locationData.ciudades}
           placeholderSelect="Selecciona una ciudad"
@@ -162,7 +177,7 @@ export const TuristUpdatePersonalData = () => {
         <Label htmlFor="estado" className={styleLabels}>
           Estado
         </Label>
-        <RHFCombobox
+        <RHFComboboxLocation
           name="estado"
           options={locationData.estados}
           placeholderSelect="Selecciona un estado/provincia"
@@ -179,13 +194,35 @@ export const TuristUpdatePersonalData = () => {
         <Label htmlFor="pais" className={styleLabels}>
           Pais
         </Label>
-        <RHFCombobox
+        <RHFComboboxLocation
           name="pais"
           options={locationData.paises}
           placeholderSelect="Selecciona un pais"
           notFoundMessage="No se encontraron paises"
         />
         {errors.pais && <ErrorMessage message={errors.pais.message} />}
+      </div>
+
+      <div className="space-y-2">
+        <Label className={styleLabels}>Intereses</Label>
+        <RHFMultiselect
+          name="intereses"
+          control={control}
+          options={interesesBd}
+          rules={{
+            required: {
+              value: true,
+              message: "Intereses son requeridos",
+            },
+            validate: (value) => {
+              return value.length >= 3 || "Seleccione por lo menos 3 intereses"
+            },
+          }}
+          notFoundMessage="No se encontraron intereses"
+        />
+        {errors.intereses && (
+          <ErrorMessage message={errors.intereses.message} />
+        )}
       </div>
 
       <button

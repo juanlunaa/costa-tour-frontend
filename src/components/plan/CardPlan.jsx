@@ -65,7 +65,7 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
         <span className="absolute top-2 left-2 py-1 px-3 bg-[#2D3134] text-white text-xs rounded-full">
           4.0
         </span>
-        {isLoggedIn && (
+        {isLoggedIn && user?.tipoUsuario === "TURISTA" ? (
           <button
             onClick={handleClickBookmark}
             className="absolute top-2 right-2 text-sm sm:text-md md:text-xl rounded-full text-black bg-white py-2 px-3"
@@ -76,6 +76,8 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
               <FaRegBookmark />
             )}
           </button>
+        ) : (
+          <></>
         )}
       </div>
 
@@ -86,7 +88,7 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
       <div className="flex justify-around w-max gap-1 sm:w-full md:justify-center md:gap-2">
         {user?.tipoUsuario === "ADMINISTRADOR" && (
           <Link
-            href="#"
+            href={`/plans/edit/${id}`}
             className="flex-wrap content-center h-6 px-1 min-w-[max-content] text-xs sm:min-w-0 sm:w-[34%] sm:h-7 sm:flex sm:justify-center sm:content-center sm:py-0 sm:px-0  sm:text-xs md:text-sm md:h-8 md:items-center md:w-[25%] md:justify-around bg-customBlue text-white rounded-full w-full text-center"
           >
             Modificar

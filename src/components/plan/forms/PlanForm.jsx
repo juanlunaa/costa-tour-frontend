@@ -30,33 +30,36 @@ export function PlanForm({ plan, closeModal }) {
 
   const formDefaultValues = plan
     ? {
-      nombre: plan.nombre,
-      descripcion: plan.descripcion,
-      categoria: plan.categoria,
-      rangoMinDinero: plan.rangoMinDinero,
-      rangoMaxDinero: plan.rangoMaxDinero,
-      imagenes: {
-        files: plan.imagenes
-          ? plan.imagenes.map((preview) => ({ preview, isNew: false }))
+        nombre: plan.nombre,
+        descripcion: plan.descripcion,
+        categoria: plan.categoria,
+        rangoMinDinero: plan.rangoMinDinero,
+        rangoMaxDinero: plan.rangoMaxDinero,
+        imagenes: {
+          files: plan.imagenes
+            ? plan.imagenes.map((preview) => ({ preview, isNew: false }))
+            : [],
+          miniatura:
+            plan.imagenes.length > 0
+              ? plan.imagenes.findIndex((img) => img === plan.miniatura)
+              : 0,
+        },
+        ubicacion: plan.ubicacion,
+        caracteristicas: plan.caracteristicas
+          ? plan.caracteristicas.map((item) => item.id?.toString())
           : [],
-        miniatura: plan.imagenes.findIndex((img) => img === plan.miniatura),
-      },
-      ubicacion: plan.ubicacion,
-      caracteristicas: plan.caracteristicas
-        ? plan.caracteristicas.map((item) => item.id?.toString())
-        : [],
-    }
+      }
     : {
-      nombre: "",
-      descripcion: "",
-      categoria: "",
-      rangoMinDinero: "",
-      rangoMaxDinero: "",
-      imagenes: { files: [], miniaturaSelect: 0 },
-      ubicacion: null,
-      miniaturaSelect: "",
-      caracteristicas: [],
-    }
+        nombre: "",
+        descripcion: "",
+        categoria: "",
+        rangoMinDinero: "",
+        rangoMaxDinero: "",
+        imagenes: { files: [], miniaturaSelect: 0 },
+        ubicacion: null,
+        miniaturaSelect: "",
+        caracteristicas: [],
+      }
 
   const {
     register,
@@ -312,9 +315,8 @@ export function PlanForm({ plan, closeModal }) {
                   )
                 },
               }}
-              options={caracteristicasBd}
-              placeholderSelect={"Selecciona las caracteristicas"}
-              notFoundMessage={"No se encontraron caracteristicas"}                   
+              options={caracteristicasBd}                  
+              notFoundMessage={"No se encontraron caracteristicas"}
             />
             {errors.caracteristicas && (
               <ErrorMessage message={errors.caracteristicas.message} />

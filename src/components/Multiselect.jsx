@@ -20,16 +20,43 @@ import {
   PopoverAnchor,
 } from "@/components/ui/popover"
 
+export const WordCarousel = ({ words, interval = 2000 }) => {
+  const [currentWordIndex, setCurrentWordIndex] = React.useState(0)
+  const [isFading, setIsFading] = React.useState(true)
+
+  React.useEffect(() => {
+    const wordInterval = setInterval(() => {
+      setIsFading(false)
+      setTimeout(() => {
+        setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length)
+        setIsFading(true)
+      }, 500)
+    }, interval)
+
+    return () => clearInterval(wordInterval)
+  }, [words.length, interval])
+
+  return (
+    <span
+      className={`transition-opacity duration-500 ${
+        isFading ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      {words[currentWordIndex]}
+    </span>
+  )
+}
+
 export const ItemSelect = ({ id, label, removeItem }) => {
   return (
     <div className="rounded-full flex justify-between items-center gap-1 border border-customBlue px-3 py-1">
       <p className="text-sm">{label}</p>
-      <button
-        className="bg-customBlue rounded-md w-4 h-4 flex items-center justify-center hover:bg-cyan-100"
+      <span
+        className="bg-customBlue rounded-md w-4 h-4 flex items-center justify-center hover:bg-cyan-100 cursor-pointer"
         onClick={() => removeItem(id)}
       >
         <X />
-      </button>
+      </span>
     </div>
   )
 }
@@ -41,7 +68,6 @@ export function Multiselect({
   getOptionLabel,
   getOptionById,
   removeOption,
-  placeholderSelect,
   notFoundMessage,
 }) {
   const [open, setOpen] = React.useState(false)
@@ -62,8 +88,10 @@ export function Multiselect({
               ))}
             </div>
           ) : (
-            <PopoverTrigger>
-              <p className="text-gray-400">{placeholderSelect}</p>
+            <PopoverTrigger className="w-full text-left">
+              <p className="text-gray-400">
+                <WordCarousel words={options.map((item) => item.label)} />
+              </p>
             </PopoverTrigger>
           )}
           <PopoverTrigger>
@@ -71,7 +99,7 @@ export function Multiselect({
           </PopoverTrigger>
         </div>
       </PopoverAnchor>
-      <PopoverContent className="w-[300px] p-0" side="bottom">
+      <PopoverContent className="h-64 p-0" side="bottom">
         <Command
           filter={(value, search) => {
             const option = getOptionById(value)

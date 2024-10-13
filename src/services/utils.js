@@ -3,7 +3,10 @@ import axios from "axios"
 
 export const fetchInterests = async () => {
   const res = await axios.get(`${BACKEND_SERVER}/interest/all`)
-  return res.data
+  return res.data.map((item) => ({
+    id: item.id?.toString(),
+    label: item.palabraClave,
+  }))
 }
 
 export const fetchCharacteristics = async () => {

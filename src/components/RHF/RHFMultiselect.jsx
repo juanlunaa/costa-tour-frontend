@@ -1,3 +1,5 @@
+"use client"
+
 import { Multiselect } from "@/components"
 import { Controller } from "react-hook-form"
 import clsx from "clsx"
@@ -6,7 +8,6 @@ export const RHFMultiselect = ({
   control,
   rules,
   options,
-  placeholderSelect,
   notFoundMessage,
 }) => {
 
@@ -26,12 +27,13 @@ export const RHFMultiselect = ({
               ? onChange(value.filter((item) => item !== newValue))
               : onChange([...value, newValue])
           }}
-          removeOption={(id) => value.filter((item) => item !== id)}
+          removeOption={(id) => {
+            onChange(value.filter((item) => item !== id))
+          }}
           getOptionLabel={(id) =>
             options.find((option) => option.id === id)?.label
           }
           getOptionById={(id) => options.find((option) => option.id === id)}
-          placeholderSelect={placeholderSelect}
           notFoundMessage={notFoundMessage}
           classname={styleInputs}
         />
