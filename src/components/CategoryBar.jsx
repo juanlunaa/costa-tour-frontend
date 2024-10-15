@@ -21,7 +21,7 @@ const CategoryBar = ({ pathname }) => {
     >
       <Link
         href="/category/activities"
-        className={`lg:text-2xl md:text-xl sm:text-base text-xs font-volkhov
+        className={`lg:text-xl md:text-base sm:text-sm text-xs font-volkhov
           ${
             isLinkActive("/activities")
               ? "border-b-4 border-[#363636] dark:border-white dark:hover:border-white"
@@ -33,7 +33,7 @@ const CategoryBar = ({ pathname }) => {
       {isLoggedIn && role === UserRoles.TURISTA ? (
         <Link
           href="/category/recomendations"
-          className={`lg:text-2xl md:text-xl sm:text-base text-xs font-volkhov
+          className={`lg:text-xl md:text-base sm:text-sm text-xs font-volkhov
               ${
                 isLinkActive("/recomendations")
                   ? "border-b-4 border-[#363636] dark:border-white dark:hover:border-white"
@@ -47,7 +47,7 @@ const CategoryBar = ({ pathname }) => {
       )}
       <Link
         href="/category/extreme"
-        className={`lg:text-2xl md:text-xl sm:text-base text-xs font-volkhov
+        className={`lg:text-xl md:text-base sm:text-sm text-xs font-volkhov
           ${
             isLinkActive("/extreme")
               ? "border-b-4 border-[#363636] dark:border-white dark:hover:border-white"

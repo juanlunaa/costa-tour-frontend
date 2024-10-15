@@ -9,7 +9,7 @@ import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
-export const AdminUpdatePersonalData = () => {
+export const AdminUpdatePersonalData = ({ buttonColor }) => {
   const { user, setUser } = useUserStore()
 
   const { userId, nombre, apellido } = user
@@ -23,8 +23,10 @@ export const AdminUpdatePersonalData = () => {
     reset,
   } = useForm({ defaultValues: formDefaultValues })
 
-  const styleLabels = clsx("text-sm font-bold md:text-base sm:text-sm ")
-  const styleInputs = clsx("text-gray-600 block w-full bg-[#F4F4F5]")
+  const styleLabels = clsx("text-sm font-bold md:text-base sm:text-sm")
+  const styleInputs = clsx("text-gray-600 block w-full bg-[#F4F4F5] dark:bg-gray-700 dark:text-white")
+  const stylebtn = clsx("w-[50%] sm:w-[40%] text-xs sm:text-sm md:text-base font-bold mt-5 py-4 dark:text-black")
+
 
   useEffect(() => {
     reset(formDefaultValues)
@@ -54,7 +56,7 @@ export const AdminUpdatePersonalData = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="grid grid-cols-1 gap-4 mx-auto w-[85%] mt-[2%]"
+      className="grid grid-cols-1 gap-4 mx-auto w-[85%] mt-[2%] dark:text-white"
     >
       <h1 className="font-bold mt-12 text-sm sm:text-base md:text-xl lg:text-2xl">
         Información Personal
@@ -107,7 +109,7 @@ export const AdminUpdatePersonalData = () => {
 
       <button
         type="submit"
-        className={`${styleLabels} bg-yellowProfile w-[50%] sm:w-[40%] mt-5 py-4`}
+        className={`${stylebtn}  ${buttonColor}`}
       >
         Guardar
       </button>
