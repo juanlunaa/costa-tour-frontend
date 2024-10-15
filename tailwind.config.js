@@ -12,7 +12,7 @@ module.exports = withMT({
   theme: {
     extend: {
       textShadow: {
-        'custom': '2px 2px 1px rgba(0, 0, 0, 1), 0px 0px 18px rgba(0, 0, 0, 1)',
+        custom: "2px 2px 1px rgba(0, 0, 0, 1), 0px 0px 18px rgba(0, 0, 0, 1)",
       },
       fontFamily: {
         volkhov: ["var(--font-volkhov)"],
@@ -106,5 +106,4 @@ module.exports = withMT({
     },
   },
   plugins: [require("tailwindcss-animate")],
-  plugins: [require('tailwindcss-textshadow')],
 })

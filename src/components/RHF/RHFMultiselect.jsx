@@ -10,8 +10,9 @@ export const RHFMultiselect = ({
   options,
   notFoundMessage,
 }) => {
-
-  const styleInputs = clsx("text-gray-600 block w-full bg-[#F4F4F5] dark:bg-gray-700 dark:text-white")
+  const styleInputs = clsx(
+    "text-gray-600 block w-full bg-[#F4F4F5] dark:bg-gray-700 dark:text-white"
+  )
 
   return (
     <Controller

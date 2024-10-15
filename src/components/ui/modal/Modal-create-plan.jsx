@@ -10,11 +10,13 @@ import {
 } from "@/components/ui/dialog"
 import { PlanForm } from "@/components"
 import clsx from "clsx"
-import { IoCreateOutline } from "react-icons/io5";
+import { IoCreateOutline } from "react-icons/io5"
 
-export function ModalCreate({buttonColor}) {
+export function ModalCreate({ buttonColor }) {
   const [isOpen, setIsOpen] = useState(false)
-  const stylebtn = clsx("w-[95%] text-xs sm:text-lg sm:w-[50%] md:text-xl font-bold mt-5 py-4 h-auto dark:text-black")
+  const stylebtn = clsx(
+    "w-[95%] text-xs sm:text-lg sm:w-[50%] md:text-xl font-bold mt-5 py-4 h-auto dark:text-black"
+  )
 
   const handleOpenChange = (open) => {
     if (!open) {
@@ -39,9 +41,10 @@ export function ModalCreate({buttonColor}) {
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className={`${stylebtn}  ${buttonColor} items-stretch`} 
+          className={`${stylebtn}  ${buttonColor} items-stretch`}
           onClick={() => setIsOpen(true)}
-        ><IoCreateOutline className="w-6 h-6" />
+        >
+          <IoCreateOutline className="w-6 h-6" />
           Crear Plan
         </Button>
       </DialogTrigger>
@@ -52,7 +55,9 @@ export function ModalCreate({buttonColor}) {
         }}
       >
         <div className="conten-scroll mt-[2%] sm:max-h-[calc(90vh-5rem)] max-h-[calc(90vh-5rem)] h-full pr-4 overflow-y-auto">
-          <DialogTitle className="text-center dark:text-white">Agregar Plan</DialogTitle>
+          <DialogTitle className="text-center dark:text-white">
+            Agregar Plan
+          </DialogTitle>
           <PlanForm closeModal={closeModal} />
         </div>
       </DialogContent>

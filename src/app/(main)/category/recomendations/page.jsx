@@ -49,7 +49,9 @@ export default function Recomendation() {
   return (
     <div className="flex justify-center">
       <div className="carousel-recomendation container sm:mt-8 md:mt-14 font-bold">
-        <h1 className="text-lg sm:text-xl md:text-2xl">Recomendaciones Personalizadas </h1>
+        <h1 className="text-lg sm:text-xl md:text-2xl">
+          Recomendaciones Personalizadas{" "}
+        </h1>
 
         <hr className="mt-8 w-full"></hr>
 

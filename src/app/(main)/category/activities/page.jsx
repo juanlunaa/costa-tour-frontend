@@ -72,10 +72,7 @@ export default async function Activity() {
                   ))}
                 </div>
               </TabsContent>
-              <TabsContent
-                value="sitio-turistico"
-                className="relative w-full"
-              >
+              <TabsContent value="sitio-turistico" className="relative w-full">
                 <div className="grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
                   {touristSites.map((p) => (
                     <CardPlan

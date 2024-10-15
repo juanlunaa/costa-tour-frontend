@@ -32,8 +32,12 @@ export const CreateAdminAccount = () => {
   )
 
   const styleLabels = clsx("text-sm font-bold md:text-base sm:text-sm ")
-  const styleInputs = clsx("text-gray-600 block w-full bg-[#F4F4F5] dark:bg-gray-700 dark:text-white")
-  const stylebtn = clsx("w-[50%] sm:w-[40%] text-xs sm:text-sm md:text-base font-bold mt-5 py-4 dark:text-black")
+  const styleInputs = clsx(
+    "text-gray-600 block w-full bg-[#F4F4F5] dark:bg-gray-700 dark:text-white"
+  )
+  const stylebtn = clsx(
+    "w-[50%] sm:w-[40%] text-xs sm:text-sm md:text-base font-bold mt-5 py-4 dark:text-black"
+  )
 
   const onSubmit = handleSubmit(async (data) => {
     const { confirmPassword, ...adminCreate } = data

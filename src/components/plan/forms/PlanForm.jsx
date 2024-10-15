@@ -170,9 +170,13 @@ export function PlanForm({ plan, closeModal }) {
     fetchData()
   }, [])
 
-  const styleInputs = clsx("text-gray-600 block w-full bg-[#F4F4F5] dark:bg-gray-700 dark:text-white")
-  const styleSelect = clsx("flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:text-white")
-  
+  const styleInputs = clsx(
+    "text-gray-600 block w-full bg-[#F4F4F5] dark:bg-gray-700 dark:text-white"
+  )
+  const styleSelect = clsx(
+    "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:text-white"
+  )
+
   return (
     <form onSubmit={onSubmit} className="dark:text-white">
       <div className="container flex flex-col sm:flex-row gap-6 pt-5 pb-5">
@@ -227,12 +231,10 @@ export function PlanForm({ plan, closeModal }) {
               <option value="PLAYA">Playas</option>
               <option value="ALOJAMIENTO">Alojamientos</option>
               <option value="EXTREMO">Extremos</option>
-              
             </select>
             {errors.categoria && (
               <ErrorMessage message={errors.categoria.message} />
             )}
-            
           </div>
 
           <div>
@@ -346,7 +348,7 @@ export function PlanForm({ plan, closeModal }) {
                   )
                 },
               }}
-              options={caracteristicasBd}                  
+              options={caracteristicasBd}
               notFoundMessage={"No se encontraron caracteristicas"}
             />
             {errors.caracteristicas && (

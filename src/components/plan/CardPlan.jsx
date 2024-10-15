@@ -49,7 +49,6 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
       toast.error("Hubo un problema al agregar el plan a favoritos")
     }
   }
-  
 
   return (
     <div className="lg:w-full md:w-full sm:full w-[90%] flex flex-col items-center">
@@ -61,7 +60,9 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
           alt={nombre}
         />
 
-        <h2 className="absolute bottom-2 left-2 text-left w-3/4 text-shadow text-white">{nombre}</h2>
+        <h2 className="absolute bottom-2 left-2 text-left w-3/4 text-shadow text-white">
+          {nombre}
+        </h2>
         <span className="absolute top-2 left-2 py-1 px-3 bg-[#2D3134] text-white text-xs rounded-full">
           4.0
         </span>
@@ -109,6 +110,6 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
           </Link>
         )}
       </div>
-    </div>   
+    </div>
   )
 }
