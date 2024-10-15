@@ -13,7 +13,7 @@ import { toast } from "sonner"
 import { createPlan, updatePlan } from "@/services/plan"
 import { ImagesPlan } from "./ImagesPlan"
 import { RHFMultiselect } from "@/components"
-
+// import InteractiveMap from "./InteractiveMap"
 import dynamic from "next/dynamic"
 import { useEffect, useState } from "react"
 import { fetchCharacteristics } from "@/services/utils"
@@ -32,6 +32,7 @@ export function PlanForm({ plan, closeModal }) {
         nombre: plan.nombre,
         descripcion: plan.descripcion,
         categoria: plan.categoria,
+        gratis: plan.rangoMinDinero === "Gratis",
         rangoMinDinero: plan.rangoMinDinero,
         rangoMaxDinero: plan.rangoMaxDinero,
         imagenes: {
@@ -52,6 +53,7 @@ export function PlanForm({ plan, closeModal }) {
         nombre: "",
         descripcion: "",
         categoria: "",
+        gratis: false,
         rangoMinDinero: "",
         rangoMaxDinero: "",
         imagenes: { files: [], miniaturaSelect: 0 },
@@ -67,7 +69,20 @@ export function PlanForm({ plan, closeModal }) {
     watch,
     reset,
     control,
+    setValue,
   } = useForm({ defaultValues: { ...formDefaultValues } })
+
+  const isFree = watch("gratis")
+
+  useEffect(() => {
+    if (isFree) {
+      setValue("rangoMinDinero", "Gratis")
+      setValue("rangoMaxDinero", "Gratis")
+    } else {
+      setValue("rangoMinDinero", "")
+      setValue("rangoMaxDinero", "")
+    }
+  }, [isFree, setValue])
 
   const resetForm = () => {
     reset()
@@ -245,9 +260,21 @@ export function PlanForm({ plan, closeModal }) {
           </div>
 
           <div>
-            <Label htmlFor="priceMin">Rango minimo de dinero</Label>
+            <div className="flex flex-row-reverse justify-between mb-1 sm:flex-col sm:gap-4 md:flex-row-reverse">
+              <div className="flex items-center gap-1 justify-end">
+                <Input
+                  id="in-gratis"
+                  type="checkbox"
+                  className="h-3 w-3"
+                  {...register("gratis")}
+                />
+                <Label htmlFor="in-gratis">El plan es gratis?</Label>
+              </div>
+              <Label htmlFor="priceMin">Rango minimo de dinero</Label>
+            </div>
             <Input
-              type="number"
+              type={isFree ? "text" : "number"}
+              disabled={isFree}
               min="1"
               id="priceMin"
               {...register("rangoMinDinero", {
@@ -264,8 +291,10 @@ export function PlanForm({ plan, closeModal }) {
 
           <div>
             <Label htmlFor="priceMax">Rango maximo de dinero</Label>
+
             <Input
-              type="number"
+              type={isFree ? "text" : "number"}
+              disabled={isFree}
               min="1"
               id="priceMax"
               {...register("rangoMaxDinero", {
@@ -274,6 +303,7 @@ export function PlanForm({ plan, closeModal }) {
                   message: "Rango maximo de dinero es requerido",
                 },
                 validate: (value) => {
+                  if (isFree) return true
                   const rangoMin = parseFloat(watch("rangoMinDinero"))
                   const rangoMax = parseFloat(value)
 
@@ -283,6 +313,7 @@ export function PlanForm({ plan, closeModal }) {
                 },
               })}
             />
+
             {errors.rangoMaxDinero && (
               <ErrorMessage message={errors.rangoMaxDinero.message} />
             )}
