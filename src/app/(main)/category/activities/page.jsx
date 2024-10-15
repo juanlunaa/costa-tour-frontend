@@ -9,11 +9,16 @@ import { fetchAllPlans } from "@/services/plan"
 
 export default async function Activity() {
   const plans = await fetchAllPlans()
+  const validPlans = Array.isArray(plans) ? plans : []
 
-  const restaurants = plans.filter((p) => p.categoria === "RESTAURANTE")
-  const touristSites = plans.filter((p) => p.categoria === "SITIO_TURISTICO")
-  const beaches = plans.filter((p) => p.categoria === "PLAYA")
-  const accommodations = plans.filter((p) => p.categoria === "ALOJAMIENTO")
+  const restaurants = validPlans?.filter((p) => p.categoria === "RESTAURANTE")
+  const touristSites = validPlans?.filter(
+    (p) => p.categoria === "SITIO_TURISTICO"
+  )
+  const beaches = validPlans?.filter((p) => p.categoria === "PLAYA")
+  const accommodations = validPlans?.filter(
+    (p) => p.categoria === "ALOJAMIENTO"
+  )
 
   return (
     <div className="container-slider">
