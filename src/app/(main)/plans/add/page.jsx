@@ -1,4 +1,5 @@
-import { PlanForm } from "@/components"
+import { DynamicText, PlanForm } from "@/components"
+import { Label } from "@/components/ui/label"
 import { BACKEND_SERVER } from "@/env"
 import { notFound } from "next/navigation"
 
@@ -10,8 +11,12 @@ export default function AddPlan() {
         <p>Bienvenida Jullieth</p>
       </div>
 
-      <div className="mx-auto sm:shadow-customBoxShadow my-10 bg-white px-4">
+      <div className="mx-auto sm:shadow-customBoxShadow my-10 px-4">
         <PlanForm />
+        {/* <div className="w-96">
+          <Label>Informacion adicional</Label>
+          <DynamicText />
+        </div> */}
       </div>
     </div>
   )
