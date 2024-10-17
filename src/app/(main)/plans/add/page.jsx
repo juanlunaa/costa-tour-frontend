@@ -1,4 +1,4 @@
-import { DynamicText, PlanForm } from "@/components"
+import { DynamicText, PlanForm, ScheduleSelector } from "@/components"
 import { Label } from "@/components/ui/label"
 import { BACKEND_SERVER } from "@/env"
 import { notFound } from "next/navigation"
@@ -16,6 +16,10 @@ export default function AddPlan() {
         {/* <div className="w-96">
           <Label>Informacion adicional</Label>
           <DynamicText />
+        </div> */}
+        {/* <div className="w-96">
+          <Label>Horarios</Label>
+          <ScheduleSelector />
         </div> */}
       </div>
     </div>
