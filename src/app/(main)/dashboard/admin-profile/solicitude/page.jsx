@@ -1,7 +1,9 @@
+import VewSolicitudAdmin from "@/components/ui/solicitude-view/Solicitude";
+
 export default function AddPlan() {
   return (
-    <div className="dark:shadow-customBoxShadowDark dark:bg-gray-800">
-      <h1>Content here 4</h1>
+    <div className="container min-h-full bg-white shadow-customBoxShadow dark:shadow-customBoxShadowDark dark:bg-gray-800">
+      <VewSolicitudAdmin/>
     </div>
   )
 }
