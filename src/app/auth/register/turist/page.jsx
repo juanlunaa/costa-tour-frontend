@@ -244,7 +244,7 @@ export default function Register() {
 
         <button
           type="submit"
-          className="text-white font-bold bg-gradient-to-r from-customBlue to-customOrange rounded-2xl px-4 py-3 w-36 mx-auto"
+          className="text-white font-bold bg-gradient-to-r from-customBlue to-customOrange rounded-2xl px-4 py-3 w-36 mx-auto transition-all hover:shadow-customBoxShadow hover:scale-105"
         >
           Registrarse
         </button>

@@ -91,7 +91,7 @@ export default function RegisterInterest() {
                     className="cursor-pointer px-4 py-2 rounded-full transition-colors duration-300 bg-gray-200 
                 peer-checked:bg-customYellow/50"
                   >
-                    {interes.palabraClave}
+                    {interes.label}
                   </label>
                 </div>
               ))}
@@ -102,7 +102,7 @@ export default function RegisterInterest() {
       <button
         type="submit"
         disabled={watch("intereses").length < 3}
-        className="text-white font-bold bg-gradient-to-r from-customBlue to-customOrange rounded-2xl px-4 py-3 w-44 mx-auto disabled:opacity-70"
+        className="text-white font-bold bg-gradient-to-r from-customBlue to-customOrange rounded-2xl px-4 py-3 w-44 mx-auto disabled:opacity-70 transition-all hover:shadow-customBoxShadow hover:scale-105"
       >
         Finalizar registro
       </button>
