@@ -26,7 +26,7 @@ export default async function Activity() {
       <Tabs defaultValue="restaurante" className="w-full mt-2">
         <TabsList className="grid grid-cols-2 sm:flex sm:justify-around justify-items-center content-center items-center">
           <TabsTrigger
-            className="font-bold text-black  dark:text-gray-400"
+            className="font-bold text-black dark:text-gray-400"
             value="restaurante"
           >
             <IoRestaurant className="w-5 h-5" /> Restaurantes

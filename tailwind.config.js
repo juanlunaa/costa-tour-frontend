@@ -27,6 +27,9 @@ module.exports = withMT({
         yellowProfile: "#F4B46A",
         customYellow: "#FFDA32",
         customBlueInputAuth: "#D1EEF2",
+        yellowLogo: "#f1bc4a",
+        blueLogo: "#1c2631",
+        customBlack: "#202020",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",

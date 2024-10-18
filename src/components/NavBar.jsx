@@ -4,6 +4,7 @@ import useUserStore from "@/hooks/useUserStore"
 import Link from "next/link"
 import ModeToggle from "./ui/darkmode/Dark"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 export const NavBar = ({ pathname }) => {
   const { isLoggedIn } = useUserStore()
 
@@ -14,26 +15,17 @@ export const NavBar = ({ pathname }) => {
     pathname.pathname.includes("/plans")
 
   const linkStyle = cn(
-    "m-2 p-2 rounded-xl font-bold sm:base dark:text-white hover:bg-customOrange transition duration-300 ease-in-out",
-    isDashboard ? "text-black" : "text-white"
+    "m-2 p-2 rounded-xl font-bold sm:base dark:text-white hover:bg-yellowLogo transition duration-300 ease-in-out text-blueLogo text-black dark:text-white dark:hover:text-black"
   )
 
   return (
-    <nav
-      className={`absolute z-10 flex px-5 h-20 justify-between items-center w-full 
-        ${
-          isDashboard
-            ? "bg-gradient-to-b from-customBlue to-transparent dark:from-black dark:bg-[#202020]"
-            : "bg-gradient-to-b from-gray-800/90 to-transparent dark:bg-gradient-to-b"
-        }`}
-    >
+    <nav className="fixed z-50 flex px-5 h-20 justify-between items-center w-full bg-white dark:bg-customBlack">
       <div>
         <Link href="/">
-          <span
-            className={`antialiased font-bold md:text-xl sm:base dark:text-white ${isDashboard ? "text-black" : "text-white"}`}
-          >
+          <span className="antialiased font-bold md:text-xl sm:base dark:text-white text-black">
             Costa Tour
           </span>
+          {/* <Image src="/imagotipo-costa-tour.png" height={60} width={163} /> */}
         </Link>
       </div>
 
