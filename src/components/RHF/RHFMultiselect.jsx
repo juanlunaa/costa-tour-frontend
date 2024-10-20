@@ -2,7 +2,7 @@
 
 import { Multiselect } from "@/components"
 import { Controller } from "react-hook-form"
-import clsx from "clsx"
+import { cn } from "@/lib/utils"
 export const RHFMultiselect = ({
   name,
   control,
@@ -10,7 +10,7 @@ export const RHFMultiselect = ({
   options,
   notFoundMessage,
 }) => {
-  const styleInputs = clsx(
+  const styleInputs = cn(
     "text-gray-600 block w-full bg-[#F4F4F5] dark:bg-gray-700 dark:text-white"
   )
 
