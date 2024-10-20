@@ -18,6 +18,7 @@ import dynamic from "next/dynamic"
 import { useEffect, useState } from "react"
 import { fetchCharacteristics } from "@/services/utils"
 import clsx from "clsx"
+import { cn } from "@/lib/utils"
 
 const InteractiveMap = dynamic(() => import("./InteractiveMap"), {
   ssr: false, // Desactiva el SSR para este componente
@@ -170,10 +171,10 @@ export function PlanForm({ plan, closeModal }) {
     fetchData()
   }, [])
 
-  const styleInputs = clsx(
+  const styleInputs = cn(
     "text-gray-600 block w-full bg-[#F4F4F5] dark:bg-gray-700 dark:text-white"
   )
-  const styleSelect = clsx(
+  const styleSelect = cn(
     "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:text-white"
   )
 
@@ -331,7 +332,7 @@ export function PlanForm({ plan, closeModal }) {
             )}
           </div>
 
-          <div className={"dark:bg-gray-800"}>
+          <div>
             <Label htmlFor="Caracteristicas">Caracteristicas</Label>
             <RHFMultiselect
               name={"caracteristicas"}
