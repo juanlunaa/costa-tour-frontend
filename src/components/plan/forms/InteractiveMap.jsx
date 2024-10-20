@@ -48,7 +48,7 @@ const InteractiveMap = ({ value, onChange }) => {
     <MapContainer
       center={[10.401102709574074, -75.50450982843041]}
       zoom={12}
-      style={{ height: "100%", width: "100%", borderRadius: "20px" }}
+      className="h-full w-full rounded-md"
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
