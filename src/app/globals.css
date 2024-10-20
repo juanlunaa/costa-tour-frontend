@@ -34,6 +34,20 @@ input {
   @apply font-mulish;
 }
 
+.responsive-nav-bar {
+  transition: 0.3s ease;
+}
+
+.responsive-nav-bar a {
+  transition: 0.3s ease;
+}
+
+@layer utilities {
+  .delay-custom {
+    transition-delay: calc(0.15s * var(--i)) !important;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
