@@ -19,7 +19,7 @@ export const NavBar = ({ pathname }) => {
   )
 
   return (
-    <nav className="fixed z-50 flex px-5 h-20 justify-between items-center w-full bg-white dark:bg-customBlack">
+    <nav className="fixed z-[1100] flex px-5 h-20 justify-between items-center w-full bg-white dark:bg-customBlack">
       <div>
         <Link href="/">
           <span className="antialiased font-bold md:text-xl sm:base dark:text-white text-black">
