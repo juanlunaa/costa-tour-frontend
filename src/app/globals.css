@@ -25,6 +25,12 @@ h3 {
   @apply font-volkhov;
 }
 
+h1,
+h2,
+h3 {
+  @apply font-anton;
+}
+
 p,
 span,
 a,
