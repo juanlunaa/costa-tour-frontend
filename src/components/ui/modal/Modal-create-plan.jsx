@@ -5,12 +5,14 @@ import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
+  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { PlanForm } from "@/components"
 import clsx from "clsx"
 import { IoCreateOutline } from "react-icons/io5"
+import { ScrollArea } from "../scroll-area"
 
 export function ModalCreate({ buttonColor }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -49,17 +51,19 @@ export function ModalCreate({ buttonColor }) {
         </Button>
       </DialogTrigger>
       <DialogContent
-        className="sm:max-w-[900px] max-h-[90vh] h-full bg-white dark:bg-gray-800"
+        className="sm:max-w-5xl max-h-[90vh] h-full bg-white dark:bg-customBlack"
         onPointerDownOutside={(e) => {
           e.preventDefault()
         }}
       >
-        <div className="conten-scroll mt-[2%] sm:max-h-[calc(90vh-5rem)] max-h-[calc(90vh-5rem)] h-full pr-4 overflow-y-auto">
+        <DialogHeader>
           <DialogTitle className="text-center dark:text-white">
             Agregar Plan
           </DialogTitle>
+        </DialogHeader>
+        <ScrollArea className="mt-[2%] sm:max-h-[calc(90vh-5rem)] max-h-[calc(90vh-5rem)] h-full pr-4">
           <PlanForm closeModal={closeModal} />
-        </div>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   )
