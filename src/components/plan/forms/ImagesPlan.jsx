@@ -89,7 +89,7 @@ export const ImagesPlan = ({ control, name, rules }) => {
 
   return (
     <>
-      <div>
+      <div className="text-center">
         <h1>Imagenes del Plan</h1>
         <p>(Max. 4)</p>
       </div>
@@ -140,12 +140,12 @@ export const ImagesPlan = ({ control, name, rules }) => {
             </span>
           </div>
         ))}
-        {value.length === 0 &&
-          Array.from({ length: Math.max(0, 4 - value.length) }).map(
+        {value?.files.length === 0 &&
+          Array.from({ length: Math.max(0, 4 - value?.files.length) }).map(
             (_, index) => (
               <div
                 key={`empty-${index}`}
-                className="aspect-square bg-muted flex items-center justify-center"
+                className="aspect-square bg-muted flex items-center justify-center rounded-md"
               >
                 <ImageIcon className="w-8 h-8 text-muted-foreground" />
               </div>

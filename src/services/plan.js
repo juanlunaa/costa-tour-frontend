@@ -1,14 +1,11 @@
 import { BACKEND_SERVER } from "@/env"
 import { FileCannotBeEmptyError, ResourceNotFoundError } from "@/erros"
+import axios from "axios"
 
 export const fetchAllPlans = async () => {
   try {
-    const res = await fetch(`${BACKEND_SERVER}/plan/all`, {
-      method: "GET",
-      cache: "no-store",
-    })
-
-    return res.json()
+    const res = await axios.get(`${BACKEND_SERVER}/plan/all`)
+    return res.data
   } catch (err) {
     return err
   }
@@ -94,5 +91,17 @@ export const fetchPlanById = async (id) => {
     return { res: resJson, status: res.status }
   } catch (err) {
     return { res: err.message, status: err.status || 500 }
+  }
+}
+
+export const fetchRecomendations = async (turistDni) => {
+  try {
+    const res = await axios.get(
+      `${BACKEND_SERVER}/plan/recomendation?dniTurista=${turistDni}`,
+      { credentials: "include" }
+    )
+    return res.data
+  } catch (err) {
+    return err
   }
 }

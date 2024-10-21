@@ -8,18 +8,18 @@ import CheckboxGroupDemo from "@/components/ui/checkbox-group/Checkbox"
 import { fetchAllPlans } from "@/services/plan"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
-export default async function Activity() {
+async function getPlans() {
   const plans = await fetchAllPlans()
   const validPlans = Array.isArray(plans) ? plans : []
+  return { plans: validPlans }
+}
 
-  const restaurants = validPlans?.filter((p) => p.categoria === "RESTAURANTE")
-  const touristSites = validPlans?.filter(
-    (p) => p.categoria === "SITIO_TURISTICO"
-  )
-  const beaches = validPlans?.filter((p) => p.categoria === "PLAYA")
-  const accommodations = validPlans?.filter(
-    (p) => p.categoria === "ALOJAMIENTO"
-  )
+export default async function Activity() {
+  const { plans } = await getPlans()
+  const restaurants = plans?.filter((p) => p.categoria === "RESTAURANTE")
+  const touristSites = plans?.filter((p) => p.categoria === "SITIO_TURISTICO")
+  const beaches = plans?.filter((p) => p.categoria === "PLAYA")
+  const accommodations = plans?.filter((p) => p.categoria === "ALOJAMIENTO")
 
   return (
     <div className="container-slider">
@@ -57,62 +57,62 @@ export default async function Activity() {
           >
             <CheckboxGroupDemo />
           </div>
-          <ScrollArea className="relative h-[700px] sm:mr-1  md:mr-5 overflow-auto">
-            <div className="flex justify-end">
-              <TabsContent value="restaurante" className="relative w-full">
-                <div className=" grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-y-5 gap-y-4">
-                  {restaurants.map((p) => (
-                    <CardPlan
-                      key={p.id}
-                      id={p.id}
-                      nombre={p.nombre}
-                      miniatura={p.miniatura}
-                      descripcion={p.descripcion}
-                    />
-                  ))}
-                </div>
-              </TabsContent>
-              <TabsContent value="sitio-turistico" className="relative w-full">
-                <div className="grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
-                  {touristSites.map((p) => (
-                    <CardPlan
-                      key={p.id}
-                      id={p.id}
-                      nombre={p.nombre}
-                      miniatura={p.miniatura}
-                      descripcion={p.descripcion}
-                    />
-                  ))}
-                </div>
-              </TabsContent>
-              <TabsContent value="playa" className="relative w-full">
-                <div className="grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
-                  {beaches.map((p) => (
-                    <CardPlan
-                      key={p.id}
-                      id={p.id}
-                      nombre={p.nombre}
-                      miniatura={p.miniatura}
-                      descripcion={p.descripcion}
-                    />
-                  ))}
-                </div>
-              </TabsContent>
-              <TabsContent value="alojamiento" className="relative w-full">
-                <div className="grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
-                  {accommodations.map((p) => (
-                    <CardPlan
-                      key={p.id}
-                      id={p.id}
-                      nombre={p.nombre}
-                      miniatura={p.miniatura}
-                      descripcion={p.descripcion}
-                    />
-                  ))}
-                </div>
-              </TabsContent>
-            </div>
-          </ScrollArea>
+          {/* <ScrollArea className="relative h-[700px] sm:mr-1  md:mr-5 overflow-auto"> */}
+          <div className="flex justify-end">
+            <TabsContent value="restaurante" className="relative w-full">
+              <div className=" grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-y-5 gap-y-4">
+                {restaurants.map((p) => (
+                  <CardPlan
+                    key={p.id}
+                    id={p.id}
+                    nombre={p.nombre}
+                    miniatura={p.miniatura}
+                    descripcion={p.descripcion}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+            <TabsContent value="sitio-turistico" className="relative w-full">
+              <div className="grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
+                {touristSites.map((p) => (
+                  <CardPlan
+                    key={p.id}
+                    id={p.id}
+                    nombre={p.nombre}
+                    miniatura={p.miniatura}
+                    descripcion={p.descripcion}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+            <TabsContent value="playa" className="relative w-full">
+              <div className="grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
+                {beaches.map((p) => (
+                  <CardPlan
+                    key={p.id}
+                    id={p.id}
+                    nombre={p.nombre}
+                    miniatura={p.miniatura}
+                    descripcion={p.descripcion}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+            <TabsContent value="alojamiento" className="relative w-full">
+              <div className="grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-3 gap-4">
+                {accommodations.map((p) => (
+                  <CardPlan
+                    key={p.id}
+                    id={p.id}
+                    nombre={p.nombre}
+                    miniatura={p.miniatura}
+                    descripcion={p.descripcion}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+          </div>
+          {/* </ScrollArea> */}
         </div>
       </Tabs>
     </div>

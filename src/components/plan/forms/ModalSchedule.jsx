@@ -1,40 +1,33 @@
-"use client"
-
-import { useState } from "react"
+import { RHFScheduleSelector } from "@/components"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { PlanForm } from "@/components"
-import clsx from "clsx"
-import { IoCreateOutline } from "react-icons/io5"
-import { ScrollArea } from "../scroll-area"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { cn } from "@/lib/utils"
+import { useState } from "react"
 
-export function ModalCreate({ buttonColor }) {
+export const ModalSchedule = ({ name, control, rules }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const stylebtn = clsx(
+  const stylebtn = cn(
     "w-[95%] text-xs sm:text-lg sm:w-[50%] md:text-xl font-bold mt-5 py-4 h-auto dark:text-black"
   )
 
   const handleOpenChange = (open) => {
     if (!open) {
-      if (
-        confirm(
-          "¿Estás seguro de que quieres cerrar? Los cambios no guardados se perderán."
-        )
-      ) {
-        setIsOpen(false)
-      }
+      setIsOpen(false)
     } else {
       setIsOpen(true)
     }
   }
 
-  const closeModal = () => {
+  const closeModal = (e) => {
+    e.preventDefault()
     setIsOpen(false)
   }
 
@@ -42,12 +35,12 @@ export function ModalCreate({ buttonColor }) {
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button
+          type="button"
           variant="outline"
-          className={`${stylebtn}  ${buttonColor} items-stretch`}
+          className="w-full hover:bg-customBlueInputAuth hover:shadow-customBoxShadow hover:text-black dark:bg-gray-700 dark:hover:bg-customBlueInputAuth"
           onClick={() => setIsOpen(true)}
         >
-          <IoCreateOutline className="w-6 h-6" />
-          Crear Plan
+          Seleccionar horario
         </Button>
       </DialogTrigger>
       <DialogContent
@@ -58,12 +51,22 @@ export function ModalCreate({ buttonColor }) {
       >
         <DialogHeader>
           <DialogTitle className="text-center dark:text-white">
-            Agregar Plan
+            Seleccionar horario
           </DialogTitle>
         </DialogHeader>
         <ScrollArea className="mt-[2%] sm:max-h-[calc(90vh-5rem)] max-h-[calc(90vh-5rem)] h-full pr-4">
-          <PlanForm closeModal={closeModal} />
+          <RHFScheduleSelector name={name} control={control} rules={rules} />
         </ScrollArea>
+        <DialogFooter className="pt-4">
+          <Button
+            type="button"
+            variant="outline"
+            className="hover:bg-customBlueInputAuth hover:shadow-customBoxShadow dark:hover:text-black dark:text-white dark:hover:bg-customBlueInputAuth mr-4"
+            onClick={() => setIsOpen(false)}
+          >
+            Guardar
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   )
