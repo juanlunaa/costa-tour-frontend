@@ -1,4 +1,4 @@
-import { Volkhov, Mulish } from "next/font/google"
+import { Volkhov, Mulish, Anton } from "next/font/google"
 
 export const titleFont = Volkhov({
   subsets: ["latin"],
@@ -9,4 +9,11 @@ export const titleFont = Volkhov({
 export const textFont = Mulish({
   subsets: ["latin"],
   variable: "--font-mulish",
+})
+
+export const textFont2 = Anton({
+  subsets: ["latin"],
+  weight:["400"],
+  style:["normal"],
+  variable: "--font-anton",
 })

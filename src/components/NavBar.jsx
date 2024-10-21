@@ -61,7 +61,7 @@ export const NavBar = ({ pathname }) => {
   ]
 
   return (
-    <nav className="fixed z-[1100] top-0 left-0 right-0">
+    <nav className="fixed z-[1100] top-0 left-0 right-0 max-w-7xl w-[90%] mx-auto">
       <div>
         <div className="flex justify-between items-center h-20 w-full px-4 bg-white dark:bg-customBlack border-b border-gray-200">
           <Link href="/">

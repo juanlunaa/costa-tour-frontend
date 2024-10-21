@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${titleFont.variable} ${textFont.variable}`}>
-      <body>
+      <body className="bg-[#e6e6e6] dark:bg-[#1E1E1E]">
         <Providers>{children}</Providers>
         <Toaster richColors position="bottom-left" closeButton />
       </body>
