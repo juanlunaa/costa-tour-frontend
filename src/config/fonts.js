@@ -13,7 +13,7 @@ export const textFont = Mulish({
 
 export const textFont2 = Anton({
   subsets: ["latin"],
-  weight:["400"],
-  style:["normal"],
+  weight: ["400"],
+  style: ["normal"],
   variable: "--font-anton",
 })

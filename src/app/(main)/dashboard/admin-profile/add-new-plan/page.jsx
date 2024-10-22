@@ -7,9 +7,10 @@ export default function AddPlan() {
         <div className="relative space-y-4 mx-auto w-[85%] mt-[4%] ">
           <div className="img-create relative sm:w-full w-[150px]  aspect-video">
             <Image
-              src="/Crear-page.png"
+              src="/Crear-Page.png"
               fill
               className="object-contain sm:w-full w-[200px] -left-[11]"
+              alt="create-plan"
             />
           </div>
           <div className="flex justify-center mt-[10%] ">

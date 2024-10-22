@@ -42,7 +42,7 @@ export const PlanExclusiveForm = () => {
     disponibilidad: {
       Lunes: [],
       Martes: [],
-      Miercoles: ["08:00"],
+      Miercoles: [],
       Jueves: [],
       Viernes: [],
       Sabado: [],
