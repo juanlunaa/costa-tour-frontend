@@ -13,7 +13,7 @@ export const CarouselRecomendation = ({ title, planes }) => {
       opts={{
         align: "start",
       }}
-      className="w-full max-w-full mt-8"
+      className="w-full max-w-full mt-8 px-2 lg:px-5"
     >
       <div className="flex justify-between items-center mb-2">
         <p className="rounded-full w-40 py-2 text-center bg-customBlue text-white">

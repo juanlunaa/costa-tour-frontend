@@ -76,6 +76,8 @@ module.exports = withMT({
           "0 0px 15px 2px rgb(0 0 0 / 0.1), 0 4px 6px 2px rgb(0 0 0 / 0.1)",
         customBoxShadowDark:
           "0 0px 15px 2px rgb(255 255 255 / 0.1), 0 4px 6px 2px rgb(255 255 255 / 0.05)",
+        customBoxShadowMain:
+          "0 0px 13px 4px rgb(0 0 0 / 0.2), 0 0px 4px 2px rgb(0 0 0 / 0.2)",
       },
       gridTemplateColumns: {
         "auto-fit": "repeat(auto-fit, minmax(320px, 1fr))",
