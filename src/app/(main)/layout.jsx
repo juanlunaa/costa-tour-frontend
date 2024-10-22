@@ -15,7 +15,7 @@ export default function CostaTourLayout({ children }) {
   }
 
   return (
-    <main className="min-h-screen relative max-w-7xl w-[90%] mx-auto dark:bg-gray-900">
+    <main className="min-h-screen relative max-w-[83rem]  w-[100%] mx-auto shadow-customBoxShadowMain dark:bg-gray-900">
       <NavBar pathname={{ pathname }}/>
       {children}
       {showFooter() ? <Footer className="" /> : <></>}
