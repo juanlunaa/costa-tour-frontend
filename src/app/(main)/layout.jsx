@@ -1,5 +1,4 @@
 "use client"
-import { ThemeProvider } from "@/components/theme-provider"
 import { Footer, NavBar } from "@/components"
 import { usePathname } from "next/navigation"
 
