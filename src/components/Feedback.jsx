@@ -73,7 +73,7 @@ export function FeedbackPlan() {
           <div className="flex sm:gap-4 gap-3  items-start">
             <div>
               <Avatar className="h-8 w-8 sm:w-12 sm:h-12 md:h-16 md:w-16">
-                <AvatarImage src="../categoria-banner.webp" />
+                <AvatarImage src="/categoria-banner.webp" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </div>
