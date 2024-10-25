@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 
 const CarouselContext = React.createContext(null)
 
-function useCarousel() {
+export function useCarousel() {
   const context = React.useContext(CarouselContext)
 
   if (!context) {
@@ -58,6 +58,13 @@ const Carousel = React.forwardRef(
       api?.scrollNext()
     }, [api])
 
+    const jumpTo = React.useCallback(
+      (index) => {
+        api?.scrollTo(index)
+      },
+      [api]
+    )
+
     const handleKeyDown = React.useCallback(
       (event) => {
         if (event.key === "ArrowLeft") {
@@ -103,6 +110,7 @@ const Carousel = React.forwardRef(
             orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
           scrollPrev,
           scrollNext,
+          jumpTo,
           canScrollPrev,
           canScrollNext,
         }}
