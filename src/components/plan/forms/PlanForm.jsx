@@ -19,6 +19,7 @@ import { useEffect, useState } from "react"
 import { fetchCharacteristics } from "@/services/utils"
 import clsx from "clsx"
 import { cn } from "@/lib/utils"
+import { IoSend } from "react-icons/io5";
 
 const InteractiveMap = dynamic(() => import("./InteractiveMap"), {
   ssr: false, // Desactiva el SSR para este componente
@@ -31,38 +32,38 @@ export function PlanForm({ plan, closeModal }) {
 
   const formDefaultValues = plan
     ? {
-        nombre: plan.nombre,
-        descripcion: plan.descripcion,
-        categoria: plan.categoria,
-        gratis: plan.rangoMinDinero === "Gratis",
-        rangoMinDinero: plan.rangoMinDinero,
-        rangoMaxDinero: plan.rangoMaxDinero,
-        imagenes: {
-          files: plan.imagenes
-            ? plan.imagenes.map((preview) => ({ preview, isNew: false }))
-            : [],
-          miniatura:
-            plan.imagenes.length > 0
-              ? plan.imagenes.findIndex((img) => img === plan.miniatura)
-              : 0,
-        },
-        ubicacion: plan.ubicacion,
-        caracteristicas: plan.caracteristicas
-          ? plan.caracteristicas.map((item) => item.id?.toString())
+      nombre: plan.nombre,
+      descripcion: plan.descripcion,
+      categoria: plan.categoria,
+      gratis: plan.rangoMinDinero === "Gratis",
+      rangoMinDinero: plan.rangoMinDinero,
+      rangoMaxDinero: plan.rangoMaxDinero,
+      imagenes: {
+        files: plan.imagenes
+          ? plan.imagenes.map((preview) => ({ preview, isNew: false }))
           : [],
-      }
+        miniatura:
+          plan.imagenes.length > 0
+            ? plan.imagenes.findIndex((img) => img === plan.miniatura)
+            : 0,
+      },
+      ubicacion: plan.ubicacion,
+      caracteristicas: plan.caracteristicas
+        ? plan.caracteristicas.map((item) => item.id?.toString())
+        : [],
+    }
     : {
-        nombre: "",
-        descripcion: "",
-        categoria: "",
-        gratis: false,
-        rangoMinDinero: "",
-        rangoMaxDinero: "",
-        imagenes: { files: [], miniaturaSelect: 0 },
-        ubicacion: null,
-        miniaturaSelect: "",
-        caracteristicas: [],
-      }
+      nombre: "",
+      descripcion: "",
+      categoria: "",
+      gratis: false,
+      rangoMinDinero: "",
+      rangoMaxDinero: "",
+      imagenes: { files: [], miniaturaSelect: 0 },
+      ubicacion: null,
+      miniaturaSelect: "",
+      caracteristicas: [],
+    }
 
   const {
     register,
@@ -160,6 +161,8 @@ export function PlanForm({ plan, closeModal }) {
         toast.error("Ha ocurrido un error al momento de actualizar el plan :'(")
       }
     }
+
+    toast.success("El plan ha sido enviado exitosamente.");
   })
 
   useEffect(() => {
@@ -381,6 +384,17 @@ export function PlanForm({ plan, closeModal }) {
                     <FiPlusCircle className="mr-1" /> Agregar
                   </>
                 )}
+              </Button>
+
+              {/* Botón de enviar para el keypartner, ocultar para admin  */}
+              <Button
+                type="button"
+                onClick={() => {
+                  toast.success("El plan ha sido enviado exitosamente.");
+                }}
+                className="sm:w-[40%] sm:text-base w-[45%] text-xs bg-[#37B1E2] hover:bg-light-blue-800 rounded-full dark:text-white"
+              ><IoSend />
+                Enviar
               </Button>
             </div>
           </div>
