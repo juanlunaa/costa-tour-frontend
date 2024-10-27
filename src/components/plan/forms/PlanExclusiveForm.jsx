@@ -20,6 +20,8 @@ import { useEffect, useState } from "react"
 import { fetchCharacteristics } from "@/services/utils"
 import { ModalSchedule } from "./ModalSchedule"
 import dynamic from "next/dynamic"
+import { createPlanExclusive } from "@/services/plan"
+import { toast } from "sonner"
 
 const InteractiveMap = dynamic(() => import("./InteractiveMap"), {
   ssr: false, // Desactiva el SSR para este componente
@@ -40,13 +42,13 @@ export const PlanExclusiveForm = () => {
     expectativa: "",
     informacionAdicional: ["", ""],
     disponibilidad: {
-      Lunes: [],
-      Martes: [],
-      Miercoles: [],
-      Jueves: [],
-      Viernes: [],
-      Sabado: [],
-      Domingo: [],
+      LUNES: [],
+      MARTES: [],
+      MIERCOLES: [],
+      JUEVES: [],
+      VIERNES: [],
+      SABADO: [],
+      DOMINGO: [],
     },
     caracteristicas: [],
   }
@@ -80,6 +82,70 @@ export const PlanExclusiveForm = () => {
     fetchData()
   }, [])
 
+  const onSubmit = handleSubmit(async (data) => {
+    const formData = new FormData()
+
+    Object.keys(data).forEach((key) => {
+      if (key === "imagenes") {
+        data[key].files
+          .filter((img) => !img.isNew)
+          .forEach((img, index) => {
+            formData.append(`imagenesExistentes[${index}]`, img.preview)
+          })
+
+        data[key].files
+          .filter((img) => img.isNew)
+          .forEach((image, index) => {
+            formData.append(`imagenesFiles[${index}]`, image.file)
+          })
+
+        formData.append("miniaturaSelect", data[key].miniatura)
+      } else if (key === "ubicacion") {
+        formData.append("latitud", data[key].latitud)
+        formData.append("longitud", data[key].longitud)
+        formData.append("direccion", data[key].direccion)
+      } else if (
+        key === "caracteristicas" ||
+        key === "serviciosIncluidos" ||
+        key === "informacionAdicional"
+      ) {
+        data[key].forEach((item, index) => {
+          formData.append(`${key}[${index}]`, item)
+        })
+      } else if (key === "disponibilidad") {
+        let indexD = 0
+        Object.entries(data[key]).forEach(([dia, horas]) => {
+          if (horas?.length > 0) {
+            formData.append(`disponibilidad[${indexD}].dia`, dia)
+
+            horas.forEach((hora, indexH) => {
+              formData.append(
+                `disponibilidad[${indexD}].horas[${indexH}]`,
+                hora
+              )
+            })
+            indexD++
+          }
+        })
+      } else {
+        formData.append(key, data[key])
+      }
+    })
+
+    for (let pair of formData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`)
+    }
+
+    const { status } = await createPlanExclusive(formData)
+
+    if (status === 200) {
+      toast.success(`El plan ${data.nombre} ha sido creado satisfactoriamente`)
+      resetForm()
+    } else {
+      toast.error("Ha ocurrido un error al momento de crear el plan :'(")
+    }
+  })
+
   const styleInputs = cn(
     "text-gray-600 block w-full bg-[#F4F4F5] dark:bg-gray-700 dark:text-white"
   )
@@ -88,7 +154,7 @@ export const PlanExclusiveForm = () => {
   )
 
   return (
-    <form className="dark:text-white">
+    <form onSubmit={onSubmit} className="dark:text-white">
       <div className="container flex flex-col sm:flex-row gap-6 h-fit">
         <div className="flex flex-col items-stretch gap-3 w-full sm:w-1/2">
           {/* Preview imagenes del input */}
@@ -146,7 +212,7 @@ export const PlanExclusiveForm = () => {
             >
               <option value="">Selecciona una categoria</option>
               <option value="EXTREMO">Extremos</option>
-              <option value="PARTY_NIGHT">Party Nights</option>
+              <option value="NIGHTLIFE">Nightlife</option>
             </select>
             {errors.categoria && (
               <ErrorMessage message={errors.categoria.message} />
