@@ -1,20 +1,17 @@
 import { ComboboxHour } from "@/components/ComboboxHour"
-import AutoShowModal from "@/components/ui/modal/ModalAuto"
 import { AccordionInfoPlan } from "@/components/ui/accordionExtreme/Accordions"
 import { ContPerson } from "@/components/ui/contPerson/NumberPeople"
 import ImageGallery from "@/components/ui/gallery-img/Gallery"
 import { DatePickerDemo } from "@/components/ui/toggleCalendar/dateCalendar"
-import { fetchPlanById } from "@/services/plan"
+import { fetchPlanExclusiveById } from "@/services/plan"
 import { notFound } from "next/navigation"
 import { MdStars } from "react-icons/md"
-import AutoOpenPaymentModal from "@/components/ui/modal/ModalAuto"
-import Example from "@/components/ui/modal/SubcripcionPremiun"
 import ModalAutoPay from "@/components/ui/modal/ModalAuto"
 
 export default async function infoExtreme({ params }) {
   const { id } = params
 
-  const { res, status } = await fetchPlanById(id)
+  const { res, status } = await fetchPlanExclusiveById(id)
 
   if (status === 404) {
     notFound()
@@ -26,8 +23,8 @@ export default async function infoExtreme({ params }) {
 
   return (
     <div className="flex justify-center pt-16 dark:bg-gray-900">
-    <ModalAutoPay />
-    
+      <ModalAutoPay />
+
       <div className="container relative mt-20 w-[80%] mx-auto dark:bg-gray-900">
         <div>
           <h1 className="font-volkhov font-bold text-2xl sm:text-4xl dark:text-white">
@@ -69,16 +66,20 @@ export default async function infoExtreme({ params }) {
             </p>
           </div>
           <div className="shadow-customBoxShadow flex flex-col w-[65%] md:w-[35%] h-auto gap-y-6 px-5 py-8 mt-12 sm:mt-0">
-
-            <span className="font-volkhov font-bold text-lg sm:text-xl md:text-2xl ">Desde $480.000</span>
+            <span className="font-volkhov font-bold text-lg sm:text-xl md:text-2xl ">
+              Desde $480.000
+            </span>
 
             <div className="flex flex-wrap justify-around gap-1 gap-y-6  lg:flex-nowrap">
-              <DatePickerDemo availableDays={['Tuesday', 'Wednesday']} className="w-5"/>
+              <DatePickerDemo
+                availableDays={["Tuesday", "Wednesday"]}
+                className="w-5"
+              />
               <ContPerson />
             </div>
 
             <div className="flex justify-center">
-              <ComboboxHour/>
+              <ComboboxHour />
             </div>
 
             <div className="flex justify-center">
@@ -86,7 +87,6 @@ export default async function infoExtreme({ params }) {
                 Reserva ahora
               </button>
             </div>
-
           </div>
         </div>
 

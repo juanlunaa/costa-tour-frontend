@@ -40,6 +40,49 @@ input {
   @apply font-mulish;
 }
 
+.section-1-exclusive::before {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  width: 300px; /* Tamaño de la mancha */
+  height: 300px;
+  @apply bg-customBlue;
+  filter: blur(100px);
+  border-radius: 50%;
+}
+
+.section-1-exclusive::after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  top: 0%;
+  right: 5%;
+  width: 300px; /* Tamaño de la mancha */
+  height: 300px;
+  @apply bg-customBlue;
+  filter: blur(100px);
+  border-radius: 50%;
+}
+
+.section-3-exclusive::before {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  top: 0%;
+  right: 8%;
+  width: 50%; /* Tamaño de la mancha */
+  height: 300px;
+  @apply bg-yellowLogo;
+  filter: blur(100px);
+  border-radius: 50%;
+}
+
+.span-title {
+  @apply font-volkhov !important;
+}
+
 .responsive-nav-bar {
   transition: 0.3s ease;
 }

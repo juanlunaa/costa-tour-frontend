@@ -1,6 +1,6 @@
-import LayoutExclusive from "../layout"
+import LayoutExclusive from "./layout"
 import { CardExtreme } from "@/components/plan/CardBannerExtreme"
-import { fetchAllPlans } from "@/services/plan"
+import { fetchAllPlans, fetchAllPlansExclusives } from "@/services/plan"
 import CheckboxGroupDemo from "@/components/ui/checkbox-group/Checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { CardPlan } from "@/components"
@@ -9,15 +9,16 @@ export default async function ExtremePage() {
   const extremeBanner = (
     <img
       src="/banner-extremo.png"
-      className="w-full h-auto max-h-[75vh] max-w-7xl"
+      className="w-full h-auto max-h-[75vh] w-full"
     />
   )
-  const plans = await fetchAllPlans()
+  const plans = await fetchAllPlansExclusives()
+  console.log(plans)
   const validPlans = Array.isArray(plans) ? plans : []
   const textShadow = clsx(
     "[text-shadow:_0_3px_0_rgb(255_255_255_/_100%),_0_-3px_0_rgb(255_255_255_/_100%),_3px_0_0_rgb(255_255_255_/_100%),_-3px_0_0_rgb(255_255_255_/_100%)]"
   )
-  const restaurants = validPlans?.filter((p) => p.categoria === "RESTAURANTE")
+  const restaurants = validPlans?.filter((p) => p.categoria === "EXTREMO")
   return (
     <div className="pt-20 relative">
       <div className="relative">
@@ -75,21 +76,21 @@ export default async function ExtremePage() {
         >
           <CheckboxGroupDemo />
         </div>
-        <ScrollArea className="relative h-[700px] sm:mr-1  md:mr-5 overflow-auto">
-          <div className="flex justify-end">
-            <div className=" grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-y-5 gap-y-4 dark:text-white">
-              {restaurants.map((p) => (
-                <CardPlan
-                  key={p.id}
-                  id={p.id}
-                  nombre={p.nombre}
-                  miniatura={p.miniatura}
-                  descripcion={p.descripcion}
-                />
-              ))}
-            </div>
+        {/* <ScrollArea className="relative h-[700px] sm:mr-1  md:mr-5 overflow-auto"> */}
+        <div className="flex justify-end">
+          <div className=" grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-y-5 gap-y-4 dark:text-white">
+            {restaurants.map((p) => (
+              <CardPlan
+                key={p.id}
+                id={p.id}
+                nombre={p.nombre}
+                miniatura={p.miniatura}
+                descripcion={p.descripcion}
+              />
+            ))}
           </div>
-        </ScrollArea>
+        </div>
+        {/* </ScrollArea> */}
       </div>
     </div>
   )
