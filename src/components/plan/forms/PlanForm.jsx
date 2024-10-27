@@ -17,8 +17,8 @@ import { RHFMultiselect } from "@/components"
 import dynamic from "next/dynamic"
 import { useEffect, useState } from "react"
 import { fetchCharacteristics } from "@/services/utils"
-import clsx from "clsx"
 import { cn } from "@/lib/utils"
+import { IoSend } from "react-icons/io5"
 
 const InteractiveMap = dynamic(() => import("./InteractiveMap"), {
   ssr: false, // Desactiva el SSR para este componente
@@ -157,6 +157,8 @@ export function PlanForm({ plan, closeModal }) {
         toast.error("Ha ocurrido un error al momento de actualizar el plan :'(")
       }
     }
+
+    toast.success("El plan ha sido enviado exitosamente.")
   })
 
   useEffect(() => {
@@ -378,6 +380,18 @@ export function PlanForm({ plan, closeModal }) {
                     <FiPlusCircle className="mr-1" /> Agregar
                   </>
                 )}
+              </Button>
+
+              {/* Botón de enviar para el keypartner, ocultar para admin  */}
+              <Button
+                type="button"
+                onClick={() => {
+                  toast.success("El plan ha sido enviado exitosamente.")
+                }}
+                className="sm:w-[40%] sm:text-base w-[45%] text-xs bg-[#37B1E2] hover:bg-light-blue-800 rounded-full dark:text-white"
+              >
+                <IoSend />
+                Enviar
               </Button>
             </div>
           </div>
