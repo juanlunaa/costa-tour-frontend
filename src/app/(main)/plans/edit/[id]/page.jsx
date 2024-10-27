@@ -22,22 +22,17 @@ export default async function EditPlan({ params }) {
   console.log(params)
   const { id } = params
 
-  try {
-    const plan = await getPlan(id)
-    return (
-      <div className="relative pt-28 sm:w-[80%] sm:mx-auto dark:text-white pb-14">
-        <div className="pl-4">
-          <h1 className="text-2xl font-bold">Mi Perfil</h1>
-          <p>Bienvenido Julia</p>
-        </div>
-
-        <div className="mx-auto sm:shadow-customBoxShadow mt-10 bg-white px-4 dark:bg-gray-800">
-          <PlanForm plan={plan} />
-        </div>
+  const { plan } = await getPlan(id)
+  return (
+    <div className="relative pt-28 sm:w-[80%] sm:mx-auto dark:text-white pb-14">
+      <div className="pl-4">
+        <h1 className="text-2xl font-bold">Mi Perfil</h1>
+        <p>Bienvenido Julia</p>
       </div>
-    )
-  } catch (error) {
-    console.error("Error:", error)
-    throw error
-  }
+
+      <div className="mx-auto sm:shadow-customBoxShadow mt-10 bg-white px-4 dark:bg-gray-800">
+        <PlanForm plan={plan} />
+      </div>
+    </div>
+  )
 }
