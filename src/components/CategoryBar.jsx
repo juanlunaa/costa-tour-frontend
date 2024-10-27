@@ -44,9 +44,6 @@ const CategoryBar = ({ pathname }) => {
       ) : (
         <></>
       )}
-      <Link href="/category/extreme" className={linkStyles("/extreme")}>
-        Planes Extremos
-      </Link>
     </div>
   )
 }
