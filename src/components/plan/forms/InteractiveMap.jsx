@@ -24,8 +24,13 @@ const LocationMarker = ({ value, onChange }) => {
   })
 
   return value === null ? null : (
-    <Marker position={{ lat: value.latitud, lng: value.longitud }}>
-      <Popup>{value.direccion}</Popup>
+    <Marker
+      position={{
+        lat: value?.latitud,
+        lng: value?.longitud,
+      }}
+    >
+      <Popup>{value?.direccion}</Popup>
     </Marker>
   )
 }

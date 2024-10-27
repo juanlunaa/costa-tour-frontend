@@ -1,6 +1,5 @@
 "use client"
 
-import Autoplay from "embla-carousel-autoplay"
 import {
   Carousel,
   CarouselContent,
@@ -10,15 +9,13 @@ import {
   useCarousel,
 } from "@/components/ui/carousel"
 import Image from "next/image"
-import useEmblaCarousel from "embla-carousel-react"
-import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 
 export const CarouselHome = () => {
   const images = [
-    "/img-carousel/carrusel-image-1.jpg",
-    "/img-carousel/carrusel-image-2.png",
-    "/img-carousel/carrusel-image-3.png",
+    "/img-carousel/carrusel-image-1.png",
+    "/img-carousel/carrusel-image-2.webp",
+    "/img-carousel/carrusel-image-3.jpg",
   ]
 
   const textShadow = cn(

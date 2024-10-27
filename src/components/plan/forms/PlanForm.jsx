@@ -35,14 +35,14 @@ export function PlanForm({ plan, closeModal }) {
         descripcion: plan.descripcion,
         categoria: plan.categoria,
         gratis: plan.rangoMinDinero === "Gratis",
-        rangoMinDinero: plan.rangoMinDinero,
-        rangoMaxDinero: plan.rangoMaxDinero,
+        rangoMinDinero: parseInt(plan.rangoMinDinero),
+        rangoMaxDinero: parseInt(plan.rangoMaxDinero),
         imagenes: {
           files: plan.imagenes
             ? plan.imagenes.map((preview) => ({ preview, isNew: false }))
             : [],
           miniatura:
-            plan.imagenes.length > 0
+            plan.imagenes?.length > 0
               ? plan.imagenes.findIndex((img) => img === plan.miniatura)
               : 0,
         },
@@ -80,9 +80,6 @@ export function PlanForm({ plan, closeModal }) {
     if (isFree) {
       setValue("rangoMinDinero", "Gratis")
       setValue("rangoMaxDinero", "Gratis")
-    } else {
-      setValue("rangoMinDinero", "")
-      setValue("rangoMaxDinero", "")
     }
   }, [isFree, setValue])
 
@@ -344,7 +341,7 @@ export function PlanForm({ plan, closeModal }) {
                 },
                 validate: (value) => {
                   return (
-                    value.length >= 3 ||
+                    value?.length >= 3 ||
                     "Seleccione por lo menos 3 caracteristicas"
                   )
                 },

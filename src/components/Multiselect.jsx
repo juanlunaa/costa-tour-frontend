@@ -106,7 +106,7 @@ export function Multiselect({
           </PopoverTrigger>
         </div>
       </PopoverAnchor>
-      <PopoverContent className="h-64 p-0" side="bottom">
+      <PopoverContent className="z-[1200] h-64 p-0" side="bottom">
         <Command
           filter={(value, search) => {
             const option = getOptionById(value)
