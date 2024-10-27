@@ -1,20 +1,30 @@
+"use client"
+
 import Image from "next/image"
 import { BookmarkIcon, StarIcon } from "lucide-react"
 import { formatSrcImage } from "@/lib/utils"
+import { useRouter } from "next/navigation"
 
 export const CardRecomendation = ({
+  id,
   nombre,
   miniatura,
   rating,
   reviews,
   rangoMaxDinero,
 }) => {
+  const router = useRouter()
   const nombreRecortado =
     nombre.length < 33 ? nombre : `${nombre.substring(0, 28)}...`
 
-  console.log(nombre.length)
+  const handleLink = () => {
+    router.push(`/plans/info/${id}`)
+  }
   return (
-    <div className="w-full h-full flex flex-col justify-between overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm">
+    <div
+      onClick={handleLink}
+      className="cursor-pointer w-full h-full flex flex-col justify-between overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm"
+    >
       <div>
         <div className="miniatura relative w-full h-40">
           <Image
