@@ -68,6 +68,30 @@ export const updatePlan = async ({ planId, formData }) => {
   }
 }
 
+export const deletePlan = async (id) => {
+  try {
+    const res = await fetch(`${BACKEND_SERVER}/plan/delete/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    })
+
+    if (!res.ok) {
+      const { message } = await res.json()
+
+      let error
+
+      if (res.status === 404) error = new ResourceNotFoundError(message)
+
+      error.status = res.status
+      return error
+    }
+
+    return { res: "Plan eliminado satisfactoriamente", status: res.status }
+  } catch (err) {
+    return { res: err.message, status: err.status || 500 }
+  }
+}
+
 export const fetchPlanById = async (id) => {
   try {
     const res = await fetch(`${BACKEND_SERVER}/plan/${id}`, {

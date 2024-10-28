@@ -2,6 +2,7 @@
 
 import { BACKEND_SERVER } from "@/env"
 import useUserStore from "@/hooks/useUserStore"
+import { deletePlan } from "@/services/plan"
 import { toggleSavePlanTurist } from "@/services/user"
 import Image from "next/image"
 import Link from "next/link"
@@ -47,6 +48,17 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion, href }) => {
     } else {
       setIsSaved(prevState)
       toast.error("Hubo un problema al agregar el plan a favoritos")
+    }
+  }
+
+  const handleDeletePlan = async (e) => {
+    e.preventDefault()
+    const { res, status } = await deletePlan(id)
+
+    if (status === 200) {
+      toast.info(res)
+    } else {
+      toast.error("Hubo un problema al eliminar el plan :(")
     }
   }
 
@@ -102,12 +114,12 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion, href }) => {
           Leer más
         </Link>
         {user?.tipoUsuario === "ADMINISTRADOR" && (
-          <Link
-            href="#"
+          <button
+            onClick={handleDeletePlan}
             className="flex-wrap content-center h-6 px-1 min-w-[max-content] text-xs sm:min-w-0 sm:w-[34%] sm:h-7 sm:justify-center sm:content-center sm:flex sm:py-0 sm:px-0 sm:text-xs sm md:text-sm md:h-8 md:items-center md:w-[25%] md:justify-around bg-customBlue text-white rounded-full w-full text-center hover:bg-[#2e98a6]"
           >
             Eliminar
-          </Link>
+          </button>
         )}
       </div>
     </div>
