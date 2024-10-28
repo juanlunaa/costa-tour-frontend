@@ -7,10 +7,7 @@ import { CardPlan } from "@/components"
 import clsx from "clsx"
 export default async function ExtremePage() {
   const extremeBanner = (
-    <img
-      src="/banner-extremo.png"
-      className="h-auto max-h-[75vh] w-full"
-    />
+    <img src="/banner-extremo.png" className="h-auto max-h-[75vh] w-full" />
   )
   const plans = await fetchAllPlansExclusives()
   console.log(plans)

@@ -74,7 +74,6 @@ export default function Home() {
 
         <div className="grid gap-4 grid-cols-2 w-[90%] h-[200px] mx-auto sm:h-[500px] sm:gap-8 mt-20">
           <div className="relative grid grid-cols-2 gap-5 items-center">
-
             <div className="relative h-[100%] w-full">
               <Image
                 src="/home/aventura2.png"
@@ -84,8 +83,6 @@ export default function Home() {
               />
             </div>
 
-
-
             <div className="relative h-[80%] w-full">
               <Image
                 src="/home/Aventura1.png"
@@ -93,7 +90,6 @@ export default function Home() {
                 alt="Comer"
                 className="rounded-lg object-cover aspect-video"
               />
-
             </div>
           </div>
 
@@ -103,23 +99,28 @@ export default function Home() {
             </h1>
             <p className="text-base mt-6">
               ¿Listo para explorar Cartagena como nunca antes? Nuestras
-              recomendaciones están hechas a la medida de tus intereses.
-              Desde joyas ocultas hasta experiencias auténticas, aquí encontrarás
-              los mejores planes seleccionados por locales expertos. ¡No dejes que
+              recomendaciones están hechas a la medida de tus intereses. Desde
+              joyas ocultas hasta experiencias auténticas, aquí encontrarás los
+              mejores planes seleccionados por locales expertos. ¡No dejes que
               lo mejor de la ciudad te pase de largo!
             </p>
 
             <div className="w-full mt-6">
-              <Button className="bg-[#37B1E2] h-12 w-[30%]">Explora ahora</Button>
+              <Button className="bg-[#37B1E2] h-12 w-[30%]">
+                Explora ahora
+              </Button>
             </div>
           </div>
         </div>
 
         <div className="grid grid-col-1 w-[90%] h-[200px] mx-auto sm:h-[900px] mt-12">
-          <span className="text-center font-mulish text-[#37B1E2] text-lg ">Testimonios</span>
-          <h1 className="font-bold font-volkhov text-6xl text-center">¿Qué dicen ellos <br /> de nosotros?</h1>
+          <span className="text-center font-mulish text-[#37B1E2] text-lg ">
+            Testimonios
+          </span>
+          <h1 className="font-bold font-volkhov text-6xl text-center">
+            ¿Qué dicen ellos <br /> de nosotros?
+          </h1>
           <div className="grid grid-cols-3 gap-20 w-full h-[43rem]">
-
             <div className="relative h-[500px] w-full grid grid-cols-1 justify-items-center gap-2">
               <div className="relative h-80 w-60 ">
                 <Image
@@ -141,18 +142,21 @@ export default function Home() {
               </div>
 
               <p className="text-base text-center">
-                "¡Increíble experiencia! La plataforma de guías turísticas en Cartagena
-                superó todas mis expectativas. Desde la facilidad de uso hasta las descripciones
-                detallada de los destinos. ¡Gracias por hacer de mi viaje a Cartagena una aventura
-                inolvidable!"
+                "¡Increíble experiencia! La plataforma de guías turísticas en
+                Cartagena superó todas mis expectativas. Desde la facilidad de
+                uso hasta las descripciones detallada de los destinos. ¡Gracias
+                por hacer de mi viaje a Cartagena una aventura inolvidable!"
               </p>
-              <span className="font-bold text-2xl text-center">Alejandro García</span>
-              <span className="text-lg text-orange-600 text-center">España</span>
+              <span className="font-bold text-2xl text-center">
+                Alejandro García
+              </span>
+              <span className="text-lg text-orange-600 text-center">
+                España
+              </span>
             </div>
 
             <div className="relative h-[500px] w-full grid grid-cols-1 justify-items-center  gap-2">
               <div className="relative h-80 w-60">
-
                 <Image
                   src="/home/nosotros2.png"
                   fill
@@ -171,11 +175,15 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-base text-center">
-                "Fue fácil de usar y me ayudó a descubrir lugares impresionantes que de otro modo no
-                habría encontrado. ¡Altamente recomendado!"
+                "Fue fácil de usar y me ayudó a descubrir lugares impresionantes
+                que de otro modo no habría encontrado. ¡Altamente recomendado!"
               </p>
-              <span className="font-bold text-2xl text-center">Olivia Arango</span>
-              <span className="text-lg text-orange-600 text-center">Puerto Rico</span>
+              <span className="font-bold text-2xl text-center">
+                Olivia Arango
+              </span>
+              <span className="text-lg text-orange-600 text-center">
+                Puerto Rico
+              </span>
             </div>
 
             <div className="relative h-[500px] w-full grid grid-cols-1 justify-items-center  gap-2">
@@ -198,19 +206,18 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-base text-center">
-                "Fue fácil de usar y me ayudó a descubrir lugares impresionantes que de otro modo no
-                habría encontrado. ¡Altamente recomendado!"
+                "Fue fácil de usar y me ayudó a descubrir lugares impresionantes
+                que de otro modo no habría encontrado. ¡Altamente recomendado!"
               </p>
-              <span className="font-bold text-2xl text-center">Olivia Arango</span>
-              <span className="text-lg text-orange-600 text-center">Puerto Rico</span>
-
-
-
+              <span className="font-bold text-2xl text-center">
+                Olivia Arango
+              </span>
+              <span className="text-lg text-orange-600 text-center">
+                Puerto Rico
+              </span>
             </div>
-
           </div>
         </div>
-
 
         <ChatBotCostaTour />
       </div>

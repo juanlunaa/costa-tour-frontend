@@ -1,40 +1,40 @@
 .rcb-toggle-icon {
-    background-image: url('/logos/avatar-chat.png') !important;
-    object-fit: cover;
-    background-size: 60% 70%;
-    background-position: center;
-
+  background-image: url("/logos/avatar-chat.png") !important;
+  object-fit: cover;
+  background-size: 60% 70%;
+  background-position: center;
 }
 
 .rcb-toggle-icon svg {
-    display: none;
+  display: none;
 }
-
 
 /* .rcb-toggle-button.rcb-button-show {} */
 
 .rcb-toggle-button {
-
-    background-image: linear-gradient(to right, rgb(90, 24, 154), rgb(175, 184, 186)) !important;
+  background-image: linear-gradient(
+    to right,
+    rgb(90, 24, 154),
+    rgb(175, 184, 186)
+  ) !important;
 }
 
-
 .rcb-chat-tooltip.rcb-tooltip-show {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1s ease-in-out !important;
+  animation: tooltipBlink 60s ease-in-out infinite;
+}
+
+@keyframes tooltipBlink {
+  0%,
+  20% {
     opacity: 1;
     visibility: visible;
-    transition: opacity 1s ease-in-out !important;
-    animation: tooltipBlink 60s ease-in-out infinite;
-
-   
   }
-  
-  @keyframes tooltipBlink  {
-    0%, 20% {
-      opacity: 1 ;
-      visibility: visible ;
-    }
-    30%, 100% {
-      opacity: 0 ;
-      visibility: hidden ;
-    }
+  30%,
+  100% {
+    opacity: 0;
+    visibility: hidden;
   }
+}
