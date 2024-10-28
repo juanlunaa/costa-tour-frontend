@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export default function SuccessPaymentSuscripcionPage({ searchParams }) {
   return (
-    <div className="mt-32 mb-12 p-10 md:ring-1 rounded-md md:max-w-3xl md:mx-auto">
+    <div className="p-10 md:ring-1 rounded-md md:max-w-3xl md:mx-auto">
       <h1 className="text-center text-4xl mb-12 py-4 rounded-full bg-gradient-to-r from-customBlue/15 to-customOrange/15">
         Suscripción Denegada
       </h1>
