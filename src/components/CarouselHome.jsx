@@ -13,9 +13,9 @@ import { cn } from "@/lib/utils"
 
 export const CarouselHome = () => {
   const images = [
-    "/img-carousel/carrusel-image-1.png",
-    "/img-carousel/carrusel-image-2.webp",
-    "/img-carousel/carrusel-image-3.jpg",
+    "/img-carousel/carousel-image-1.png",
+    "/img-carousel/carousel-image-2.webp",
+    "/img-carousel/carousel-image-3.jpg",
   ]
 
   const textShadow = cn(
