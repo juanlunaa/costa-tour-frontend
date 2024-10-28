@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 import { FaBookmark, FaRegBookmark } from "react-icons/fa"
 import { toast } from "sonner"
 
-export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
+export const CardPlan = ({ id, nombre, miniatura, descripcion, href }) => {
   const [isSaved, setIsSaved] = useState()
 
   const { user, isLoggedIn, addPlanFavorito, removePlanFavorito } =
@@ -96,7 +96,7 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion }) => {
           </Link>
         )}
         <Link
-          href={`/plans/info/${id}`}
+          href={!href ? `/plans/info/${id}` : href}
           className="flex-wrap content-center h-6 px-1 min-w-[max-content] text-xs sm:min-w-0 sm:w-[34%] sm:h-7 sm:flex sm:justify-center sm:content-center sm:py-0 sm:px-0  sm:text-xs md:text-sm md:h-8 md:items-center md:w-[25%] md:justify-around bg-customBlue text-white rounded-full w-full text-center hover:bg-[#2e98a6]"
         >
           Leer más

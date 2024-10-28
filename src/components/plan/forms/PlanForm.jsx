@@ -157,8 +157,6 @@ export function PlanForm({ plan, closeModal }) {
         toast.error("Ha ocurrido un error al momento de actualizar el plan :'(")
       }
     }
-
-    toast.success("El plan ha sido enviado exitosamente.")
   })
 
   useEffect(() => {
@@ -383,7 +381,7 @@ export function PlanForm({ plan, closeModal }) {
               </Button>
 
               {/* Botón de enviar para el keypartner, ocultar para admin  */}
-              <Button
+              {/* <Button
                 type="button"
                 onClick={() => {
                   toast.success("El plan ha sido enviado exitosamente.")
@@ -392,7 +390,7 @@ export function PlanForm({ plan, closeModal }) {
               >
                 <IoSend />
                 Enviar
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>

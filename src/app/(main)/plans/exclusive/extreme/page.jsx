@@ -18,9 +18,9 @@ export default async function ExtremePage() {
   const textShadow = clsx(
     "[text-shadow:_0_3px_0_rgb(255_255_255_/_100%),_0_-3px_0_rgb(255_255_255_/_100%),_3px_0_0_rgb(255_255_255_/_100%),_-3px_0_0_rgb(255_255_255_/_100%)]"
   )
-  const restaurants = validPlans?.filter((p) => p.categoria === "EXTREMO")
+  const extremos = validPlans?.filter((p) => p.categoria === "EXTREMO")
   return (
-    <div className="pt-20 relative">
+    <div className="pt-20 mb-12 relative">
       <div className="relative">
         <LayoutExclusive banner={extremeBanner}>
           <div className="flex justify-end w-full gap-2 absolute transform -translate-y-1/2 top-[65%] h-[120px] right-4 sm:right-8 sm:h-36 md:right-12 md:h-44 lg:h-64">
@@ -79,13 +79,14 @@ export default async function ExtremePage() {
         {/* <ScrollArea className="relative h-[700px] sm:mr-1  md:mr-5 overflow-auto"> */}
         <div className="flex justify-end">
           <div className=" grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-y-5 gap-y-4 dark:text-white">
-            {restaurants.map((p) => (
+            {extremos.map((p) => (
               <CardPlan
                 key={p.id}
                 id={p.id}
                 nombre={p.nombre}
                 miniatura={p.miniatura}
                 descripcion={p.descripcion}
+                href={`/plans/exclusive/extreme/info/${p.id}`}
               />
             ))}
           </div>

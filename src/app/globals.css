@@ -36,7 +36,8 @@ span,
 a,
 button,
 label,
-input {
+input,
+li {
   @apply font-mulish;
 }
 

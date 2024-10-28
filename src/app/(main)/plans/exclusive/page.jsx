@@ -19,7 +19,7 @@ const ExclusivePlansPage = () => {
     const href = `/plans/exclusive/${exclusiveCategory}`
 
     if (user) {
-      if (user?.tipoUsuario !== "admin") {
+      if (user?.tipoUsuario !== "ADMINISTRADOR") {
         if (user?.exclusivo) {
           router.push(href)
         } else {

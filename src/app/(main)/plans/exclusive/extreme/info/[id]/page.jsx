@@ -6,7 +6,6 @@ import { DatePickerDemo } from "@/components/ui/toggleCalendar/dateCalendar"
 import { fetchPlanExclusiveById } from "@/services/plan"
 import { notFound } from "next/navigation"
 import { MdStars } from "react-icons/md"
-import ModalAutoPay from "@/components/ui/modal/ModalAuto"
 
 export default async function infoExtreme({ params }) {
   const { id } = params
@@ -19,12 +18,10 @@ export default async function infoExtreme({ params }) {
 
   const plan = res
   console.log(plan)
-  const { nombre, imagenes } = plan
+  const { nombre, descripcion, precio, imagenes } = plan
 
   return (
     <div className="flex justify-center pt-16 dark:bg-gray-900">
-      <ModalAutoPay />
-
       <div className="container relative mt-20 w-[80%] mx-auto dark:bg-gray-900">
         <div>
           <h1 className="font-volkhov font-bold text-2xl sm:text-4xl dark:text-white">
@@ -45,29 +42,12 @@ export default async function infoExtreme({ params }) {
           <div className="w-full md:w-[55%] ">
             <h1 className="font-bold text-lg">Descripcion</h1>
             <p className="w-full max-w-lg mt-4 font-mulish text-sm sm:text-base">
-              ¡Descubre la adrenalina sobre ruedas con nuestra emocionante
-              excursión en cuatrimotos! Recorre los senderos menos transitados
-              de Cartagena, donde la naturaleza se une con la aventura. Siente
-              la emoción de conducir una potente cuatrimoto mientras atraviesas
-              caminos de tierra, arenas doradas y exuberantes paisajes
-              tropicales.Esta experiencia es perfecta para quienes buscan una
-              dosis de aventura y emoción. Bajo la guía de expertos locales,
-              vivirás momentos inolvidables, con paradas estratégicas en puntos
-              panorámicos donde podrás admirar vistas impresionantes de la costa
-              caribeña. Ya sea que seas un conductor experimentado o un
-              principiante, te aseguramos una aventura segura y llena de
-              diversión.
-              <p className="font-bold mt-4">Disfruta de:</p>
-              <ul className="list-disc relative left-8">
-                <li>Cuatrimoto individual o compartida</li>
-                <li>Equipo de seguridad completo</li>
-                <li>Guías profesionales</li>
-              </ul>
+              {descripcion}
             </p>
           </div>
           <div className="shadow-customBoxShadow flex flex-col w-[65%] md:w-[35%] h-auto gap-y-6 px-5 py-8 mt-12 sm:mt-0">
             <span className="font-volkhov font-bold text-lg sm:text-xl md:text-2xl ">
-              Desde $480.000
+              Desde ${precio}
             </span>
 
             <div className="flex flex-wrap justify-around gap-1 gap-y-6  lg:flex-nowrap">
@@ -79,7 +59,7 @@ export default async function infoExtreme({ params }) {
             </div>
 
             <div className="flex justify-center">
-              <ComboboxHour />
+              <ComboboxHour hours={plan?.disponibilidad[0].horas} />
             </div>
 
             <div className="flex justify-center">
@@ -90,7 +70,7 @@ export default async function infoExtreme({ params }) {
           </div>
         </div>
 
-        <AccordionInfoPlan />
+        <AccordionInfoPlan plan={plan} />
       </div>
     </div>
   )
