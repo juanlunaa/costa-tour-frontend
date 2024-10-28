@@ -69,7 +69,7 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion, href }) => {
         {isLoggedIn && user?.tipoUsuario === "TURISTA" ? (
           <button
             onClick={handleClickBookmark}
-            className="absolute top-2 right-2 text-sm sm:text-md md:text-xl rounded-full text-black bg-white py-2 px-3"
+            className="absolute top-2 right-2 text-sm sm:text-md md:text-xl rounded-full text-black bg-white py-2 px-3 hover:bg-[#2e98a6]"
           >
             {isSaved ? (
               <FaBookmark className="text-customBlue" />
@@ -90,21 +90,21 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion, href }) => {
         {user?.tipoUsuario === "ADMINISTRADOR" && (
           <Link
             href={`/plans/edit/${id}`}
-            className="flex-wrap content-center h-6 px-1 min-w-[max-content] text-xs sm:min-w-0 sm:w-[34%] sm:h-7 sm:flex sm:justify-center sm:content-center sm:py-0 sm:px-0  sm:text-xs md:text-sm md:h-8 md:items-center md:w-[25%] md:justify-around bg-customBlue text-white rounded-full w-full text-center"
+            className="flex-wrap content-center h-6 px-1 min-w-[max-content] text-xs sm:min-w-0 sm:w-[34%] sm:h-7 sm:flex sm:justify-center sm:content-center sm:py-0 sm:px-0  sm:text-xs md:text-sm md:h-8 md:items-center md:w-[25%] md:justify-around bg-customBlue text-white rounded-full w-full text-center hover:bg-[#2e98a6]"
           >
             Modificar
           </Link>
         )}
         <Link
           href={!href ? `/plans/info/${id}` : href}
-          className="flex-wrap content-center h-6 px-1 min-w-[max-content] text-xs sm:min-w-0 sm:w-[34%] sm:h-7 sm:flex sm:justify-center sm:content-center sm:py-0 sm:px-0  sm:text-xs md:text-sm md:h-8 md:items-center md:w-[25%] md:justify-around bg-customBlue text-white rounded-full w-full text-center"
+          className="flex-wrap content-center h-6 px-1 min-w-[max-content] text-xs sm:min-w-0 sm:w-[34%] sm:h-7 sm:flex sm:justify-center sm:content-center sm:py-0 sm:px-0  sm:text-xs md:text-sm md:h-8 md:items-center md:w-[25%] md:justify-around bg-customBlue text-white rounded-full w-full text-center hover:bg-[#2e98a6]"
         >
           Leer más
         </Link>
         {user?.tipoUsuario === "ADMINISTRADOR" && (
           <Link
             href="#"
-            className="flex-wrap content-center h-6 px-1 min-w-[max-content] text-xs sm:min-w-0 sm:w-[34%] sm:h-7 sm:justify-center sm:content-center sm:flex sm:py-0 sm:px-0 sm:text-xs sm md:text-sm md:h-8 md:items-center md:w-[25%] md:justify-around bg-customBlue text-white rounded-full w-full text-center"
+            className="flex-wrap content-center h-6 px-1 min-w-[max-content] text-xs sm:min-w-0 sm:w-[34%] sm:h-7 sm:justify-center sm:content-center sm:flex sm:py-0 sm:px-0 sm:text-xs sm md:text-sm md:h-8 md:items-center md:w-[25%] md:justify-around bg-customBlue text-white rounded-full w-full text-center hover:bg-[#2e98a6]"
           >
             Eliminar
           </Link>

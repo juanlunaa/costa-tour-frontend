@@ -1,4 +1,4 @@
-import LayoutExclusive from "./layout"
+import LayoutExclusive from "../layout"
 import { CardExtreme } from "@/components/plan/CardBannerExtreme"
 import { fetchAllPlans, fetchAllPlansExclusives } from "@/services/plan"
 import CheckboxGroupDemo from "@/components/ui/checkbox-group/Checkbox"
@@ -9,7 +9,7 @@ export default async function ExtremePage() {
   const extremeBanner = (
     <img
       src="/banner-extremo.png"
-      className="w-full h-auto max-h-[75vh] w-full"
+      className="h-auto max-h-[75vh] w-full"
     />
   )
   const plans = await fetchAllPlansExclusives()
