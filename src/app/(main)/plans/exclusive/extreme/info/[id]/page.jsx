@@ -1,24 +1,55 @@
+"use client"
+
 import { ComboboxHour } from "@/components/ComboboxHour"
+import { RHFCombobox } from "@/components/RHF/RHFCombobox"
 import { AccordionInfoPlan } from "@/components/ui/accordionExtreme/Accordions"
-import { ContPerson } from "@/components/ui/contPerson/NumberPeople"
+import { ContPerson } from "@/components/ContPeople"
 import ImageGallery from "@/components/ui/gallery-img/Gallery"
-import { DatePickerDemo } from "@/components/ui/toggleCalendar/dateCalendar"
+import { DatePickerDemo } from "@/components/DatePicker"
 import { fetchPlanExclusiveById } from "@/services/plan"
-import { notFound } from "next/navigation"
+import { notFound, useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
 import { MdStars } from "react-icons/md"
+import { RHFDatePicker } from "@/components/RHF/RHFDatePicker"
+import { getDayWeek } from "@/lib/utils"
+import { RHFContPeople } from "@/components/RHF/RHFContPeople"
 
-export default async function infoExtreme({ params }) {
+export default function InfoExtreme({ params }) {
   const { id } = params
+  const [plan, setPlan] = useState(null)
 
-  const { res, status } = await fetchPlanExclusiveById(id)
+  const router = useRouter()
 
-  if (status === 404) {
-    notFound()
-  }
+  const { control, handleSubmit, watch, setValue } = useForm({
+    defaultValues: { fecha: null, hora: "", numPersonas: 1 },
+  })
 
-  const plan = res
-  console.log(plan)
+  useEffect(() => {
+    const fetchData = async () => {
+      const { res, status } = await fetchPlanExclusiveById(id)
+
+      if (status === 200) {
+        setPlan(res)
+      }
+
+      if (status === 404) {
+        notFound()
+      }
+    }
+    fetchData()
+  }, [id])
+
+  if (!plan) return null
+
   const { nombre, descripcion, precio, imagenes } = plan
+
+  const onSubmit = handleSubmit((data) => {
+    console.log(data)
+    router.push(
+      `/reserva/order?fecha=${data.fecha}&hora=${data.hora}&numPeople=${data.numPersonas}&planId=${id}&planName=${nombre}&planPrice=${precio}&planThumbnail=${plan?.miniatura}`
+    )
+  })
 
   return (
     <div className="flex justify-center pt-16 dark:bg-gray-900">
@@ -50,23 +81,51 @@ export default async function infoExtreme({ params }) {
               Desde ${precio}
             </span>
 
-            <div className="flex flex-wrap justify-around gap-1 gap-y-6  lg:flex-nowrap">
-              <DatePickerDemo
-                availableDays={["Tuesday", "Wednesday"]}
-                className="w-5"
-              />
-              <ContPerson />
-            </div>
+            <form onSubmit={onSubmit} className="flex flex-col gap-2">
+              <div className="flex gap-2 flex-col lg:flex-row">
+                <RHFDatePicker
+                  name="fecha"
+                  control={control}
+                  options={plan?.disponibilidad.map((d) => d.dia)}
+                  placeholderSelect={"Selecciona una fecha"}
+                  setValue={setValue}
+                />
 
-            <div className="flex justify-center">
-              <ComboboxHour hours={plan?.disponibilidad[0].horas} />
-            </div>
+                <RHFContPeople
+                  name="numPersonas"
+                  control={control}
+                  placeholderSelect={"Selecciona el numero de personas"}
+                />
+              </div>
 
-            <div className="flex justify-center">
-              <button className="bg-[#37B1E2] text-white hover:bg-[#2ea7c5] w-[85%] lg:w-3/5 h-10 rounded-full text-xs sm:text-sm md:text-md">
-                Reserva ahora
-              </button>
-            </div>
+              <div className="col-span-4 row-start-2">
+                <RHFCombobox
+                  name="hora"
+                  control={control}
+                  options={
+                    !watch("fecha")
+                      ? []
+                      : plan?.disponibilidad
+                          .find((d) => d.dia === getDayWeek(watch("fecha")))
+                          ?.horas.map((h) => ({
+                            id: h,
+                            label: h,
+                          }))
+                  }
+                  placeholderSelect={"Selecciona una hora"}
+                  notFoundMessage={"No hay horas disponibles"}
+                />
+              </div>
+
+              <div className="flex justify-center col-span-4 row-start-3">
+                <button
+                  type="submit"
+                  className="bg-[#37B1E2] text-white hover:bg-[#2ea7c5] w-[85%] lg:w-3/5 h-10 rounded-full text-xs sm:text-sm md:text-md"
+                >
+                  Reserva ahora
+                </button>
+              </div>
+            </form>
           </div>
         </div>
 
