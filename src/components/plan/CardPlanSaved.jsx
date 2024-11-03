@@ -37,7 +37,7 @@ export const CardPlanSaved = ({
             src={`${BACKEND_SERVER}${miniatura}`}
             alt="Image plan"
             fill
-            className="object-cover"
+            className="object-cover hover:scale-105 transition-all"
           />
           <button
             onClick={handleRemove}
