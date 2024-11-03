@@ -3,7 +3,7 @@ import { UpdateTuristProvider } from "@/context/UpdateTuristProvider"
 
 export default function CustomerProfile() {
   return (
-    <div className="container flex flex-col justify-center bg-white shadow-customBoxShadow dark:shadow-customBoxShadowDark dark:bg-gray-800">
+    <div className="container flex flex-col justify-center">
       <UpdateTuristProvider>
         <TuristUpdatePersonalData />
       </UpdateTuristProvider>

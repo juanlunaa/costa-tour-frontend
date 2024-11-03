@@ -95,7 +95,7 @@ export default function CustomerProfileLayout({ children }) {
           </div>
         </div>
 
-        <div className="content-profile sm:w-[70%] md:w-[75%] mr-auto">
+        <div className="content-profile sm:w-[70%] md:w-[75%] mr-auto bg-white shadow-customBoxShadow dark:shadow-customBoxShadowDark dark:bg-gray-800">
           {children}
         </div>
       </div>
