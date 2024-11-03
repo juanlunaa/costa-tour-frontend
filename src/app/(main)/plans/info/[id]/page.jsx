@@ -2,6 +2,7 @@
 
 import { GoogleMapStatic, PromotionalCode } from "@/components"
 import { FeedbackPlan } from "@/components/Feedback"
+import ModalComment from "@/components/plan/ModalComment"
 import ImageGallery from "@/components/ui/gallery-img/Gallery"
 import { CodeProvider } from "@/context/CodeContext"
 import { fetchPlanById } from "@/services/plan"
@@ -36,7 +37,7 @@ export default function InfoPLan({ params }) {
     <div className="flex justify-center pt-16 dark:bg-gray-900">
       <div className="container relative mt-20 w-[80%] mx-auto dark:bg-gray-900">
         <div>
-          <h1 className="font-volkhov font-bold text-2xl sm:text-4xl dark:text-white">
+          <h1 className="font-bold text-2xl sm:text-4xl dark:text-white">
             {nombre}
           </h1>
           {(categoria === "RESTAURANTE" || categoria === "ALOJAMIENTO") && (
@@ -54,7 +55,7 @@ export default function InfoPLan({ params }) {
         </div>
 
         <div>
-          <h1 className="font-volkhov font-bold sm:text-xl text-lg pb-3 dark:text-white">
+          <h1 className="font-bold sm:text-xl text-lg pb-3 dark:text-white">
             Descripción
           </h1>
           <p className="sm:text-sm md:text-base text-xs dark:text-white">
@@ -76,6 +77,23 @@ export default function InfoPLan({ params }) {
             <PromotionalCode planId={plan.id} codigoPlan={res?.codigoPlan} />
           </CodeProvider>
         )}
+
+        <div>
+          <h1 className="font-bold sm:text-xl text-lg py-5 dark:text-white">
+            ¿Qué opinas de este lugar?
+          </h1>
+          <p className="dark:text-white">
+            ¡Tu opinión cuenta! Si disfrutaste de una experiencia inolvidable en
+            el lugar que visitaste, nos encantaría saberlo. Deja un comentario y
+            cuéntanos qué fue lo que más te gustó. ¡Ayuda a otros viajeros a
+            descubrir los mejores rincones y a vivir momentos únicos como los
+            tuyos!
+          </p>
+          <ModalComment
+            thumbnailPlan={plan?.miniatura}
+            namePlan={plan?.nombre}
+          />
+        </div>
 
         <div>
           <FeedbackPlan />
