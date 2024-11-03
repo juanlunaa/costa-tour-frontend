@@ -1,19 +1,16 @@
 "use client"
 
-import { ComboboxHour } from "@/components/ComboboxHour"
-import { RHFCombobox } from "@/components/RHF/RHFCombobox"
 import { AccordionInfoPlan } from "@/components/ui/accordionExtreme/Accordions"
-import { ContPerson } from "@/components/ContPeople"
 import ImageGallery from "@/components/ui/gallery-img/Gallery"
-import { DatePickerDemo } from "@/components/DatePickerCustomDays"
 import { fetchPlanExclusiveById } from "@/services/plan"
 import { notFound, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { MdStars } from "react-icons/md"
 import { RHFDatePickerCustomDays } from "@/components/RHF/RHFDatePickerCustomDays"
-import { getDayWeek } from "@/lib/utils"
+import { RHFCombobox } from "@/components/RHF/RHFCombobox"
 import { RHFContPeople } from "@/components/RHF/RHFContPeople"
+import { getDayWeek } from "@/lib/utils"
 
 export default function InfoExtreme({ params }) {
   const { id } = params

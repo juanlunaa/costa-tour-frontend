@@ -76,11 +76,11 @@ export const NavBar = ({ pathname }) => {
               </Link>
             ))}
 
-            <ModeToggle className={linkStyle} />
+            <ModeToggle className={cn(linkStyle, "bg-transparent")} />
           </div>
 
           <div className="md:hidden flex items-center gap-2">
-            <ModeToggle className={linkStyle} />
+            <ModeToggle className={cn(linkStyle, "bg-transparent")} />
             <input
               type="checkbox"
               id={menuId}

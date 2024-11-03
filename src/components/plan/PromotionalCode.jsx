@@ -73,7 +73,7 @@ const NoCode = ({ hasUser, userRole, turistDni, planId }) => {
       </p>
       <button
         onClick={handleGetCode}
-        className="bg-yellowLogo py-2 px-4 rounded-md ring-1 ring-customOrange mt-5 hover:bg-yellow-700"
+        className="text-white font-bold bg-customBlue py-2 px-4 rounded-full ring-1 ring-blue-800 mt-5 hover:bg-blue-700"
       >
         Obtener codigo
       </button>
@@ -107,7 +107,7 @@ const Code = () => {
       </p>
       <button
         onClick={handleCancelCode}
-        className="bg-yellowLogo py-2 px-4 rounded-md ring-1 ring-customOrange mt-5 hover:bg-yellow-700"
+        className="text-white font-bold bg-customBlue py-2 px-4 rounded-full ring-1 ring-blue-800 mt-5 hover:bg-blue-700"
       >
         Cancelar Código
       </button>
