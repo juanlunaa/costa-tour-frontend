@@ -142,10 +142,10 @@ export default function Home() {
               </div>
 
               <p className="text-base text-center">
-                "¡Increíble experiencia! La plataforma de guías turísticas en
+                ¡Increíble experiencia! La plataforma de guías turísticas en
                 Cartagena superó todas mis expectativas. Desde la facilidad de
                 uso hasta las descripciones detallada de los destinos. ¡Gracias
-                por hacer de mi viaje a Cartagena una aventura inolvidable!"
+                por hacer de mi viaje a Cartagena una aventura inolvidable!
               </p>
               <span className="font-bold text-2xl text-center">
                 Alejandro García
@@ -175,8 +175,8 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-base text-center">
-                "Fue fácil de usar y me ayudó a descubrir lugares impresionantes
-                que de otro modo no habría encontrado. ¡Altamente recomendado!"
+                Fue fácil de usar y me ayudó a descubrir lugares impresionantes
+                que de otro modo no habría encontrado. ¡Altamente recomendado!
               </p>
               <span className="font-bold text-2xl text-center">
                 Olivia Arango
@@ -206,8 +206,8 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-base text-center">
-                "Fue fácil de usar y me ayudó a descubrir lugares impresionantes
-                que de otro modo no habría encontrado. ¡Altamente recomendado!"
+                Fue fácil de usar y me ayudó a descubrir lugares impresionantes
+                que de otro modo no habría encontrado. ¡Altamente recomendado!
               </p>
               <span className="font-bold text-2xl text-center">
                 Olivia Arango
