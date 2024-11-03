@@ -193,3 +193,24 @@ export const fetchPlanExclusiveById = async (id) => {
     return { res: err.message, status: err.status || 500 }
   }
 }
+
+export const getReservaInfo = async (external_reference) => {
+  try {
+    const res = await axios.get(
+      `${BACKEND_SERVER}/booking/${external_reference}`
+    )
+    if (res.status !== 200) {
+      const { message } = await res.data
+
+      let error
+
+      if (res.status === 404) error = new ResourceNotFoundError(message)
+
+      error.status = res.status
+      return error
+    }
+    return { res: res.data, status: res.status }
+  } catch (err) {
+    return { res: err.message, status: err.status || 500 }
+  }
+}

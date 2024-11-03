@@ -24,6 +24,7 @@ export function Combobox({
   onSelect,
   options,
   getOptionLabel,
+  placeholderSelect,
   notFoundMessage,
   classname,
   optionById,
@@ -39,7 +40,7 @@ export function Combobox({
           aria-expanded={open}
           className={cn("w-full justify-between overflow-hidden", classname)}
         >
-          {getOptionLabel()}
+          {!getOptionLabel() ? placeholderSelect : getOptionLabel()}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

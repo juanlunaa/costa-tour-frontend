@@ -3,70 +3,63 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  PopoverClose,
 } from "@/components/ui/popover"
 import { BsPerson } from "react-icons/bs"
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { CiCirclePlus } from "react-icons/ci"
 import { IoIosRemoveCircleOutline } from "react-icons/io"
 
-export function ContPerson() {
+export function ContPeople({ value, onChange, placeholderSelect }) {
   const [adultCount, setAdultCount] = useState(1)
-  const [teenCount, setTeenCount] = useState(1)
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false)
-
-  const totalCount = adultCount + teenCount
-
-  //----------------------------------
+  const [teenCount, setTeenCount] = useState(0)
+  const [open, setOpen] = useState(false)
 
   const handleAdultIncrement = () => {
-    if (adultCount < 10 && totalCount < 10) {
+    if (adultCount < 10 && value < 10) {
       setAdultCount(adultCount + 1)
+      onChange(1)
     }
   }
 
   const handleAdultDecrement = () => {
     if (adultCount > 1) {
       setAdultCount(adultCount - 1)
+      onChange(-1)
     }
   }
 
-  //----------------------------------
-
   const handleTeenIncrement = () => {
-    if (teenCount < 10 && totalCount < 10) {
+    if (teenCount < 10 && value < 10) {
       setTeenCount(teenCount + 1)
+      onChange(1)
     }
   }
 
   const handleTeenDecrement = () => {
     if (teenCount > 0) {
       setTeenCount(teenCount - 1)
+      onChange(-1)
     }
   }
 
-  const handleApply = () => {
-    setIsPopoverOpen(false)
-  }
+  // const handleApply = () => {
+  //   setIsPopoverOpen(false)
+  // }
 
-  const handlePopoverOpen = () => {
-    setIsPopoverOpen(true)
-  }
-
-  // Reiniciar el total al recargar la pagina
-  useEffect(() => {
-    setAdultCount(1)
-    setTeenCount(0)
-  }, [])
+  // const handlePopoverOpen = () => {
+  //   setIsPopoverOpen(true)
+  // }
 
   return (
-    <Popover open={isPopoverOpen}>
-      <PopoverTrigger>
+    <Popover open={open}>
+      <PopoverTrigger asChild>
         <button
-          onClick={handlePopoverOpen}
+          onClick={() => setOpen((prev) => !prev)}
           className="flex items-center border border-[#e5e5e5] hover:bg-[#f5f5f5] text-[#737373] hover:text-[#171717] p-2 rounded-md"
         >
           <BsPerson className="mr-2" />
-          {totalCount > 0 ? `${totalCount}` : "Seleccionar personas"}
+          {value > 0 ? `${value}` : placeholderSelect}
         </button>
       </PopoverTrigger>
       <PopoverContent>
@@ -96,12 +89,12 @@ export function ContPerson() {
 
             <button
               className={`text-black text-2xl rounded-full ${
-                adultCount === 10 || totalCount === 10
+                adultCount === 10 || value === 10
                   ? "bg-gray-400 text-gray-200"
                   : "hover:bg-[#2ea7c5] hover:text-white"
               }`}
               onClick={handleAdultIncrement}
-              disabled={adultCount === 10 || totalCount === 10}
+              disabled={adultCount === 10 || value === 10}
             >
               <CiCirclePlus />
             </button>
@@ -131,7 +124,7 @@ export function ContPerson() {
 
             <button
               className={`text-black text-2xl rounded-full ${
-                teenCount === 10 || totalCount === 10
+                teenCount === 10 || value === 10
                   ? "bg-gray-400 text-gray-200"
                   : "hover:bg-[#2ea7c5] hover:text-white"
               }`}
@@ -143,12 +136,14 @@ export function ContPerson() {
           </div>
         </div>
 
-        <button
-          className="bg-[#37B1E2] hover:bg-[#2ea7c5] text-white w-full h-12 rounded-lg mt-6"
-          onClick={handleApply}
-        >
-          Aplicar
-        </button>
+        <PopoverClose asChild>
+          <button
+            onClick={() => setOpen(false)}
+            className="bg-[#37B1E2] hover:bg-[#2ea7c5] text-white w-full h-12 rounded-lg mt-6"
+          >
+            Aplicar
+          </button>
+        </PopoverClose>
       </PopoverContent>
     </Popover>
   )

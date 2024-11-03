@@ -1,10 +1,12 @@
 import { BACKEND_SERVER } from "@/env"
 import {
+  BadRequestError,
   ChangePasswordError,
   CouldNotSavePlanError,
   FileCannotBeEmptyError,
   UserNotFoundError,
 } from "@/erros"
+import axios from "axios"
 
 export const updatePersonalDataTurist = async ({ dni, data }) => {
   try {
@@ -154,6 +156,22 @@ export const fetchFavoritePlansByTurist = async (dni) => {
     const resJson = await res.json()
 
     return { res: resJson, status: res.status }
+  } catch (err) {
+    return { res: err.message, status: err.status || 500 }
+  }
+}
+
+export const fetchReservasByTurist = async (turistDni) => {
+  try {
+    const res = await axios.get(
+      `${BACKEND_SERVER}/booking/list/turist/${turistDni}`
+    )
+
+    if (res.status !== 200) {
+      return new BadRequestError("Error al obtener las reservas")
+    }
+
+    return { res: res.data, status: res.status }
   } catch (err) {
     return { res: err.message, status: err.status || 500 }
   }

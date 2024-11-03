@@ -19,14 +19,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-// const availableHours = [
-//     { value: "10:00", label: "10:00 AM" },
-//     { value: "11:00", label: "11:00 AM" },
-//     { value: "12:00", label: "12:00 PM" },
-//     { value: "13:00", label: "01:00 PM" },
-//     { value: "14:00", label: "02:00 PM" },
-// ]
-
 export function ComboboxHour({ hours }) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")

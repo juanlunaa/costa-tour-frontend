@@ -53,3 +53,11 @@ export class FileCannotBeEmptyError extends Error {
     this.stack = ""
   }
 }
+
+export class BadRequestError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = "BadRequestError"
+    this.stack = ""
+  }
+}

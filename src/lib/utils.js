@@ -9,3 +9,11 @@ export function cn(...inputs) {
 export function formatSrcImage(src) {
   return src.startsWith("http") ? src : `${BACKEND_SERVER}${src}`
 }
+
+export function getDayWeek(fecha) {
+  const dayWeek = fecha.toLocaleDateString("es-ES", { weekday: "long" })
+  return dayWeek
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase()
+}
