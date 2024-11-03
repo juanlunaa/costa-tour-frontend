@@ -14,7 +14,12 @@ import {
 } from "@/components/ui/popover"
 import { es } from "date-fns/locale"
 
-export const DatePicker = ({ value, onSelect, options, placeholderSelect }) => {
+export const DatePickerCustomDays = ({
+  value,
+  onSelect,
+  options,
+  placeholderSelect,
+}) => {
   const isDateDisabled = (date) => {
     const dayWeek = getDayWeek(date)
     return !options.includes(dayWeek) || date < new Date()

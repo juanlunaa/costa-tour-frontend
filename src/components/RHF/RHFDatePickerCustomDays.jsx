@@ -1,13 +1,13 @@
 "use client"
 
 import { Controller } from "react-hook-form"
-import { DatePicker } from "../DatePicker"
+import { DatePickerCustomDays } from "../DatePickerCustomDays"
 
 const capitalizeFirstLetter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-export const RHFDatePicker = ({
+export const RHFDatePickerCustomDays = ({
   name,
   control,
   options,
@@ -25,7 +25,7 @@ export const RHFDatePicker = ({
         },
       }}
       render={({ field: { value, onChange } }) => (
-        <DatePicker
+        <DatePickerCustomDays
           value={value}
           onSelect={(newValue) => {
             setValue("hora", "")

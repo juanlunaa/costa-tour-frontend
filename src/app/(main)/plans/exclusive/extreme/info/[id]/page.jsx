@@ -5,13 +5,13 @@ import { RHFCombobox } from "@/components/RHF/RHFCombobox"
 import { AccordionInfoPlan } from "@/components/ui/accordionExtreme/Accordions"
 import { ContPerson } from "@/components/ContPeople"
 import ImageGallery from "@/components/ui/gallery-img/Gallery"
-import { DatePickerDemo } from "@/components/DatePicker"
+import { DatePickerDemo } from "@/components/DatePickerCustomDays"
 import { fetchPlanExclusiveById } from "@/services/plan"
 import { notFound, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { MdStars } from "react-icons/md"
-import { RHFDatePicker } from "@/components/RHF/RHFDatePicker"
+import { RHFDatePickerCustomDays } from "@/components/RHF/RHFDatePickerCustomDays"
 import { getDayWeek } from "@/lib/utils"
 import { RHFContPeople } from "@/components/RHF/RHFContPeople"
 
@@ -83,7 +83,7 @@ export default function InfoExtreme({ params }) {
 
             <form onSubmit={onSubmit} className="flex flex-col gap-2">
               <div className="flex gap-2 flex-col lg:flex-row">
-                <RHFDatePicker
+                <RHFDatePickerCustomDays
                   name="fecha"
                   control={control}
                   options={plan?.disponibilidad.map((d) => d.dia)}
