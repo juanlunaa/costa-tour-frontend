@@ -40,7 +40,7 @@ export default function InfoPLan({ params }) {
             {nombre}
           </h1>
           {(categoria === "RESTAURANTE" || categoria === "ALOJAMIENTO") && (
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 dark:text-white">
               <span className="text-orange-400">
                 <MdStars />
               </span>

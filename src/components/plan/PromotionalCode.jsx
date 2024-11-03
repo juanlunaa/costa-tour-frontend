@@ -66,7 +66,7 @@ const NoCode = ({ hasUser, userRole, turistDni, planId }) => {
 
   return (
     <div>
-      <p>
+      <p className="dark:text-white">
         Esta actividad es ofrecida por uno de nuestros aliados. Obtén un código
         promocional que podrás redimir al momento de presentarte en la
         actividad.
@@ -91,12 +91,14 @@ const Code = () => {
 
   return (
     <div>
-      <h1 className="text-center font-bold text-3xl">{codeInfo.codigo} </h1>
-      <span>
+      <h1 className="text-center font-bold text-3xl dark:text-white">
+        {codeInfo.codigo}{" "}
+      </h1>
+      <span className="dark:text-white">
         Fecha de generacion:{" "}
         {getDateFormatted(new Date(codeInfo.fechaGeneracion))}
       </span>
-      <p className="text-justify">
+      <p className="text-justify dark:text-white">
         Tu código promocional ha sido generado con éxito y tiene una validez de
         1 día a partir de su emisión. Recuerda que este código es personal e
         intransferible, por lo que te recomendamos no compartirlo con nadie.
