@@ -10,7 +10,14 @@ import { useEffect, useState } from "react"
 import { FaBookmark, FaRegBookmark } from "react-icons/fa"
 import { toast } from "sonner"
 
-export const CardPlan = ({ id, nombre, miniatura, descripcion, href }) => {
+export const CardPlan = ({
+  id,
+  nombre,
+  miniatura,
+  descripcion,
+  calificacionPromedio,
+  href,
+}) => {
   const [isSaved, setIsSaved] = useState()
 
   const { user, isLoggedIn, addPlanFavorito, removePlanFavorito } =
@@ -76,7 +83,7 @@ export const CardPlan = ({ id, nombre, miniatura, descripcion, href }) => {
           {nombre}
         </h2>
         <span className="absolute top-2 left-2 py-1 px-3 bg-[#2D3134] text-white text-xs rounded-full">
-          4.0
+          {new Number(calificacionPromedio).toFixed(1)}
         </span>
         {isLoggedIn && user?.tipoUsuario === "TURISTA" ? (
           <button
