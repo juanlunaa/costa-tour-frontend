@@ -1,501 +1,94 @@
 "use client"
-import { StarIcon } from "lucide-react"
-import { useState } from "react"
-import { BsCheckAll } from "react-icons/bs"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { BiEdit } from "react-icons/bi"
+import { useEffect, useState } from "react"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Progress } from "@/components/ui/progress"
-export function FeedbackPlan() {
-  const [rating, setRating] = useState(0)
-  const StyleNumSpan =
-    "sm:text-xs sm:font-normal md:text-sm md:font-medium text-xs font-light"
-  const stylePromSpan = "sm:text-sm sm:font-medium text-xs font-light"
-  return (
-    <div>
-      <div className="customer-review mt-12">
-        <h1 className="text-lg sm:text-lg lg:text-xl dark:text-white">
-          Reseña del cliente
-        </h1>
-      </div>
+import { fetchFeedbacksByPlanId } from "@/services/plan"
+import StarProgressBar from "./plan/feedback/StarProgressBar"
+import Comment from "./plan/feedback/Comment"
+import StaticStarsPercent from "./plan/feedback/StaticStarsPercent"
+import useUserStore from "@/hooks/useUserStore"
 
-      <div className="rating grid  grid-cols-2 sm:grid-cols-2 gap-4 mt-5 ">
+export function FeedbackPlan({ idPlan, calificacionPromedio }) {
+  const { user } = useUserStore()
+  const [comments, setComments] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetchFeedbacksByPlanId(idPlan)
+      setComments(res)
+    }
+
+    if (idPlan) {
+      fetchData()
+    }
+  }, [idPlan])
+
+  const calculateStarStatistics = ({ starNum, comments }) => {
+    const commentsFiltered = comments.filter(
+      (comment) => comment.calificacion === starNum
+    )
+
+    const numComments = comments.length
+    const numCommentsFiltered = commentsFiltered.length
+
+    const avgRating =
+      numCommentsFiltered !== 0
+        ? commentsFiltered.reduce(
+            (sum, comment) => sum + comment.calificacion,
+            0
+          ) / numCommentsFiltered
+        : 0
+
+    return {
+      percent: (numCommentsFiltered / numComments) * 100,
+      numCommentsWithStar: numCommentsFiltered,
+    }
+  }
+
+  const starsStatistics = {
+    1: { ...calculateStarStatistics({ starNum: 1, comments }) },
+    2: { ...calculateStarStatistics({ starNum: 2, comments }) },
+    3: { ...calculateStarStatistics({ starNum: 3, comments }) },
+    4: { ...calculateStarStatistics({ starNum: 4, comments }) },
+    5: { ...calculateStarStatistics({ starNum: 5, comments }) },
+  }
+
+  return (
+    <div className="mt-10">
+      <h1 className="text-lg font-bold py-5 md:text-xl dark:text-white">
+        Reseñas
+      </h1>
+
+      <div className="grid grid-cols-2 gap-4">
         <div>
-          <div className="flex items-end gap-1">
-            <span className="font-mulish ml-2 font-black text-2xl sm:text-3xl dark:text-white">
-              4,30
+          <div className="flex items-baseline gap-1">
+            <span className="font-bold text-2xl md:text-3xl dark:text-white">
+              {new Number(calificacionPromedio).toFixed(2)}
             </span>
-            <p className="font-mulish font-light text-xs sm:text-base dark:text-white">
-              850 Reseñas
+            <p className="font-light text-xs md:text-base dark:text-white">
+              <span>{comments.length}</span> Reseñas
             </p>
           </div>
-          <div className="mt-2">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <StarIcon
-                key={i}
-                onClick={() => setRating(i + 1)}
-                className={`inline-block md:w-11 md:h-11 sm:w-8 sm:h-8 w-6 h-6 fill-current 
-                                ${i < rating ? "text-yellow-400" : "text-gray-400"} cursor-pointer`}
-              />
-            ))}
-          </div>
+
+          <StaticStarsPercent value={calificacionPromedio} />
         </div>
-        <div className="flex gap-2 ml-auto w-[70%]">
-          <div className="flex flex-col justify-around text-end">
-            <span className={StyleNumSpan}>5</span>
-            <span className={StyleNumSpan}>4</span>
-            <span className={StyleNumSpan}>3</span>
-            <span className={StyleNumSpan}>2</span>
-            <span className={StyleNumSpan}>1</span>
-          </div>
-          <div className="flex flex-col gap-y-1 justify-center w-full">
-            <div className="flex items-center gap-x-2">
-              <Progress value={90} className="md:h-4 sm:h-2 h-2" />
-              <span className={stylePromSpan}>4.8</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Progress value={60} className="md:h-4 sm:h-2 h-2" />
-              <span className={stylePromSpan}>3.0</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Progress value={85} className="md:h-4 sm:h-2 h-2" />
-              <span className={stylePromSpan}>4.5</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Progress value={70} className="md:h-4 sm:h-2 h-2" />
-              <span className={stylePromSpan}>4.0</span>
-            </div>
-          </div>
+
+        <div className="w-3/4 ml-auto">
+          {Object.keys(starsStatistics).map((key) => (
+            <StarProgressBar
+              key={key}
+              starLabel={key}
+              percent={starsStatistics[key]?.percent}
+              value={starsStatistics[key]?.numCommentsWithStar}
+            />
+          ))}
         </div>
       </div>
+
       <ScrollArea className="h-[650px] sm:h-[800px] md:h-[830px] lg:h-[700px] pr-4 mt-8 mb-12">
-        <div className="grid grid-cols-1 sm:grid-cols-[1fr_2fr] md:grid-cols-[0.7fr_2.5fr] sm:gap-4 gap-1 w-full border-[#E8EAEB] border-b-2 py-4 my-8">
-          <div className="flex sm:gap-4 gap-3  items-start">
-            <div>
-              <Avatar className="h-8 w-8 sm:w-12 sm:h-12 md:h-16 md:w-16">
-                <AvatarImage src="/categoria-banner.webp" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
-
-            <div>
-              <div>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <StarIcon
-                    key={i}
-                    onClick={() => setRating(i + 1)}
-                    className={`inline-block sm:w-3 sm:h-3 w-4 h-4  fill-current 
-                                ${i < rating ? "text-yellow-400" : "text-gray-400"} cursor-pointer`}
-                  />
-                ))}
-              </div>
-              <div>
-                <span className="flex items-center text-sm sm:text-base w-max dark:text-white">
-                  Arlene McCoy
-                  <BsCheckAll className="ml-1 text-[#7BBCB0] text-lg sm:text-xl dark:text-white" />
-                </span>
-                <p className=" font-mulish text-xs sm:text-sm text-[#778088] dark:text-white">
-                  6 octubre 2024
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div>
-              <span className="font-mulish font-bold sm:text-base text-sm dark:text-white">
-                Buen recorrido, muy bien organizado.
-              </span>
-            </div>
-            <div className="flex gap-4">
-              <div className="mt-4">
-                <p className="text-[#767681] font-mulish text-xs sm:text-sm md:text-base leading-relaxed sm:leading-normal dark:text-white">
-                  Visitar el centro histórico de Cartagena fue como adentrarme
-                  en un cuento de hadas caribeño. Cada esquina era una obra de
-                  arte, con sus coloridas casas coloniales y sus balcones
-                  adornados de flores. Me encantó perderme por sus callejuelas
-                  empedradas y descubrir los secretos que guarda esta ciudad
-                  llena de historia y encanto.
-                </p>
-              </div>
-
-              <div className="text-center flex justify-center px-2">
-                <div className="flex justify-center flex-col items-center">
-                  <span className="sm:text-sm md:text-base text-xs dark:text-white">
-                    Editar
-                  </span>
-                  <BiEdit className="sm:text-2xl text-xl cursor-pointer dark:text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* agregado de ejemplo */}
-        <div className="grid grid-cols-1 sm:grid-cols-[1fr_2fr] md:grid-cols-[0.7fr_2.5fr] sm:gap-4 gap-1 w-full border-[#E8EAEB] border-b-2 py-4 my-8">
-          <div className="flex sm:gap-4 gap-3  items-start">
-            <div>
-              <Avatar className="h-8 w-8 sm:w-12 sm:h-12 md:h-16 md:w-16">
-                <AvatarImage src="../categoria-banner.webp" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
-
-            <div>
-              <div>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <StarIcon
-                    key={i}
-                    onClick={() => setRating(i + 1)}
-                    className={`inline-block sm:w-3 sm:h-3 w-4 h-4  fill-current 
-                                ${i < rating ? "text-yellow-400" : "text-gray-400"} cursor-pointer`}
-                  />
-                ))}
-              </div>
-              <div>
-                <span className="flex items-center text-sm sm:text-base w-max dark:text-white">
-                  Arlene McCoy
-                  <BsCheckAll className="ml-1 text-[#7BBCB0] text-lg sm:text-xl dark:text-white" />
-                </span>
-                <p className=" font-mulish text-xs sm:text-sm text-[#778088] dark:text-white">
-                  6 octubre 2024
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div>
-              <span className="font-mulish font-bold sm:text-base text-sm dark:text-white">
-                Buen recorrido, muy bien organizado.
-              </span>
-            </div>
-            <div className="flex gap-4">
-              <div className="mt-4">
-                <p className="text-[#767681] font-mulish text-xs sm:text-sm md:text-base leading-relaxed sm:leading-normal dark:text-white">
-                  Visitar el centro histórico de Cartagena fue como adentrarme
-                  en un cuento de hadas caribeño. Cada esquina era una obra de
-                  arte, con sus coloridas casas coloniales y sus balcones
-                  adornados de flores. Me encantó perderme por sus callejuelas
-                  empedradas y descubrir los secretos que guarda esta ciudad
-                  llena de historia y encanto.
-                </p>
-              </div>
-
-              <div className="text-center flex justify-center px-2">
-                <div className="flex justify-center flex-col items-center">
-                  <span className="sm:text-sm md:text-base text-xs dark:text-white">
-                    Editar
-                  </span>
-                  <BiEdit className="sm:text-2xl text-xl cursor-pointer dark:text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-[1fr_2fr] md:grid-cols-[0.7fr_2.5fr] sm:gap-4 gap-1 w-full border-[#E8EAEB] border-b-2 py-4 my-8">
-          <div className="flex sm:gap-4 gap-3  items-start">
-            <div>
-              <Avatar className="h-8 w-8 sm:w-12 sm:h-12 md:h-16 md:w-16">
-                <AvatarImage src="../categoria-banner.webp" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
-
-            <div>
-              <div>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <StarIcon
-                    key={i}
-                    onClick={() => setRating(i + 1)}
-                    className={`inline-block sm:w-3 sm:h-3 w-4 h-4  fill-current 
-                                ${i < rating ? "text-yellow-400" : "text-gray-400"} cursor-pointer`}
-                  />
-                ))}
-              </div>
-              <div>
-                <span className="flex items-center text-sm sm:text-base w-max dark:text-white">
-                  Arlene McCoy
-                  <BsCheckAll className="ml-1 text-[#7BBCB0] text-lg sm:text-xl dark:text-white" />
-                </span>
-                <p className=" font-mulish text-xs sm:text-sm text-[#778088] dark:text-white">
-                  6 octubre 2024
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div>
-              <span className="font-mulish font-bold sm:text-base text-sm dark:text-white">
-                Buen recorrido, muy bien organizado.
-              </span>
-            </div>
-            <div className="flex gap-4">
-              <div className="mt-4">
-                <p className="text-[#767681] font-mulish text-xs sm:text-sm md:text-base leading-relaxed sm:leading-normal dark:text-white">
-                  Visitar el centro histórico de Cartagena fue como adentrarme
-                  en un cuento de hadas caribeño. Cada esquina era una obra de
-                  arte, con sus coloridas casas coloniales y sus balcones
-                  adornados de flores. Me encantó perderme por sus callejuelas
-                  empedradas y descubrir los secretos que guarda esta ciudad
-                  llena de historia y encanto.
-                </p>
-              </div>
-
-              <div className="text-center flex justify-center px-2">
-                <div className="flex justify-center flex-col items-center">
-                  <span className="sm:text-sm md:text-base text-xs dark:text-white">
-                    Editar
-                  </span>
-                  <BiEdit className="sm:text-2xl text-xl cursor-pointer dark:text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-[1fr_2fr] md:grid-cols-[0.7fr_2.5fr] sm:gap-4 gap-1 w-full border-[#E8EAEB] border-b-2 py-4 my-8">
-          <div className="flex sm:gap-4 gap-3  items-start">
-            <div>
-              <Avatar className="h-8 w-8 sm:w-12 sm:h-12 md:h-16 md:w-16">
-                <AvatarImage src="../categoria-banner.webp" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
-
-            <div>
-              <div>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <StarIcon
-                    key={i}
-                    onClick={() => setRating(i + 1)}
-                    className={`inline-block sm:w-3 sm:h-3 w-4 h-4  fill-current 
-                                ${i < rating ? "text-yellow-400" : "text-gray-400"} cursor-pointer`}
-                  />
-                ))}
-              </div>
-              <div>
-                <span className="flex items-center text-sm sm:text-base w-max dark:text-white">
-                  Arlene McCoy
-                  <BsCheckAll className="ml-1 text-[#7BBCB0] text-lg sm:text-xl dark:text-white" />
-                </span>
-                <p className=" font-mulish text-xs sm:text-sm text-[#778088] dark:text-white">
-                  6 octubre 2024
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div>
-              <span className="font-mulish font-bold sm:text-base text-sm dark:text-white">
-                Buen recorrido, muy bien organizado.
-              </span>
-            </div>
-            <div className="flex gap-4">
-              <div className="mt-4">
-                <p className="text-[#767681] font-mulish text-xs sm:text-sm md:text-base leading-relaxed sm:leading-normal dark:text-white">
-                  Visitar el centro histórico de Cartagena fue como adentrarme
-                  en un cuento de hadas caribeño. Cada esquina era una obra de
-                  arte, con sus coloridas casas coloniales y sus balcones
-                  adornados de flores. Me encantó perderme por sus callejuelas
-                  empedradas y descubrir los secretos que guarda esta ciudad
-                  llena de historia y encanto.
-                </p>
-              </div>
-
-              <div className="text-center flex justify-center px-2">
-                <div className="flex justify-center flex-col items-center">
-                  <span className="sm:text-sm md:text-base text-xs dark:text-white">
-                    Editar
-                  </span>
-                  <BiEdit className="sm:text-2xl text-xl cursor-pointer dark:text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-[1fr_2fr] md:grid-cols-[0.7fr_2.5fr] sm:gap-4 gap-1 w-full border-[#E8EAEB] border-b-2 py-4 my-8">
-          <div className="flex sm:gap-4 gap-3  items-start">
-            <div>
-              <Avatar className="h-8 w-8 sm:w-12 sm:h-12 md:h-16 md:w-16">
-                <AvatarImage src="../categoria-banner.webp" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
-
-            <div>
-              <div>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <StarIcon
-                    key={i}
-                    onClick={() => setRating(i + 1)}
-                    className={`inline-block sm:w-3 sm:h-3 w-4 h-4  fill-current 
-                                ${i < rating ? "text-yellow-400" : "text-gray-400"} cursor-pointer`}
-                  />
-                ))}
-              </div>
-              <div>
-                <span className="flex items-center text-sm sm:text-base w-max dark:text-white">
-                  Arlene McCoy
-                  <BsCheckAll className="ml-1 text-[#7BBCB0] text-lg sm:text-xl dark:text-white" />
-                </span>
-                <p className=" font-mulish text-xs sm:text-sm text-[#778088] dark:text-white">
-                  6 octubre 2024
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div>
-              <span className="font-mulish font-bold sm:text-base text-sm dark:text-white">
-                Buen recorrido, muy bien organizado.
-              </span>
-            </div>
-            <div className="flex gap-4">
-              <div className="mt-4">
-                <p className="text-[#767681] font-mulish text-xs sm:text-sm md:text-base leading-relaxed sm:leading-normal dark:text-white">
-                  Visitar el centro histórico de Cartagena fue como adentrarme
-                  en un cuento de hadas caribeño. Cada esquina era una obra de
-                  arte, con sus coloridas casas coloniales y sus balcones
-                  adornados de flores. Me encantó perderme por sus callejuelas
-                  empedradas y descubrir los secretos que guarda esta ciudad
-                  llena de historia y encanto.
-                </p>
-              </div>
-
-              <div className="text-center flex justify-center px-2">
-                <div className="flex justify-center flex-col items-center">
-                  <span className="sm:text-sm md:text-base text-xs dark:text-white">
-                    Editar
-                  </span>
-                  <BiEdit className="sm:text-2xl text-xl cursor-pointer dark:text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-[1fr_2fr] md:grid-cols-[0.7fr_2.5fr] sm:gap-4 gap-1 w-full border-[#E8EAEB] border-b-2 py-4 my-8">
-          <div className="flex sm:gap-4 gap-3  items-start">
-            <div>
-              <Avatar className="h-8 w-8 sm:w-12 sm:h-12 md:h-16 md:w-16">
-                <AvatarImage src="../categoria-banner.webp" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
-
-            <div>
-              <div>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <StarIcon
-                    key={i}
-                    onClick={() => setRating(i + 1)}
-                    className={`inline-block sm:w-3 sm:h-3 w-4 h-4  fill-current 
-                                ${i < rating ? "text-yellow-400" : "text-gray-400"} cursor-pointer`}
-                  />
-                ))}
-              </div>
-              <div>
-                <span className="flex items-center text-sm sm:text-base w-max dark:text-white">
-                  Arlene McCoy
-                  <BsCheckAll className="ml-1 text-[#7BBCB0] text-lg sm:text-xl dark:text-white" />
-                </span>
-                <p className=" font-mulish text-xs sm:text-sm text-[#778088] dark:text-white">
-                  6 octubre 2024
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div>
-              <span className="font-mulish font-bold sm:text-base text-sm dark:text-white">
-                Buen recorrido, muy bien organizado.
-              </span>
-            </div>
-            <div className="flex gap-4">
-              <div className="mt-4">
-                <p className="text-[#767681] font-mulish text-xs sm:text-sm md:text-base leading-relaxed sm:leading-normal dark:text-white">
-                  Visitar el centro histórico de Cartagena fue como adentrarme
-                  en un cuento de hadas caribeño. Cada esquina era una obra de
-                  arte, con sus coloridas casas coloniales y sus balcones
-                  adornados de flores. Me encantó perderme por sus callejuelas
-                  empedradas y descubrir los secretos que guarda esta ciudad
-                  llena de historia y encanto.
-                </p>
-              </div>
-
-              <div className="text-center flex justify-center px-2">
-                <div className="flex justify-center flex-col items-center">
-                  <span className="sm:text-sm md:text-base text-xs dark:text-white">
-                    Editar
-                  </span>
-                  <BiEdit className="sm:text-2xl text-xl cursor-pointer dark:text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-[1fr_2fr] md:grid-cols-[0.7fr_2.5fr] sm:gap-4 gap-1 w-full border-[#E8EAEB] border-b-2 py-4 my-8">
-          <div className="flex sm:gap-4 gap-3  items-start">
-            <div>
-              <Avatar className="h-8 w-8 sm:w-12 sm:h-12 md:h-16 md:w-16">
-                <AvatarImage src="../categoria-banner.webp" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
-
-            <div>
-              <div>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <StarIcon
-                    key={i}
-                    onClick={() => setRating(i + 1)}
-                    className={`inline-block sm:w-3 sm:h-3 w-4 h-4  fill-current 
-                                ${i < rating ? "text-yellow-400" : "text-gray-400"} cursor-pointer`}
-                  />
-                ))}
-              </div>
-              <div>
-                <span className="flex items-center text-sm sm:text-base w-max dark:text-white">
-                  Arlene McCoy
-                  <BsCheckAll className="ml-1 text-[#7BBCB0] text-lg sm:text-xl dark:text-white" />
-                </span>
-                <p className=" font-mulish text-xs sm:text-sm text-[#778088] dark:text-white">
-                  6 octubre 2024
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div>
-              <span className="font-mulish font-bold sm:text-base text-sm dark:text-white">
-                Buen recorrido, muy bien organizado.
-              </span>
-            </div>
-            <div className="flex gap-4">
-              <div className="mt-4">
-                <p className="text-[#767681] font-mulish text-xs sm:text-sm md:text-base leading-relaxed sm:leading-normal dark:text-white">
-                  Visitar el centro histórico de Cartagena fue como adentrarme
-                  en un cuento de hadas caribeño. Cada esquina era una obra de
-                  arte, con sus coloridas casas coloniales y sus balcones
-                  adornados de flores. Me encantó perderme por sus callejuelas
-                  empedradas y descubrir los secretos que guarda esta ciudad
-                  llena de historia y encanto.
-                </p>
-              </div>
-
-              <div className="text-center flex justify-center px-2">
-                <div className="flex justify-center flex-col items-center">
-                  <span className="sm:text-sm md:text-base text-xs dark:text-white">
-                    Editar
-                  </span>
-                  <BiEdit className="sm:text-2xl text-xl cursor-pointer dark:text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
+        <div>
+          {comments.map((comment) => (
+            <Comment key={comment.id} dniTurista={user?.dni} {...comment} />
+          ))}
         </div>
       </ScrollArea>
     </div>

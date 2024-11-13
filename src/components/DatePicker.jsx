@@ -14,9 +14,7 @@ import {
 } from "@/components/ui/popover"
 import { es } from "date-fns/locale"
 
-export function DatePicker({ className }) {
-  const [date, setDate] = React.useState()
-
+export function DatePicker({ value, onChange, className, disabled }) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -24,12 +22,12 @@ export function DatePicker({ className }) {
           variant={"outline"}
           className={cn(
             "w-full justify-start text-left font-normal",
-            !date && "text-muted-foreground"
+            !value && "text-muted-foreground"
           )}
         >
           <CalendarIcon />
-          {date ? (
-            format(date, "PPP", { locale: es })
+          {value ? (
+            format(value, "PPP", { locale: es })
           ) : (
             <span>Selecciona una fecha</span>
           )}
@@ -39,8 +37,9 @@ export function DatePicker({ className }) {
         <Calendar
           locale={es}
           mode="single"
-          selected={date}
-          onSelect={setDate}
+          selected={value}
+          onSelect={onChange}
+          disabled={disabled ? disabled : () => false}
           initialFocus
         />
       </PopoverContent>

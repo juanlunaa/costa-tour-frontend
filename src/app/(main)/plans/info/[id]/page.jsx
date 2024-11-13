@@ -90,13 +90,17 @@ export default function InfoPLan({ params }) {
             tuyos!
           </p>
           <ModalComment
+            idPlan={plan?.id}
             thumbnailPlan={plan?.miniatura}
             namePlan={plan?.nombre}
           />
         </div>
 
         <div>
-          <FeedbackPlan />
+          <FeedbackPlan
+            idPlan={plan?.id}
+            calificacionPromedio={plan?.calificacionPromedio}
+          />
         </div>
       </div>
     </div>

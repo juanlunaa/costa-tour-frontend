@@ -214,3 +214,34 @@ export const getReservaInfo = async (external_reference) => {
     return { res: err.message, status: err.status || 500 }
   }
 }
+
+export const fetchFeedbacksByPlanId = async (id) => {
+  try {
+    const res = await axios.get(`${BACKEND_SERVER}/feedback/list/plan/${id}`)
+    return res.data
+  } catch (err) {
+    return err
+  }
+}
+
+export const saveFeedback = async (data) => {
+  try {
+    const res = await axios.post(`${BACKEND_SERVER}/feedback/save`, data)
+
+    if (res.status !== 200) {
+      let error
+
+      if (res.status === 404) {
+        const { message } = await res.data
+        error = new ResourceNotFoundError(message)
+      }
+
+      error.status = res.status
+      throw error
+    }
+
+    return { res: "Su comentario ha sido guardado", status: res.status }
+  } catch (err) {
+    return { res: err.message, status: err.status || 500 }
+  }
+}
