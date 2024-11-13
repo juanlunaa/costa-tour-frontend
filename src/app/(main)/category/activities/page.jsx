@@ -1,53 +1,90 @@
+"use client"
+
 import { IoRestaurant } from "react-icons/io5"
 import { MdOutlineBeachAccess } from "react-icons/md"
 import { PiBuildingApartment } from "react-icons/pi"
 import { TbGps } from "react-icons/tb"
-import { CardPlan } from "@/components"
+import { CardPlan, Loading } from "@/components"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import CheckboxGroupDemo from "@/components/ui/checkbox-group/Checkbox"
 import { fetchAllPlans } from "@/services/plan"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { useEffect, useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 
-async function getPlans() {
-  const plans = await fetchAllPlans()
-  const validPlans = Array.isArray(plans) ? plans : []
-  return { plans: validPlans }
-}
+export default function Activity({ searchParams }) {
+  const { q } = searchParams
 
-export default async function Activity() {
-  const { plans } = await getPlans()
+  const router = useRouter()
+
+  const [plans, setPlans] = useState(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetchAllPlans()
+      setPlans(Array.isArray(res) ? res : [])
+    }
+    fetchData()
+  }, [])
+
+  if (!plans) return <Loading />
+
   const restaurants = plans?.filter((p) => p.categoria === "RESTAURANTE")
   const touristSites = plans?.filter((p) => p.categoria === "SITIO_TURISTICO")
   const beaches = plans?.filter((p) => p.categoria === "PLAYA")
   const accommodations = plans?.filter((p) => p.categoria === "ALOJAMIENTO")
 
+  const categorias = ["restaurante", "sitio-turistico", "playa", "alojamiento"]
+
+  const updateSearchParam = (busqueda) => {
+    const params = new URLSearchParams(searchParams)
+    params.set("q", busqueda)
+    router.replace(`?${params.toString()}`, undefined, { shallow: true })
+  }
+
   return (
     <div className="container-slider">
-      <Tabs defaultValue="restaurante" className="w-full mt-2">
+      <Tabs
+        defaultValue={
+          q && categorias.findIndex((c) => c === q) !== -1 ? q : "restaurante"
+        }
+        className="w-full mt-2"
+      >
         <TabsList className="grid grid-cols-2 sm:flex sm:justify-around justify-items-center content-center items-center">
           <TabsTrigger
+            asChild
             className="font-bold text-black dark:text-gray-400"
             value="restaurante"
           >
-            <IoRestaurant className="w-5 h-5" /> Restaurantes
+            <button onClick={() => updateSearchParam("restaurante")}>
+              <IoRestaurant className="w-5 h-5" /> Restaurantes
+            </button>
           </TabsTrigger>
           <TabsTrigger
+            asChild
             className="font-bold text-black  dark:text-gray-400"
             value="sitio-turistico"
           >
-            <TbGps className="w-6 h-6" /> Sitios Turísticos
+            <button onClick={() => updateSearchParam("sitio-turistico")}>
+              <TbGps className="w-6 h-6" /> Sitios Turísticos
+            </button>
           </TabsTrigger>
           <TabsTrigger
+            asChild
             className="font-bold text-black  dark:text-gray-400"
             value="playa"
           >
-            <MdOutlineBeachAccess className="w-6 h-6" /> Playas
+            <button onClick={() => updateSearchParam("playa")}>
+              <MdOutlineBeachAccess className="w-6 h-6" /> Playas
+            </button>
           </TabsTrigger>
           <TabsTrigger
+            asChild
             className="font-bold text-black dark:text-gray-400"
             value="alojamiento"
           >
-            <PiBuildingApartment className="w-6 h-6" /> Alojamientos
+            <button onClick={() => updateSearchParam("alojamiento")}>
+              <PiBuildingApartment className="w-6 h-6" /> Alojamientos
+            </button>
           </TabsTrigger>
         </TabsList>
         <div className="grid-filter-tabContent flex flex-col items-center sm:items-start sm:flex-row sm:justify-between sm:mt-24 mt-8 sm:gap-1 gap-5">
@@ -57,7 +94,6 @@ export default async function Activity() {
           >
             <CheckboxGroupDemo />
           </div>
-          {/* <ScrollArea className="relative h-[700px] sm:mr-1  md:mr-5 overflow-auto"> */}
           <div className="flex justify-end">
             <TabsContent value="restaurante" className="relative w-full">
               <div className=" grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-y-5 gap-y-4">
@@ -68,6 +104,7 @@ export default async function Activity() {
                     nombre={p.nombre}
                     miniatura={p.miniatura}
                     descripcion={p.descripcion}
+                    calificacionPromedio={p.calificacionPromedio}
                   />
                 ))}
               </div>
@@ -81,6 +118,7 @@ export default async function Activity() {
                     nombre={p.nombre}
                     miniatura={p.miniatura}
                     descripcion={p.descripcion}
+                    calificacionPromedio={p.calificacionPromedio}
                   />
                 ))}
               </div>
@@ -94,6 +132,7 @@ export default async function Activity() {
                     nombre={p.nombre}
                     miniatura={p.miniatura}
                     descripcion={p.descripcion}
+                    calificacionPromedio={p.calificacionPromedio}
                   />
                 ))}
               </div>
@@ -107,12 +146,12 @@ export default async function Activity() {
                     nombre={p.nombre}
                     miniatura={p.miniatura}
                     descripcion={p.descripcion}
+                    calificacionPromedio={p.calificacionPromedio}
                   />
                 ))}
               </div>
             </TabsContent>
           </div>
-          {/* </ScrollArea> */}
         </div>
       </Tabs>
     </div>
