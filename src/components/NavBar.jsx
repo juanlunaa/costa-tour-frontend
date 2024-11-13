@@ -97,7 +97,7 @@ export const NavBar = ({ pathname }) => {
         <div
           className={cn(
             "responsive-nav-bar md:hidden overflow-hidden bg-white/90 dark:bg-customBlack/90 text-center",
-            isOpen ? "h-40" : "h-0"
+            isOpen ? "h-[200px]" : "h-0"
           )}
         >
           {menuItems.map((item, index) => (
