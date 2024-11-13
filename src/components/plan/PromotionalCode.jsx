@@ -57,7 +57,7 @@ const NoCode = ({ hasUser, userRole, turistDni, planId }) => {
     } else {
       toast("Debes iniciar sesión para obtener un código promocional", {
         action: {
-          label: "Ir",
+          label: "Iniciar Sesión",
           onClick: () => router.push("/auth/login"),
         },
       })
