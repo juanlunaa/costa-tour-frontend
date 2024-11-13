@@ -17,7 +17,7 @@ export function Providers({ children }) {
     if (!isInitialized) {
       initializeAuth({ token })
     }
-  }, [isInitialized])
+  }, [isInitialized, token])
 
   if (isLoading) return <Loading />
 
