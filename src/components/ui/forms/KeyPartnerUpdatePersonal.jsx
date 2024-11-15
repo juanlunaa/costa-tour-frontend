@@ -1,17 +1,13 @@
 import clsx from "clsx"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import useUserStore from "@/hooks/useUserStore"
+
 export const KeyPartnerUpdatePersonalData = ({ buttonColor }) => {
-  const styleLabels = clsx("text-sm font-bold md:text-base sm:text-sm")
-  const styleInputs = clsx(
-    "text-gray-600 block w-full bg-[#F4F4F5] dark:bg-gray-700 dark:text-white"
-  )
-  const stylebtn = clsx(
-    "w-[50%] sm:w-[40%] text-xs sm:text-sm md:text-base font-bold mt-5 py-4 dark:text-black"
-  )
+  const styleLabels = clsx("text-sm font-bold md:text-base sm:text-sm ")
+  const styleInputs = clsx("block w-full")
+
   return (
-    <form className="grid grid-cols-1 gap-4 mx-auto w-[85%] mt-[2%] dark:text-white">
+    <form className="grid grid-cols-1 gap-4 w-[85%] mt-[2%] mx-auto">
       <h1 className="font-bold mt-12 text-sm sm:text-base md:text-xl lg:text-2xl">
         Información Personal
       </h1>
@@ -108,7 +104,10 @@ export const KeyPartnerUpdatePersonalData = ({ buttonColor }) => {
         )} */}
       </div>
 
-      <button type="submit" className={`${stylebtn}  ${buttonColor}`}>
+      <button
+        type="submit"
+        className={`${styleLabels} bg-blueProfile w-[50%] sm:w-[40%] mt-5 py-4 dark:text-black`}
+      >
         Guardar
       </button>
     </form>
