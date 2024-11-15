@@ -35,7 +35,7 @@ export default function KeyPartherProfileLayout({ children }) {
   // }
 
   return (
-    <div className="container max-w-screen-xl py-28 px-4 sm:px-8 md:px-16 mx-auto  dark:bg-gray-900">
+    <div className="container max-w-screen-xl py-28 px-4 sm:px-8 md:px-16 mx-auto">
       <div className="dark:text-white">
         <h1 className="text-2xl font-bold">Mi Perfil</h1>
         <p>Bienvenido adadaad</p>
@@ -46,9 +46,7 @@ export default function KeyPartherProfileLayout({ children }) {
           <div className="user-details mt-[10%]">
             <UserUpdateAvatar />
 
-            <div className="username text-center mt-4">
-              <h2 className="text-2xl font-bold">pepe sal</h2>
-            </div>
+            <h2 className="text-2xl text-center font-bold mt-4">pepe sal</h2>
           </div>
 
           <div className="opcion-profile flex flex-col gap-2 mt-4">
@@ -130,7 +128,7 @@ export default function KeyPartherProfileLayout({ children }) {
           </div>
         </div>
 
-        <div className="content-profile sm:w-[70%] md:w-[75%] mr-auto">
+        <div className="content-profile sm:w-[70%] md:w-[75%] mr-auto bg-white shadow-customBoxShadow dark:shadow-customBoxShadowDark dark:bg-gray-800">
           {children}
         </div>
       </div>

@@ -3,7 +3,7 @@ import { KeyPartnerUpdatePersonalData } from "@/components/ui/forms/KeyPartnerUp
 
 export default function infoProfile() {
   return (
-    <div className="container flex flex-col justify-center h-full bg-white shadow-customBoxShadow dark:shadow-customBoxShadowDark dark:bg-gray-800">
+    <div className="container flex flex-col justify-center">
       <KeyPartnerUpdatePersonalData />
       <hr className="dividier mt-10"></hr>
     </div>
