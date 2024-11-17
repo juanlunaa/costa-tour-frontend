@@ -41,14 +41,14 @@ const ExclusivePlansPage = () => {
   return (
     <div className="pt-20">
       <div className="section-1-exclusive w-full sm:flex p-10">
-        <div className="my-auto sm:w-[50%]">
-          <h1 class="text-5xl text-wrap text-center mb-4">
-            Experiencias{" "}
-            <span class="span-title text-yellowLogo">Exclusivas</span> Fiestas y
+        <div className="my-auto sm:w-[50%] mb-10 sm:mb-0">
+          <h1 class="text-4xl md:text-5xl text-wrap text-center mb-4 ">
+            Experiencias{" "} 
+            <span class="span-title text-yellowLogo "> Exclusivas</span> Fiestas y
             Aventuras
           </h1>
 
-          <p className="text-justify">
+          <p className="text-justify text-sm md:text-base">
             ¡Bienvenido a la sección de experiencias exclusivas de Costa Tour!
             Aquí encontrarás las fiestas más electrizantes en las mejores
             discotecas de Cartagena y actividades extremas que elevarán tu
@@ -95,7 +95,7 @@ const ExclusivePlansPage = () => {
         </div>
       </div>
 
-      <div className="w-full flex flex-col-reverse sm:flex-row gap-4 p-10 my-20">
+      <div className="w-full flex flex-col-reverse sm:flex-row gap-4 p-10 md:my-20">
         <div className="sm:w-[50%] grid grid-cols-2 border-collapse sm:-mr-6">
           <div className="relative h-72 w-[85%] ml-auto">
             <Image
@@ -133,8 +133,8 @@ const ExclusivePlansPage = () => {
             />
           </div>
         </div>
-        <div className="my-auto sm:w-[50%]">
-          <h1 class="text-7xl font-bold text-wrap text-left mb-4">
+        <div className="mb-20 md:my-auto sm:w-[50%]">
+          <h1 class="text-5xl md:text-7xl font-bold text-wrap text-left mb-4">
             Actividades <span class="span-title text-customBlue">Extremas</span>
           </h1>
 
@@ -156,8 +156,8 @@ const ExclusivePlansPage = () => {
       </div>
 
       <div className="relative section-3-exclusive w-full sm:flex p-10">
-        <div className="my-auto sm:w-[50%]">
-          <h1 class="text-5xl text-wrap text-center mb-4">
+        <div className="mb-20 md:my-auto sm:w-[50%]">
+          <h1 class="text-4xl md:text-5xl text-wrap text-center mb-4">
             ¿Quieres disfrutar de las mejores fiestas y bares de Cartagena?
           </h1>
 

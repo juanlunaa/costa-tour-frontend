@@ -26,9 +26,9 @@ export const ModalSuscripciones = ({ suscripciones }) => {
       <div className="fixed inset-0 bg-black/10 backdrop-blur-md z-[1116]" />
 
       {/* Caja simulada de modal */}
-      <div className="fixed -inset-3 flex items-center justify-center z-[1116] py-20 overflow-y-auto">
-        <div className="bg-white rounded-lg shadow-xl max-w-[85%] mx-auto my-auto  p-6">
-          <h2 className="text-5xl font-bold text-center mt-3">
+      <div className="fixed -inset-3 flex items-center justify-center z-[1116] py-20 overflow-y-auto ">
+        <div className="rounded-lg shadow-xl max-w-[85%] mx-auto my-auto p-6 bg-white dark:bg-gray-800 dark:shadow-customBoxShadowDark">
+          <h2 className="text-5xl font-bold text-center mt-3 text-black dark:text-white">
             Obtén la versión premium <br /> para seguir viendo
           </h2>
           <p className="text-base mt-8 text-center">
@@ -48,7 +48,7 @@ export const ModalSuscripciones = ({ suscripciones }) => {
 
           <div className="mt-6 flex justify-center">
             <Button
-              className="w-[75%] mt-5 block rounded-md bg-[#FF8E01] text-black shadow-sm hover:bg-orange-400 focus-visible:outline-[#FF8E01] text-center text-sm font-semibold sm:mt-2"
+              className="w-[75%] mt-5 block rounded-md bg-[#FF8E01] hover:bg-orange-400 focus-visible:outline-[#FF8E01] text-center text-sm font-semibold sm:mt-2 text-black dark:text-white shadow-customBoxShadow dark:shadow-customBoxShadowDark"
               onClick={handleCancel}
             >
               Cancelar
