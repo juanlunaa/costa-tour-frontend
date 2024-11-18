@@ -30,8 +30,8 @@ const ChatBotCostaTour = () => {
   const handleRedirectToPremiumInfo = () => {
     router.push("/plans/exclusive")
   }
-  const handleRedirectToActivityInfo = () => {
-    router.push(`/category/activities`)
+  const handleRedirectToActivityInfo = (activity) => {
+    router.push(`/category/activities?q=${activity}`)
   }
 
   const flow = {
@@ -149,7 +149,7 @@ const ChatBotCostaTour = () => {
       function: (params) => handleUserInput("beachesChoice", params.userInput),
       path: (params) => {
         if (params.userInput === "Sí, más información") {
-          handleRedirectToActivityInfo("beaches")
+          handleRedirectToActivityInfo("playa")
           return "redirect_to_beaches_info"
         } else {
           return "explore_activities"
@@ -168,7 +168,7 @@ const ChatBotCostaTour = () => {
         handleUserInput("restaurantsChoice", params.userInput),
       path: (params) => {
         if (params.userInput === "Sí, más información") {
-          handleRedirectToActivityInfo("restaurants")
+          handleRedirectToActivityInfo("restaurante")
           return "redirect_to_restaurants_info"
         } else {
           return "explore_activities"
@@ -187,7 +187,7 @@ const ChatBotCostaTour = () => {
         handleUserInput("accommodationsChoice", params.userInput),
       path: (params) => {
         if (params.userInput === "Sí, más información") {
-          handleRedirectToActivityInfo("accommodations")
+          handleRedirectToActivityInfo("alojamiento")
           return "redirect_to_accommodations_info"
         } else {
           return "explore_activities"
@@ -206,7 +206,7 @@ const ChatBotCostaTour = () => {
         handleUserInput("touristSitesChoice", params.userInput),
       path: (params) => {
         if (params.userInput === "Sí, más información") {
-          handleRedirectToActivityInfo("tourist-sites")
+          handleRedirectToActivityInfo("sitio-turistico")
           return "redirect_to_tourist_sites_info"
         } else {
           return "explore_activities"
@@ -227,28 +227,28 @@ const ChatBotCostaTour = () => {
     redirect_to_beaches_info: {
       message:
         "Te estamos redirigiendo a la página con información detallada sobre las playas de Cartagena...",
-      function: () => handleRedirectToActivityInfo("beaches"),
+      function: () => handleRedirectToActivityInfo("playa"),
       path: "start",
     },
     redirect_to_restaurants_info: {
       message:
         "Te estamos redirigiendo a la página con información detallada sobre los restaurantes de Cartagena...",
-      function: () => handleRedirectToActivityInfo("restaurants"),
+      function: () => handleRedirectToActivityInfo("restaurante"),
       path: "start",
     },
     redirect_to_accommodations_info: {
       message:
         "Te estamos redirigiendo a la página con información detallada sobre alojamientos en Cartagena...",
-      function: () => handleRedirectToActivityInfo("accommodations"),
+      function: () => handleRedirectToActivityInfo("alojamiento"),
       path: "start",
     },
     redirect_to_tourist_sites_info: {
       message:
         "Te estamos redirigiendo a la página con información detallada sobre los sitios turísticos de Cartagena...",
-      function: () => handleRedirectToActivityInfo("tourist-sites"),
+      function: () => handleRedirectToActivityInfo("sitio-turistico"),
       path: "start",
     },
-    // ... (El resto de los estados del flujo permanecen sin cambios)
+   
     contact_help: {
       message:
         "Estamos aquí para ayudarte. Nuestro número de atención al cliente es: +57 (5) 123-4567\n\n" +
