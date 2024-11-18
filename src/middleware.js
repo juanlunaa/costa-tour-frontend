@@ -35,6 +35,16 @@ export async function middleware(req) {
     )
   }
 
+  if (
+    verifiedToken &&
+    req.url.includes("ally-profile") &&
+    role !== UserRoles.ALIADO
+  ) {
+    return NextResponse.redirect(
+      new URL(`/dashboard/${getDashboardByRole(role)}/info-profile`, req.url)
+    )
+  }
+
   // Si el usuario es diferente a turista y esta tratando de acceder a alguna ruta del dashboard
   // turista sera redireccionado a el dashboard definido para su tipo de usuario
   if (
