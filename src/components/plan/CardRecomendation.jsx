@@ -2,16 +2,16 @@
 
 import Image from "next/image"
 import { BookmarkIcon, StarIcon } from "lucide-react"
-import { formatSrcImage } from "@/lib/utils"
+import { formatPrice, formatSrcImage } from "@/lib/utils"
 import { useRouter } from "next/navigation"
+import StaticStarsPercent from "./feedback/StaticStarsPercent"
 
 export const CardRecomendation = ({
   id,
   nombre,
   miniatura,
-  rating,
-  reviews,
   rangoMaxDinero,
+  calificacionPromedio,
 }) => {
   const router = useRouter()
   const nombreRecortado =
@@ -33,30 +33,25 @@ export const CardRecomendation = ({
             fill
             className="object-cover"
           />
+          <span className="absolute top-2 left-2 py-1 px-3 bg-[#2D3134] text-white text-xs rounded-full">
+            {new Number(calificacionPromedio).toFixed(1)}
+          </span>
           <BookmarkIcon className="absolute top-2 right-2 text-white" />
         </div>
         <h3 className="px-4 pt-4 font-semibold text-lg">{nombreRecortado}</h3>
       </div>
-      <div className="p-4">
-        <div className="grid grid-cols-2 mt-4">
-          <div className="flex flex-col items-start justify-end">
-            <div>
-              {Array.from({ length: rating }).map((_, i) => (
-                <StarIcon
-                  key={i}
-                  className="inline-block w-4 h-4 fill-current text-yellow-400"
-                />
-              ))}
-            </div>
-            <span className="text-xs text-gray-600">{reviews} reviews</span>
-          </div>
-
-          <div className="flex flex-col items-end justify-end">
-            <span className="text-xl font-volkhov font-bold text-green-600">
-              ${Number(rangoMaxDinero).toFixed(0)}
-            </span>
-            <span className="text-xs text-gray-600"> por persona</span>
-          </div>
+      <div className="flex justify-between items-end p-4">
+        <StaticStarsPercent
+          value={calificacionPromedio}
+          className="h-4 w-4 md:h-4 md:w-4"
+        />
+        <div className="flex flex-col items-end justify-end">
+          <span className="text-xl font-volkhov font-bold text-green-600">
+            {rangoMaxDinero === "Gratis"
+              ? rangoMaxDinero
+              : `$${formatPrice(rangoMaxDinero)}`}
+          </span>
+          <span className="text-xs text-gray-600"> por persona</span>
         </div>
       </div>
     </div>

@@ -46,6 +46,22 @@ export default function Recomendation() {
           title="Alojamientos"
           planes={recomendations?.filter((p) => p.categoria === "ALOJAMIENTO")}
         />
+
+        {user?.exclusivo && (
+          <>
+            <CarouselRecomendation
+              title="Extremos"
+              planes={recomendations?.filter((p) => p.categoria === "EXTREMO")}
+            />
+
+            <CarouselRecomendation
+              title="Nightlife"
+              planes={recomendations?.filter(
+                (p) => p.categoria === "NIGHTLIFE"
+              )}
+            />
+          </>
+        )}
       </div>
     </div>
   )
