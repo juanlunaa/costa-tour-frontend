@@ -11,6 +11,7 @@ import { RHFDatePickerCustomDays } from "@/components/RHF/RHFDatePickerCustomDay
 import { RHFCombobox } from "@/components/RHF/RHFCombobox"
 import { RHFContPeople } from "@/components/RHF/RHFContPeople"
 import { getDayWeek } from "@/lib/utils"
+import { FeedbackPlan } from "@/components/Feedback"
 
 export default function InfoExtreme({ params }) {
   const { id } = params
@@ -127,6 +128,13 @@ export default function InfoExtreme({ params }) {
         </div>
 
         <AccordionInfoPlan plan={plan} />
+
+        <FeedbackPlan
+          idPlan={plan?.id}
+          namePlan={plan?.name}
+          thumbnailPlan={plan?.miniatura}
+          calificacionPromedio={plan?.calificacionPromedio}
+        />
       </div>
     </div>
   )
