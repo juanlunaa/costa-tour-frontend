@@ -240,7 +240,7 @@ export const saveFeedback = async (data) => {
       throw error
     }
 
-    return { res: "Su comentario ha sido guardado", status: res.status }
+    return { res: res.data, status: res.status }
   } catch (err) {
     return { res: err.message, status: err.status || 500 }
   }

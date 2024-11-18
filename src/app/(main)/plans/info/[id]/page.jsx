@@ -2,6 +2,7 @@
 
 import { GoogleMapStatic, PromotionalCode } from "@/components"
 import { FeedbackPlan } from "@/components/Feedback"
+import FactsCarousel from "@/components/plan/FactsCarousel"
 import ModalComment from "@/components/plan/ModalComment"
 import ImageGallery from "@/components/ui/gallery-img/Gallery"
 import { CodeProvider } from "@/context/CodeContext"
@@ -54,51 +55,40 @@ export default function InfoPLan({ params }) {
           <ImageGallery imagenes={imagenes} />
         </div>
 
-        <div>
-          <h1 className="font-bold sm:text-xl text-lg pb-3 dark:text-white">
-            Descripción
-          </h1>
-          <p className="sm:text-sm md:text-base text-xs dark:text-white">
-            {descripcion}
-          </p>
-        </div>
-
-        <div>
-          <h1 className="font-bold sm:text-xl text-lg py-5 dark:text-white">
-            Ubicación
-          </h1>
-          <div className="h-60 sm:h-80 sm:w-3/4 rounded-lg">
-            <GoogleMapStatic lat={ubicacion.latitud} lng={ubicacion.longitud} />
+        <div className="space-y-10">
+          <div>
+            <h1 className="font-bold sm:text-xl text-lg mb-2 dark:text-white">
+              Descripción
+            </h1>
+            <p className="sm:text-sm md:text-base text-xs dark:text-white">
+              {descripcion}
+            </p>
           </div>
-        </div>
 
-        {(categoria === "RESTAURANTE" || categoria === "ALOJAMIENTO") && (
-          <CodeProvider>
-            <PromotionalCode planId={plan.id} codigoPlan={res?.codigoPlan} />
-          </CodeProvider>
-        )}
+          <FactsCarousel facts={plan?.hechos || []} />
 
-        <div>
-          <h1 className="font-bold sm:text-xl text-lg py-5 dark:text-white">
-            ¿Qué opinas de este lugar?
-          </h1>
-          <p className="dark:text-white">
-            ¡Tu opinión cuenta! Si disfrutaste de una experiencia inolvidable en
-            el lugar que visitaste, nos encantaría saberlo. Deja un comentario y
-            cuéntanos qué fue lo que más te gustó. ¡Ayuda a otros viajeros a
-            descubrir los mejores rincones y a vivir momentos únicos como los
-            tuyos!
-          </p>
-          <ModalComment
-            idPlan={plan?.id}
-            thumbnailPlan={plan?.miniatura}
-            namePlan={plan?.nombre}
-          />
-        </div>
+          <div>
+            <h1 className="font-bold sm:text-xl text-lg mb-2 dark:text-white">
+              Ubicación
+            </h1>
+            <div className="h-60 sm:h-80 sm:w-3/4 rounded-lg">
+              <GoogleMapStatic
+                lat={ubicacion.latitud}
+                lng={ubicacion.longitud}
+              />
+            </div>
+          </div>
 
-        <div>
+          {(categoria === "RESTAURANTE" || categoria === "ALOJAMIENTO") && (
+            <CodeProvider>
+              <PromotionalCode planId={plan.id} codigoPlan={res?.codigoPlan} />
+            </CodeProvider>
+          )}
+
           <FeedbackPlan
             idPlan={plan?.id}
+            namePlan={plan?.nombre}
+            thumbnailPlan={plan?.miniatura}
             calificacionPromedio={plan?.calificacionPromedio}
           />
         </div>
