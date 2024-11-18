@@ -194,8 +194,14 @@ export default function FormCreateKeyPartner() {
             />
             <Label htmlFor="check-conditions" className="text-sm italic">
               He leído y acepto los{" "}
-              <Link href="#" className="text-customOrange hover:underline">
+              <Link
+                href="/terms-and-conditions"
+                target="_blank"
+                className="text-customOrange hover:underline"
+              >
+                {/* <a target="_blank" rel="noopener noreferrer"> */}
                 términos y condiciones
+                {/* </a> */}
               </Link>{" "}
               del Key Partner y la política de privacidad.
             </Label>
