@@ -2,12 +2,35 @@
 
 import { CardPlan } from "@/components"
 import { fetchAllPlansExclusives } from "@/services/plan"
-import CheckboxGroupDemo from "@/components/ui/checkbox-group/FiltersPlace"
 import CurvedSlider from "@/components/ui/slider/sliderNightLife"
 import { useEffect, useState } from "react"
+import FiltersPlace from "@/components/ui/checkbox-group/FiltersPlace"
 
 export default function NightLifePage() {
   const [plans, setPlanes] = useState([])
+  const [filtros, setFiltros] = useState([])
+
+  const toggleFiltro = (opcion) => {
+    setFiltros((prev) => {
+      const isSelect = prev.some((item) => item.id === opcion.id)
+
+      return isSelect
+        ? prev.filter((item) => item.id !== opcion.id)
+        : [...prev, opcion]
+    })
+  }
+
+  const filtrarPlanes = (planes) => {
+    if (filtros.length === 0) return planes
+
+    return planes.filter((plan) =>
+      filtros.some((values) =>
+        plan.ubicacion.direccion
+          .toLowerCase()
+          .includes(values.title.toLowerCase())
+      )
+    )
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +41,9 @@ export default function NightLifePage() {
     fetchData()
   }, [])
 
-  const nightlifes = plans?.filter((p) => p.categoria === "NIGHTLIFE")
+  const nightlifes = filtrarPlanes(
+    plans?.filter((p) => p.categoria === "NIGHTLIFE")
+  )
   return (
     <div className="pt-20 relative">
       <div className="relative">
@@ -42,7 +67,7 @@ export default function NightLifePage() {
             className="filter shadow-customBoxShadow rounded-sm sm:max-w-[150px] md:max-w-[200px] max-w-[600px] 
                           w-[90%] sm:ml-[3%] h-fit sm:flex-row dark:bg-gray-800"
           >
-            <CheckboxGroupDemo />
+            <FiltersPlace filtros={filtros} toggleFiltro={toggleFiltro} />
           </div>
           <div className=" grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-y-5 gap-y-4 dark:text-white">
             {nightlifes.map((p) => (
@@ -53,6 +78,7 @@ export default function NightLifePage() {
                 miniatura={p.miniatura}
                 descripcion={p.descripcion}
                 calificacionPromedio={p.calificacionPromedio}
+                href={`/plans/exclusive/bar/info/${p.id}`}
               />
             ))}
           </div>
