@@ -1,94 +1,215 @@
-import { Combobox, Multiselect } from "@/components"
-import { MultiselectCombobox } from "@/components/MultiSelectPartner"
+"use client"
+
 import { Label } from "../label"
 import { Input } from "../input"
-import { BsCheckCircle } from "react-icons/bs"
-import { Checkbox } from "../checkbox"
-import { Button } from "../button"
+import { cn } from "@/lib/utils"
+import Link from "next/link"
+import { useCallback, useState } from "react"
+import { useForm } from "react-hook-form"
+import debounce from "lodash.debounce"
+import { checkEmailAvailability, registerAlly } from "@/services/auth"
+import { ErrorMessage } from "@/components"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
+
 export default function FormCreateKeyPartner() {
+  const [checkConditions, setCheckConditions] = useState(false)
+  const router = useRouter()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+
+  const inputStyle = cn("bg-customBlueInputAuth dark:bg-background")
+
+  const validateEmail = useCallback(
+    debounce(async (value, resolve) => {
+      const isAvailable = await checkEmailAvailability(value)
+      if (!isAvailable) {
+        resolve("Este email ya está en uso")
+      } else {
+        resolve(true)
+      }
+    }, 500),
+    []
+  )
+
+  const onSubmit = handleSubmit(async (data) => {
+    console.log(data)
+    const { res, status } = await registerAlly(data)
+
+    if (status === 201) {
+      toast.success("Cuenta creada correctamente, por favor inicie sesion")
+      router.push("/auth/login")
+    } else {
+      toast.error("Ha ocurrido un error, por favor intenta mas tarde :'c")
+    }
+  })
+
   return (
-    <div className="rounded-3xl bg-white shadow-customBoxShadow p-10 w-3/5 mb-12">
-      <form>
-        <h1 className="font-volkhov font-bold text-xl">
-          Se nuestro aliado de actividades
+    <div className="relative z-10 rounded-3xl bg-white dark:bg-customBlack shadow-customBoxShadow p-10 w-[90%] md:w-3/5 mb-12 space-y-8">
+      <div>
+        <h1 className="font-bold text-xl mb-2">
+          Conviertete en Key Partner de CostaTour
         </h1>
-        <div className="w-full">
-          <div className="flex flex-col gap-y-2 mt-5">
-            <Label>¿Qué tipo de actividades ofreces?</Label>
-            <MultiselectCombobox />
-          </div>
-          <div className="flex flex-col gap-y-2 mt-5">
-            <Label>¿En qué Lugares ofreces tus actividades?</Label>
-            <MultiselectCombobox />
-          </div>
-        </div>
+        <p>
+          Regístrate y empieza a compartir tus planes y servicios con miles de
+          turistas. ¡Haz crecer tu negocio hoy mismo!
+        </p>
+      </div>
 
-        <div className="flex justify-between gap-2 gap-y-3 mt-5">
-          <div className="w-full">
-            <Label htmlFor="name">Nombre de la empresa</Label>
-            <Input type="text" id="name" name="name" />
-          </div>
-          <div className="w-full">
-            <Label htmlFor="NIT">NIT de la empresa</Label>
-            <Input type="text" id="NIT" name="NIT" />
-          </div>
-        </div>
+      <form onSubmit={onSubmit} className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-4 gap-2">
+          <div className="space-y-1">
+            <Label htmlFor="nombre-empresa">Nombre de la empresa</Label>
+            <Input
+              id="nombre-empresa"
+              className={inputStyle}
+              {...register("nombreEmpresa", {
+                required: {
+                  value: true,
+                  message: "Nombre de la empresa es requerido",
+                },
+              })}
+            />
 
-        <div className="flex justify-between gap-2 gap-y-3 mt-5">
-          <div className="w-full">
+            {errors.nombreEmpresa && (
+              <ErrorMessage message={errors.nombreEmpresa.message} />
+            )}
+          </div>
+
+          <div className="space-y-1">
+            <Label htmlFor="nit">NIT de la empresa</Label>
+            <Input
+              id="nit"
+              className={inputStyle}
+              {...register("nitAliado", {
+                required: {
+                  value: true,
+                  message: "NIT es requerido",
+                },
+              })}
+            />
+
+            {errors.nit && <ErrorMessage message={errors.nit.message} />}
+          </div>
+
+          <div className="space-y-1">
             <Label htmlFor="direccion">Dirección de la empresa</Label>
-            <Input type="text" id="direccion" name="direccion" />
+            <Input
+              id="direccion"
+              className={inputStyle}
+              {...register("direccion", {
+                required: {
+                  value: true,
+                  message: "Dirección es requerida",
+                },
+              })}
+            />
+            {errors.direccion && (
+              <ErrorMessage message={errors.direccion.message} />
+            )}
           </div>
 
-          <div className="w-full">
+          <div className="space-y-1">
             <Label htmlFor="telefono">Télefono</Label>
-            <Input type="tel" id="telefono" name="telefono" />
+            <Input
+              type="tel"
+              id="telefono"
+              className={inputStyle}
+              {...register("telefono", {
+                required: {
+                  value: true,
+                  message: "Télefono es requerido",
+                },
+              })}
+            />
+
+            {errors.telefono && (
+              <ErrorMessage message={errors.telefono.message} />
+            )}
+          </div>
+
+          <div className="space-y-1 md:col-span-2">
+            <Label htmlFor="email"> Correo Electrónico</Label>
+            <Input
+              type="email"
+              id="email"
+              className={inputStyle}
+              {...register("email", {
+                required: {
+                  value: true,
+                  message: "Email es requerido",
+                },
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: "Email no valido",
+                },
+                validate: (value) =>
+                  new Promise((resolve) => {
+                    validateEmail(value, resolve)
+                  }),
+              })}
+            />
+
+            {errors.email && <ErrorMessage message={errors.email.message} />}
+          </div>
+
+          <div className="space-y-1 md:col-span-2 md:row-start-4">
+            <Label htmlFor="password">Contraseña</Label>
+            <Input
+              type="password"
+              id="password"
+              className={inputStyle}
+              {...register("password", {
+                required: {
+                  value: true,
+                  message: "Contraseña es requerida",
+                },
+                minLength: {
+                  value: 6,
+                  message: "Numero minimo de caracteres es 6",
+                },
+              })}
+            />
+
+            {errors.password && (
+              <ErrorMessage message={errors.password.message} />
+            )}
           </div>
         </div>
 
-        <div className="mt-5">
-          <Label htmlFor="email"> Correo Electrónico</Label>
-          <Input type="text" id="email" name="email" />
+        <div>
+          <h1 className="font-bold text-xl mb-2">Términos y condiciones</h1>
+
+          <div className="flex gap-1 items-center">
+            <Input
+              type="checkbox"
+              id="check-conditions"
+              className="w-4 h-4"
+              checked={checkConditions}
+              onChange={(e) => setCheckConditions(e.target.checked)}
+            />
+            <Label htmlFor="check-conditions" className="text-sm italic">
+              He leído y acepto los{" "}
+              <Link href="#" className="text-customOrange hover:underline">
+                términos y condiciones
+              </Link>{" "}
+              del Key Partner y la política de privacidad.
+            </Label>
+          </div>
         </div>
 
-        <div className="mt-5">
-          <Label htmlFor="password">Contraseña</Label>
-          <Input type="password" id="password" name="password" />
-        </div>
-
-        <ul
-          role="list"
-          className="mt-5 space-y-2 text-sm leading-3 text-gray-300"
-        >
-          <li className="text-sm text-gray-600">
-            <span className="flex gap-x-3 items-center">
-              <BsCheckCircle /> Incluye un dígito {"("}1234{")"} y un carácter
-              especial {"("}#%!.^{")"}
-            </span>
-          </li>
-          <li className="text-sm text-gray-600">
-            <span className="flex items-center gap-x-3">
-              <BsCheckCircle />
-              Entre 8 y 30 caracteres
-            </span>
-          </li>
-        </ul>
-
-        <h1 className="font-volkhov font-bold text-xl mt-5">
-          Términos y condiciones
-        </h1>
-        <div className="mt-5 flex items-center">
-          <Checkbox className="mr-2" />
-          <a href="#" className="text-sm">
-            He leído y acepto los términos y condiciones del aliado y la
-            política de privacidad.
-          </a>
-        </div>
-
-        <div className="w-[90%] flex justify-end">
-          <Button className="rounded-md mt-5 w-[40%] bg-[#FF8E01] text-white hover:bg-orange-400 focus-visible:outline-[#FF8E01] text-center text-base font-semibold shadow-customBoxShadow">
+        <div className="text-center">
+          <button
+            type="submit"
+            disabled={!checkConditions}
+            className="text-white font-bold bg-gradient-to-r from-customBlue to-customOrange rounded-2xl px-4 py-3 w-44 mx-auto disabled:opacity-70 transition-all hover:shadow-customBoxShadow hover:scale-105"
+          >
             Crear Cuenta
-          </Button>
+          </button>
         </div>
       </form>
     </div>
