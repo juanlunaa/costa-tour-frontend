@@ -59,8 +59,8 @@ export const CarouselHome = () => {
         ))}
       </CarouselContent>
       <CarouselThumbnails images={images} />
-      <CarouselPrevious className="absolute top-1/2 -translate-y-1/2 text-white" />
-      <CarouselNext className="absolute top-1/2 -translate-y-1/2 text-white" />
+      <CarouselPrevious className="absolute top-1/2 -translate-y-1/2 text-black dark:text-white" />
+      <CarouselNext className="absolute top-1/2 -translate-y-1/2 text-black dark:text-white" />
     </Carousel>
   )
 }

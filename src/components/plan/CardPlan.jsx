@@ -9,6 +9,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { FaBookmark, FaRegBookmark } from "react-icons/fa"
 import { toast } from "sonner"
+import { cn } from "@/lib/utils"
 
 export const CardPlan = ({
   id,
@@ -68,6 +69,9 @@ export const CardPlan = ({
       toast.error("Hubo un problema al eliminar el plan :(")
     }
   }
+  const textShadow = cn(
+    "[text-shadow:_0_1px_0_rgb(0_0_0_/_100%),_0_-1px_0_rgb(0_0_0_/_100%),_1px_0_0_rgb(0_0_0_/_100%),_-1px_0_0_rgb(0_0_0_/_100%)]"
+  )
 
   return (
     <div className="lg:w-full md:w-full sm:full w-[90%] flex flex-col items-center">
@@ -75,11 +79,11 @@ export const CardPlan = ({
         <Image
           src={`${BACKEND_SERVER}${miniatura}`}
           fill
-          className="object-cover rounded-xl aspect-video"
+          className="object-cover rounded-xl aspect-video hover:scale-105 transition-all shadow-customBoxShadow dark:shadow-customBoxShadowDark"
           alt={nombre}
         />
 
-        <h2 className="absolute bottom-2 left-2 text-left w-3/4 text-shadow text-white">
+        <h2 className={cn("absolute bottom-2 left-2 text-left w-3/4 text-shadow text-white",textShadow)}>
           {nombre}
         </h2>
         <span className="absolute top-2 left-2 py-1 px-3 bg-[#2D3134] text-white text-xs rounded-full">

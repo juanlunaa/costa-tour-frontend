@@ -14,7 +14,7 @@ export default function Home() {
         <CarouselHome className="w-full" />
       </div>
       <div className="relative rounded-t-[45px] bg-white z-20 -top-12 pt-12 dark:bg-gray-900">
-        <h1 className="text-4xl text-center mb-12 text-black dark:text-white">
+        <h1 className="font-volkhov font-bold text-4xl md:text-5xl mb-5 text-center text-black dark:text-white">
           Aventuras que te esperan
         </h1>
 
@@ -24,7 +24,7 @@ export default function Home() {
               src="/home/selfie.webp"
               fill
               alt="Selfie"
-              className="rounded-lg object-cover"
+              className="rounded-lg object-cover shadow-customBoxShadow dark:shadow-customBoxShadowDark"
             />
 
             <p className="absolute bottom-2 left-2 text-white font-semibold">
@@ -37,7 +37,7 @@ export default function Home() {
               src="/home/pasear.webp"
               fill
               alt="Pasear"
-              className="rounded-lg object-cover"
+              className="rounded-lg object-cover shadow-customBoxShadow dark:shadow-customBoxShadowDark"
             />
 
             <p className="absolute bottom-2 left-2 text-white font-semibold">
@@ -50,7 +50,7 @@ export default function Home() {
               src="/home/recreacion.webp"
               fill
               alt="Recreacion"
-              className="rounded-lg object-cover"
+              className="rounded-lg object-cover shadow-customBoxShadow dark:shadow-customBoxShadowDark"
             />
 
             <p className="absolute bottom-2 left-2 text-white font-semibold">
@@ -63,7 +63,7 @@ export default function Home() {
               src="/home/comida.webp"
               fill
               alt="Comer"
-              className="rounded-lg object-cover"
+              className="rounded-lg object-cover shadow-customBoxShadow dark:shadow-customBoxShadowDark"
             />
 
             <p className="absolute bottom-2 left-2 text-white font-semibold">
@@ -72,14 +72,15 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="grid gap-4 grid-cols-2 w-[90%] h-[200px] mx-auto sm:h-[500px] sm:gap-8 mt-20">
-          <div className="relative grid grid-cols-2 gap-5 items-center">
+        <div className=" relative grid gap-4 sm:grid-cols-1 md:grid-cols-2 w-[90%] h-[200px] mx-auto sm:h-[500px] sm:gap-8 sm:mt-20">
+          <div className="section-1-home h-96 max-w-96 w-full absolute -right-0 -top-72 -z-50"></div>
+          <div className="relative grid grid-cols-2 gap-5 items-center w-full h-auto sm:h-[390px] md:h-full">
             <div className="relative h-[100%] w-full">
               <Image
                 src="/home/aventura2.png"
                 fill
                 alt="Comer"
-                className="rounded-lg object-cover aspect-video"
+                className="rounded-lg object-cover aspect-video shadow-customBoxShadow dark:shadow-customBoxShadowDark"
               />
             </div>
 
@@ -88,13 +89,13 @@ export default function Home() {
                 src="/home/Aventura1.png"
                 fill
                 alt="Comer"
-                className="rounded-lg object-cover aspect-video"
+                className="rounded-lg object-cover aspect-video shadow-customBoxShadow dark:shadow-customBoxShadowDark"
               />
             </div>
           </div>
 
           <div>
-            <h1 className="font-volkhov font-bold text-5xl pt-28">
+            <h1 className="font-volkhov font-bold text-4xl md:text-5xl md:pt-28 pt-2 text-center">
               Descubre tu próxima aventura
             </h1>
             <p className="text-base mt-6">
@@ -106,28 +107,29 @@ export default function Home() {
             </p>
 
             <div className="w-full mt-6">
-              <Button className="bg-[#37B1E2] h-12 w-[30%]">
+              <Button className="bg-[#37B1E2] h-12 w-[30%] shadow-customBoxShadow dark:shadow-customBoxShadowDark">
                 Explora ahora
               </Button>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-col-1 w-[90%] h-[200px] mx-auto sm:h-[900px] mt-12">
-          <span className="text-center font-mulish text-[#37B1E2] text-lg ">
+        <div className="relative grid grid-col-1 w-[90%] h-auto mx-auto mt-40 sm:mt-52 md:mt-12">
+          <div className="section-3-home h-96 max-w-96 w-full absolute -left-0 -top-72 -z-50 "></div>
+          <span className="text-center font-mulish text-[#37B1E2] text-2xl mt-10">
             Testimonios
           </span>
-          <h1 className="font-bold font-volkhov text-6xl text-center">
+          <h1 className="font-bold font-volkhov text-4xl my-8 sm:text-6xl text-center">
             ¿Qué dicen ellos <br /> de nosotros?
           </h1>
-          <div className="grid grid-cols-3 gap-20 w-full h-[43rem]">
+          <div className="grid grid-cols-3 gap-4 md:gap-20 w-full h-[43rem] sm:h-[48rem]">
             <div className="relative h-[500px] w-full grid grid-cols-1 justify-items-center gap-2">
-              <div className="relative h-80 w-60 ">
+              <div className="relative h-64 sm:h-80 md:h-96 w-full lg:w-[90%] ">
                 <Image
                   src="/home/nosotros1.png"
                   fill
                   alt="Comer"
-                  className="rounded-lg relative object-cover aspect-video"
+                  className="rounded-lg relative object-cover aspect-video shadow-customBoxShadow dark:shadow-customBoxShadowDark"
                 />
               </div>
               <div className="mt-2 text-center">
@@ -135,33 +137,32 @@ export default function Home() {
                   <StarIcon
                     key={i}
                     onClick={() => setRating(i + 1)}
-                    className={`inline-block md:w-11 md:h-11 sm:w-8 sm:h-8 w-6 h-6 fill-current 
+                    className={`inline-block lg:w-10 lg:h-10  sm:w-7 sm:h-7 w-4 h-4 fill-current 
                                 ${i < rating ? "text-yellow-400" : "text-gray-400"} cursor-pointer`}
                   />
                 ))}
               </div>
 
-              <p className="text-base text-center">
+              <p className="text-sm sm:text-base text-center">
                 ¡Increíble experiencia! La plataforma de guías turísticas en
                 Cartagena superó todas mis expectativas. Desde la facilidad de
-                uso hasta las descripciones detallada de los destinos. ¡Gracias
-                por hacer de mi viaje a Cartagena una aventura inolvidable!
+                uso hasta las descripciones detallada de los destinos.
               </p>
-              <span className="font-bold text-2xl text-center">
+              <span className="font-bold text-lg sm:text-2xl text-center">
                 Alejandro García
               </span>
-              <span className="text-lg text-orange-600 text-center">
+              <span className="text-base sm:text-lg text-orange-600 text-center">
                 España
               </span>
             </div>
 
             <div className="relative h-[500px] w-full grid grid-cols-1 justify-items-center  gap-2">
-              <div className="relative h-80 w-60">
+              <div className="relative h-64 sm:h-80 md:h-96 w-full lg:w-[90%]">
                 <Image
                   src="/home/nosotros2.png"
                   fill
                   alt="Comer"
-                  className="rounded-lg object-cover aspect-video"
+                  className="rounded-lg object-cover aspect-video shadow-customBoxShadow dark:shadow-customBoxShadowDark"
                 />
               </div>
               <div className="mt-2 text-center">
@@ -169,30 +170,30 @@ export default function Home() {
                   <StarIcon
                     key={i}
                     onClick={() => setRating(i + 1)}
-                    className={`inline-block md:w-11 md:h-11 sm:w-8 sm:h-8 w-6 h-6 fill-current 
+                    className={`inline-block  lg:w-10 lg:h-10 sm:w-7 sm:h-7 w-4 h-4 fill-current 
                                 ${i < rating ? "text-yellow-400" : "text-gray-400"} cursor-pointer`}
                   />
                 ))}
               </div>
-              <p className="text-base text-center">
+              <p className="text-sm sm:text-base text-center">
                 Fue fácil de usar y me ayudó a descubrir lugares impresionantes
                 que de otro modo no habría encontrado. ¡Altamente recomendado!
               </p>
-              <span className="font-bold text-2xl text-center">
+              <span className="font-bold text-lg sm:text-2xl text-center">
                 Olivia Arango
               </span>
-              <span className="text-lg text-orange-600 text-center">
+              <span className="text-base sm:text-lg text-orange-600 text-center">
                 Puerto Rico
               </span>
             </div>
 
             <div className="relative h-[500px] w-full grid grid-cols-1 justify-items-center  gap-2">
-              <div className="relative h-80 w-60">
+              <div className="relative h-64 sm:h-80 md:h-96 w-full lg:w-[90%]">
                 <Image
                   src="/home/nosotros3.png"
                   fill
                   alt="Comer"
-                  className="rounded-lg object-cover aspect-video"
+                  className="rounded-lg object-cover aspect-video shadow-customBoxShadow dark:shadow-customBoxShadowDark"
                 />
               </div>
               <div className="mt-2 text-center">
@@ -200,19 +201,19 @@ export default function Home() {
                   <StarIcon
                     key={i}
                     onClick={() => setRating(i + 1)}
-                    className={`inline-block md:w-11 md:h-11 sm:w-8 sm:h-8 w-6 h-6 fill-current 
+                    className={`inline-block lg:w-10 lg:h-10 sm:w-7 sm:h-7 w-4 h-4 fill-current 
                                 ${i < rating ? "text-yellow-400" : "text-gray-400"} cursor-pointer`}
                   />
                 ))}
               </div>
-              <p className="text-base text-center">
+              <p className="text-sm sm:text-base text-center">
                 Fue fácil de usar y me ayudó a descubrir lugares impresionantes
                 que de otro modo no habría encontrado. ¡Altamente recomendado!
               </p>
-              <span className="font-bold text-2xl text-center">
+              <span className="font-bold text-lg sm:text-2xl text-center">
                 Olivia Arango
               </span>
-              <span className="text-lg text-orange-600 text-center">
+              <span className="text-base sm:text-lg text-orange-600 text-center">
                 Puerto Rico
               </span>
             </div>

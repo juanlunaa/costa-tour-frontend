@@ -55,7 +55,7 @@ export const NavBar = ({ pathname }) => {
     { name: "Inicio", href: "/" },
     { name: "Planes", href: "/category/activities" },
     { name: "Exclusivos", href: "/plans/exclusive" },
-    { name: "Ayuda", href: "#" },
+    { name: "Ayuda", href: "/ayuda" },
     // {
     //   name: `${isLoggedIn ? "Mi cuenta" : "Iniciar Sesion"}`,
     //   href: `${isLoggedIn ? `/dashboard/${getDashboardByRole(user.tipoUsuario)}/info-profile` : "/auth/login"}`,
