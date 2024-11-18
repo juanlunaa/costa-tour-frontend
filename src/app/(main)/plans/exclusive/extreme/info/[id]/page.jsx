@@ -10,7 +10,7 @@ import { MdStars } from "react-icons/md"
 import { RHFDatePickerCustomDays } from "@/components/RHF/RHFDatePickerCustomDays"
 import { RHFCombobox } from "@/components/RHF/RHFCombobox"
 import { RHFContPeople } from "@/components/RHF/RHFContPeople"
-import { getDayWeek } from "@/lib/utils"
+import { formatPrice, getDayWeek } from "@/lib/utils"
 import { FeedbackPlan } from "@/components/Feedback"
 
 export default function InfoExtreme({ params }) {
@@ -76,7 +76,7 @@ export default function InfoExtreme({ params }) {
           </div>
           <div className="shadow-customBoxShadow flex flex-col w-[65%] md:w-[35%] h-auto gap-y-6 px-5 py-8 mt-12 sm:mt-0">
             <span className="font-volkhov font-bold text-lg sm:text-xl md:text-2xl ">
-              Desde ${precio}
+              Desde ${formatPrice(precio)}
             </span>
 
             <form onSubmit={onSubmit} className="flex flex-col gap-2">

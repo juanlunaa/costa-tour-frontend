@@ -5,6 +5,7 @@ import Image from "next/image"
 import { FaBookmark } from "react-icons/fa"
 import { toast } from "sonner"
 import StaticStarsPercent from "./feedback/StaticStarsPercent"
+import { formatPrice } from "@/lib/utils"
 
 export const CardPlanSaved = ({
   dni,
@@ -65,7 +66,9 @@ export const CardPlanSaved = ({
 
             <div className="flex flex-col items-end justify-end">
               <span className="text-xl font-volkhov font-bold text-green-600">
-                ${Math.trunc(precioMax)}
+                {precioMax === "Gratis"
+                  ? precioMax
+                  : `$${formatPrice(precioMax)}`}
               </span>
               <span className="text-xs text-gray-600"> por persona</span>
             </div>
