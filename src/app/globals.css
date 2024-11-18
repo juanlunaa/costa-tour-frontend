@@ -50,7 +50,7 @@ li {
   left: 5%;
   width: 300px; /* Tamaño de la mancha */
   height: 300px;
-  background-color:rgba(59,172,217,1);
+  background-color: rgba(59, 172, 217, 1);
   filter: blur(100px);
   border-radius: 50%;
 }
@@ -61,7 +61,7 @@ li {
   position: absolute;
   width: 300px; /* Tamaño de la mancha */
   height: 300px;
-  background-color:rgba(59,172,217,1);
+  background-color: rgba(59, 172, 217, 1);
   filter: blur(100px);
   border-radius: 50%;
 }

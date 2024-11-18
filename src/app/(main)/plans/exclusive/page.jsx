@@ -43,9 +43,9 @@ const ExclusivePlansPage = () => {
       <div className="section-1-exclusive w-full sm:flex p-10">
         <div className="my-auto sm:w-[50%] mb-10 sm:mb-0">
           <h1 class="text-4xl md:text-5xl text-wrap text-center mb-4 ">
-            Experiencias{" "} 
-            <span class="span-title text-yellowLogo "> Exclusivas</span> Fiestas y
-            Aventuras
+            Experiencias{" "}
+            <span class="span-title text-yellowLogo "> Exclusivas</span> Fiestas
+            y Aventuras
           </h1>
 
           <p className="text-justify text-sm md:text-base">

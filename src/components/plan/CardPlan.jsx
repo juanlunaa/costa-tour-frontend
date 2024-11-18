@@ -83,7 +83,12 @@ export const CardPlan = ({
           alt={nombre}
         />
 
-        <h2 className={cn("absolute bottom-2 left-2 text-left w-3/4 text-shadow text-white",textShadow)}>
+        <h2
+          className={cn(
+            "absolute bottom-2 left-2 text-left w-3/4 text-shadow text-white",
+            textShadow
+          )}
+        >
           {nombre}
         </h2>
         <span className="absolute top-2 left-2 py-1 px-3 bg-[#2D3134] text-white text-xs rounded-full">

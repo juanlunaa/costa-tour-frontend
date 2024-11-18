@@ -22,7 +22,10 @@ export const CardSuscripcion = ({
         className="mt-8 space-y-3 text-sm leading-3 sm:mt-6 text-gray-300 "
       >
         {caracteristicas.map((caracteristica, index) => (
-          <li key={index} className="flex gap-x-3 text-sm text-black dark:text-white">
+          <li
+            key={index}
+            className="flex gap-x-3 text-sm text-black dark:text-white"
+          >
             <BsCheckCircle
               className="text-[#FF8E01] h-6 w-5 flex-none"
               aria-hidden="true"

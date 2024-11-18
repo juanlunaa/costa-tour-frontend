@@ -12,8 +12,9 @@ import { useEffect, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import FiltersPlace from "@/components/ui/checkbox-group/FiltersPlace"
 
-export default function Activity({ searchParams }) {
-  const { q } = searchParams
+export default function Activity() {
+  const searchParams = useSearchParams()
+  const q = searchParams.get("q")
 
   const router = useRouter()
 
@@ -71,6 +72,8 @@ export default function Activity({ searchParams }) {
     params.set("q", busqueda)
     router.replace(`?${params.toString()}`, undefined, { shallow: true })
   }
+
+  console.log({ q, index: categorias.findIndex((c) => c === q) })
 
   return (
     <div className="container-slider">
