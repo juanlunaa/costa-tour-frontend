@@ -11,9 +11,7 @@ import { updateCredentials } from "@/services/user"
 
 export const ChangePassword = ({ buttonColor }) => {
   const styleLabels = clsx("text-sm font-bold md:text-base sm:text-sm ")
-  const styleInputs = clsx(
-    "text-gray-600 block w-full bg-[#F4F4F5] dark:bg-gray-700 dark:text-white"
-  )
+  const styleInputs = clsx("w-full")
   const stylebtn = clsx(
     "w-[50%] sm:w-[40%] text-xs sm:text-sm md:text-base font-bold mt-5 py-4 dark:text-black"
   )
@@ -71,7 +69,7 @@ export const ChangePassword = ({ buttonColor }) => {
           id="email"
           name="email"
           disabled
-          className={`${styleInputs} disabled:opacity-100`}
+          className={`${styleInputs} disabled:opacity-60`}
           {...register("email")}
         />
       </div>
