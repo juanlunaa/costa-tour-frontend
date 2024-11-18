@@ -10,8 +10,6 @@ export default function TermsLegals() {
                         src="/Terms.png"
                         width={600}
                         height={600}
-
-                        alt="Selfie"
                         className=" w-[60%] h-[50%] object-cover aspect-video"
                     />
                 </div>
@@ -23,7 +21,6 @@ export default function TermsLegals() {
                         src="/Vector.png"
                         width={10 * 100}
                         height={40}
-                        alt="Selfie"
                         className=" w-full h-5 sm:h-10 object-cover aspect-video"
                     />
 

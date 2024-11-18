@@ -41,7 +41,7 @@ export const Footer = () => {
           Compañia
         </h1>
         <Link
-          href="#"
+          href="/sobreNosotros"
           className={`${textFont.className} ${stylelinstext} w-max`}
         >
           Sobre nosotros
