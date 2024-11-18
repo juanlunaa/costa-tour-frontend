@@ -3,6 +3,9 @@ import { formatSrcImage } from "@/lib/utils"
 import StaticStars from "./StaticStars"
 import { BsCheckAll } from "react-icons/bs"
 import { IoTrash } from "react-icons/io5"
+import axios from "axios"
+import { BACKEND_SERVER } from "@/env"
+import { toast } from "sonner"
 
 const Comment = ({
   id,
@@ -11,7 +14,21 @@ const Comment = ({
   comentario,
   turista,
   dniTurista,
+  removeComment,
 }) => {
+  const handleDelete = async () => {
+    const res = await axios.delete(
+      `${BACKEND_SERVER}/feedback/delete?feedbackId=${id}`
+    )
+
+    if (res.status === 200) {
+      removeComment(id)
+      toast.success("Comentario eliminado")
+    } else {
+      toast.error("Ha ocurrido un error al eliminar el comentario :'c")
+    }
+  }
+
   return (
     <div className="flex flex-col md:flex-row gap-1 w-full border-gray-300 border-b-2 py-4">
       <div className="flex sm:gap-4 gap-3  items-start">
@@ -44,7 +61,7 @@ const Comment = ({
         </p>
 
         {dniTurista === turista.dni && (
-          <button className="">
+          <button onClick={handleDelete}>
             <IoTrash className="sm:text-2xl text-xl cursor-pointer dark:text-white" />
           </button>
         )}

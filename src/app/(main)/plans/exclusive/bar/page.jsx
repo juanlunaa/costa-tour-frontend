@@ -1,19 +1,24 @@
+"use client"
+
 import { CardPlan } from "@/components"
-import { CardExtreme } from "@/components/plan/CardBannerExtreme"
-import { fetchAllPlans, fetchAllPlansExclusives } from "@/services/plan"
-import CheckboxGroupDemo from "@/components/ui/checkbox-group/Checkbox"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { fetchAllPlansExclusives } from "@/services/plan"
+import CheckboxGroupDemo from "@/components/ui/checkbox-group/FiltersPlace"
 import CurvedSlider from "@/components/ui/slider/sliderNightLife"
+import { useEffect, useState } from "react"
 
-async function getPlans() {
-  const plans = await fetchAllPlans()
-  const validPlans = Array.isArray(plans) ? plans : []
-  return { plans: validPlans }
-}
+export default function NightLifePage() {
+  const [plans, setPlanes] = useState([])
 
-export default async function NightLifePage() {
-  const { plans } = await getPlans()
-  const restaurants = plans?.filter((p) => p.categoria === "RESTAURANTE")
+  useEffect(() => {
+    const fetchData = async () => {
+      const plans = await fetchAllPlansExclusives()
+      setPlanes(plans)
+    }
+
+    fetchData()
+  }, [])
+
+  const nightlifes = plans?.filter((p) => p.categoria === "NIGHTLIFE")
   return (
     <div className="pt-20 relative">
       <div className="relative">
@@ -39,21 +44,18 @@ export default async function NightLifePage() {
           >
             <CheckboxGroupDemo />
           </div>
-          <ScrollArea className="relative h-[700px] sm:mr-1  md:mr-5 overflow-auto">
-            <div className="flex justify-end">
-              <div className=" grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-y-5 gap-y-4 dark:text-white">
-                {restaurants.map((p) => (
-                  <CardPlan
-                    key={p.id}
-                    id={p.id}
-                    nombre={p.nombre}
-                    miniatura={p.miniatura}
-                    descripcion={p.descripcion}
-                  />
-                ))}
-              </div>
-            </div>
-          </ScrollArea>
+          <div className=" grid grid-cols-2 justify-items-center sm:grid-cols-2 md:gap-4 sm:gap-y-5 gap-y-4 dark:text-white">
+            {nightlifes.map((p) => (
+              <CardPlan
+                key={p.id}
+                id={p.id}
+                nombre={p.nombre}
+                miniatura={p.miniatura}
+                descripcion={p.descripcion}
+                calificacionPromedio={p.calificacionPromedio}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -38,7 +38,7 @@ export default function Login() {
       } else if (role === UserRoles.ADMINISTRADOR) {
         router.push("/dashboard/admin-profile/info-profile")
       } else if (role === UserRoles.ALIADO) {
-        router.push("/")
+        router.push("/dashboard/ally-profile/info-profile")
       }
     }
 

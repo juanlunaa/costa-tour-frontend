@@ -23,7 +23,7 @@ export const PromotionalCode = ({ planId, codigoPlan }) => {
   if (user?.tipoUsuario === "TURISTA" || !hasUser) {
     return (
       <div>
-        <h1 className="font-bold sm:text-xl text-lg py-5 dark:text-white">
+        <h1 className="font-bold sm:text-xl text-lg mb-2 dark:text-white">
           Código Promocional
         </h1>
         {codeInfo?.codigo ? (
@@ -73,7 +73,7 @@ const NoCode = ({ hasUser, userRole, turistDni, planId }) => {
       </p>
       <button
         onClick={handleGetCode}
-        className="text-white font-bold bg-customBlue py-2 px-4 rounded-full ring-1 ring-blue-800 mt-5 hover:bg-blue-700"
+        className="text-white font-bold bg-customBlue py-2 px-4 rounded-full ring-1 ring-blue-800 mt-2 hover:bg-blue-700"
       >
         Obtener codigo
       </button>
@@ -107,7 +107,7 @@ const Code = () => {
       </p>
       <button
         onClick={handleCancelCode}
-        className="text-white font-bold bg-customBlue py-2 px-4 rounded-full ring-1 ring-blue-800 mt-5 hover:bg-blue-700"
+        className="text-white font-bold bg-customBlue py-2 px-4 rounded-full ring-1 ring-blue-800 mt-2 hover:bg-blue-700"
       >
         Cancelar Código
       </button>

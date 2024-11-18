@@ -4,6 +4,7 @@ import { StarIcon } from "lucide-react"
 import Image from "next/image"
 import { FaBookmark } from "react-icons/fa"
 import { toast } from "sonner"
+import StaticStarsPercent from "./feedback/StaticStarsPercent"
 
 export const CardPlanSaved = ({
   dni,
@@ -11,6 +12,7 @@ export const CardPlanSaved = ({
   nombre,
   miniatura,
   precioMax,
+  calificacionPromedio,
   removePlanSaved,
 }) => {
   const handleRemove = async () => {
@@ -51,16 +53,14 @@ export const CardPlanSaved = ({
           <h3 className="font-semibold text-lg">{nombre}</h3>
 
           <div className="grid grid-cols-2 mt-4">
-            <div className="flex flex-col items-start justify-end">
-              <div>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <StarIcon
-                    key={i}
-                    className="inline-block w-4 h-4 fill-current text-yellow-400"
-                  />
-                ))}
-              </div>
-              <span className="text-xs text-gray-600">0 reviews</span>
+            <div className="flex flex-col">
+              <span className="text-sm">
+                {new Number(calificacionPromedio).toFixed(2)}
+              </span>
+              <StaticStarsPercent
+                value={calificacionPromedio}
+                className="h-4 w-4 md:h-4 md:w-4"
+              />
             </div>
 
             <div className="flex flex-col items-end justify-end">

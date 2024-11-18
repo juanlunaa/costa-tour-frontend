@@ -13,12 +13,10 @@ import { PlanForm } from "@/components"
 import clsx from "clsx"
 import { IoCreateOutline } from "react-icons/io5"
 import { ScrollArea } from "../scroll-area"
+import { cn } from "@/lib/utils"
 
 export function ModalCreate({ buttonColor }) {
   const [isOpen, setIsOpen] = useState(false)
-  const stylebtn = clsx(
-    "w-[95%] text-xs sm:text-lg sm:w-[50%] md:text-xl font-bold mt-5 py-4 h-auto dark:text-black"
-  )
 
   const handleOpenChange = (open) => {
     if (!open) {
@@ -41,14 +39,15 @@ export function ModalCreate({ buttonColor }) {
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button
-          variant="outline"
-          className={`${stylebtn}  ${buttonColor} items-stretch`}
+        <button
+          className={cn(
+            `${buttonColor} flex justify-center gap-1 w-[50%] sm:w-[40%] mt-5 py-4 text-sm md:text-base font-bold dark:text-black`
+          )}
           onClick={() => setIsOpen(true)}
         >
           <IoCreateOutline className="w-6 h-6" />
           Crear Plan
-        </Button>
+        </button>
       </DialogTrigger>
       <DialogContent
         className="sm:max-w-5xl max-h-[90vh] h-full bg-white dark:bg-customBlack"
