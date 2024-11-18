@@ -25,7 +25,7 @@ import { useRouter } from "next/navigation"
 import { set } from "date-fns"
 import { saveFeedback } from "@/services/plan"
 
-const ModalComment = ({ idPlan, thumbnailPlan, namePlan }) => {
+const ModalComment = ({ idPlan, thumbnailPlan, namePlan, addComment }) => {
   const router = useRouter()
 
   const [open, setOpen] = useState(false)
@@ -42,7 +42,8 @@ const ModalComment = ({ idPlan, thumbnailPlan, namePlan }) => {
     const { res, status } = await saveFeedback(newData)
 
     if (status === 200) {
-      toast.success(res)
+      addComment(res)
+      toast.success("Su comentario ha sido guardado")
     } else {
       toast.error(res)
     }

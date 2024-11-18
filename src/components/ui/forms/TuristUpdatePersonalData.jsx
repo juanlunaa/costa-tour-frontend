@@ -31,8 +31,8 @@ export const TuristUpdatePersonalData = () => {
     inputEstado: watch("estado"),
   })
 
-  const styleLabels = clsx("text-sm font-bold md:text-base sm:text-sm ")
-  const styleInputs = clsx("text-gray-600 block w-full bg-[#F4F4F5]")
+  const styleLabels = clsx("text-sm font-bold md:text-base sm:text-sm")
+  const styleInputs = clsx("block w-full")
 
   const onSubmit = handleSubmit(async (data) => {
     // => FALTA VALIDAR SI LA INFO ES IGUAL A LA INICIAL

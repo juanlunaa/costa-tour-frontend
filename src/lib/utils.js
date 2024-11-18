@@ -10,6 +10,14 @@ export function formatSrcImage(src) {
   return src.startsWith("http") ? src : `${BACKEND_SERVER}${src}`
 }
 
+export const formatPrice = (price) => {
+  return new Intl.NumberFormat("es-ES", {
+    style: "decimal",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  }).format(price)
+}
+
 export function getDayWeek(fecha) {
   const dayWeek = fecha.toLocaleDateString("es-ES", { weekday: "long" })
   return dayWeek

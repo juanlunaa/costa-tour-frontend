@@ -53,6 +53,7 @@ export default function CustomerProfile() {
               nombre={p.nombre}
               miniatura={p.miniatura}
               precioMax={p.rangoMaxDinero}
+              calificacionPromedio={p.calificacionPromedio}
               removePlanSaved={removePlanSaved}
             />
           ))}

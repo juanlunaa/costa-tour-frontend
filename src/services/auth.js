@@ -5,6 +5,7 @@ import {
   UserAlreadyExistError,
   UserNotFoundError,
 } from "@/erros"
+import axios from "axios"
 
 export const login = async (data) => {
   try {
@@ -146,5 +147,30 @@ export const checkDniAvailability = async (dni) => {
     return res.status === 200 && true
   } catch (err) {
     return false
+  }
+}
+
+export const registerAlly = async (data) => {
+  try {
+    const res = await axios.post(`${BACKEND_SERVER}/ally/create`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    })
+
+    if (!res.ok) {
+      if (res.status === 409) {
+        const { message } = res.data
+        const error = new UserAlreadyExistError(message)
+        error.status = res.status
+        throw error
+      }
+    }
+
+    return { res: res.data, status: res.status }
+  } catch (err) {
+    console.error(err)
+    return { res: err.message, status: err.status || 500 }
   }
 }

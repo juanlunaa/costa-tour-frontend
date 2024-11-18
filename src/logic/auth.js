@@ -8,7 +8,7 @@ export const UserRoles = {
 
 export const getDashboardByRole = (role) => {
   if (role === UserRoles.ADMINISTRADOR) return "admin-profile"
-  if (role === UserRoles.ALIADO) return "admin-profile"
+  if (role === UserRoles.ALIADO) return "ally-profile"
   if (role === UserRoles.TURISTA) return "customer-profile"
 }
 
