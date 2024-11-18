@@ -1,15 +1,16 @@
 "use client"
 
-import { IoRestaurant } from "react-icons/io5"
+import { IoFileTrayStackedSharp, IoRestaurant } from "react-icons/io5"
 import { MdOutlineBeachAccess } from "react-icons/md"
 import { PiBuildingApartment } from "react-icons/pi"
 import { TbGps } from "react-icons/tb"
 import { CardPlan, Loading } from "@/components"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import CheckboxGroupDemo from "@/components/ui/checkbox-group/Checkbox"
+import CheckboxGroupDemo from "@/components/ui/checkbox-group/FiltersPlace"
 import { fetchAllPlans } from "@/services/plan"
 import { useEffect, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
+import FiltersPlace from "@/components/ui/checkbox-group/FiltersPlace"
 
 export default function Activity({ searchParams }) {
   const { q } = searchParams
@@ -17,6 +18,30 @@ export default function Activity({ searchParams }) {
   const router = useRouter()
 
   const [plans, setPlans] = useState(null)
+
+  const [filtros, setFiltros] = useState([])
+
+  const toggleFiltro = (opcion) => {
+    setFiltros((prev) => {
+      const isSelect = prev.some((item) => item.id === opcion.id)
+
+      return isSelect
+        ? prev.filter((item) => item.id !== opcion.id)
+        : [...prev, opcion]
+    })
+  }
+
+  const filtrarPlanes = (planes) => {
+    if (filtros.length === 0) return planes
+
+    return planes.filter((plan) =>
+      filtros.some((values) =>
+        plan.ubicacion.direccion
+          .toLowerCase()
+          .includes(values.title.toLowerCase())
+      )
+    )
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,10 +53,16 @@ export default function Activity({ searchParams }) {
 
   if (!plans) return <Loading />
 
-  const restaurants = plans?.filter((p) => p.categoria === "RESTAURANTE")
-  const touristSites = plans?.filter((p) => p.categoria === "SITIO_TURISTICO")
-  const beaches = plans?.filter((p) => p.categoria === "PLAYA")
-  const accommodations = plans?.filter((p) => p.categoria === "ALOJAMIENTO")
+  const restaurants = filtrarPlanes(
+    plans?.filter((p) => p.categoria === "RESTAURANTE")
+  )
+  const touristSites = filtrarPlanes(
+    plans?.filter((p) => p.categoria === "SITIO_TURISTICO")
+  )
+  const beaches = filtrarPlanes(plans?.filter((p) => p.categoria === "PLAYA"))
+  const accommodations = filtrarPlanes(
+    plans?.filter((p) => p.categoria === "ALOJAMIENTO")
+  )
 
   const categorias = ["restaurante", "sitio-turistico", "playa", "alojamiento"]
 
@@ -92,7 +123,7 @@ export default function Activity({ searchParams }) {
             className="filter shadow-customBoxShadow rounded-sm sm:max-w-[150px] md:max-w-[200px] max-w-[600px] 
                           w-[90%] sm:ml-[3%] h-fit sm:flex-row dark:bg-gray-800"
           >
-            <CheckboxGroupDemo />
+            <FiltersPlace filtros={filtros} toggleFiltro={toggleFiltro} />
           </div>
           <div className="flex justify-end">
             <TabsContent value="restaurante" className="relative w-full">
