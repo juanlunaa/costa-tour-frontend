@@ -20,29 +20,29 @@ export default function CarouselStatisticAdmin() {
       <Carousel>
         <CarouselContent className="bg-[#F4F4F4]">
           <CarouselItem>
-            <h1 className="mb-10 pt-10 text-center font-volkhov font-bold text-2xl">
+            <h1 className="my-10 text-center font-bold text-2xl">
               Estadística Sobre Los Comentarios de Usuarios
             </h1>
 
-            <div className="grid grid-cols-2  gap-4  sm:px-3">
-              <div className="col-span-1  bg-transparent">
+            <div className="grid grid-cols-2 gap-4 w-[95%] mx-auto my-5">
+              <div className="col-span-1">
                 <ChartBar />
               </div>
 
-              <div className="col-span-1  bg-transparent">
+              <div className="col-span-1">
                 <ChartPie />
               </div>
 
-              <div className="p-14 w-[100%] col-span-2 bg-transparent">
+              <div className="col-span-2">
                 <ChartLine />
               </div>
             </div>
           </CarouselItem>
           <CarouselItem>
-            <h1 className="mb-10 pt-10 text-center font-volkhov font-bold text-2xl">
+            <h1 className="my-10 text-center font-bold text-2xl">
               Estadística Sobre las Visitas de los Usuarios
             </h1>
-            <div className="grid grid-cols-1 grid-rows-2 gap-16 px-4">
+            <div className="grid grid-cols-1 grid-rows-2 gap-16 w-[95%] mx-auto my-5">
               <div>
                 <ChartBarTop />
               </div>
@@ -53,9 +53,12 @@ export default function CarouselStatisticAdmin() {
             </div>
           </CarouselItem>
         </CarouselContent>
-        <div className="relative">
-          <CarouselPrevious className="top-[0.9rem] right-0 left-[85%]" />
-          <CarouselNext className="top-[0.9rem] right-[5%] " />
+        <div className="flex justify-between items-center w-[95%] rounded-md shadow-customBoxShadow p-4 my-10 mx-auto">
+          <h1 className="">Estadisticas</h1>
+          <div className="space-x-2">
+            <CarouselPrevious className="static" />
+            <CarouselNext className="static" />
+          </div>
         </div>
       </Carousel>
     </>

@@ -1,30 +1,20 @@
 "use client"
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import * as echarts from "echarts"
+import axios from "axios"
+import { BACKEND_SERVER } from "@/env"
 
 export default function ChartBar() {
   const chartRef = useRef(null)
+  const [chartData, setChartData] = useState(null)
 
-  useEffect(() => {
+  const renderChart = () => {
     const myChart = echarts.init(chartRef.current)
 
     const option = {
-      backgroundColor: {
-        type: "linear",
-        x: 0,
-        y: 0,
-        x2: 1,
-        y2: 1,
-        colorStops: [
-          { offset: 0, color: "rgba(255, 0, 0, 0.17)" },
-          { offset: 1, color: "rgba(0, 190, 255, 0.17)" },
-        ],
-        global: false,
-      },
       legend: {
         top: "5%",
       },
-
       grid: {
         top: "20%",
         left: "20%",
@@ -47,9 +37,9 @@ export default function ChartBar() {
 
       yAxis: {
         type: "value",
-        name: "Cantidad de Comentarios",
+        name: "Cantidad",
         nameLocation: "middle",
-        nameGap: 40,
+        nameGap: 30,
         nameTextStyle: {
           color: "#363636",
           fontWeight: "bold",
@@ -59,20 +49,20 @@ export default function ChartBar() {
 
       series: [
         {
-          name: "Publicados",
-          data: [200],
+          name: "Totales",
+          data: [chartData.total],
           type: "bar",
-          color: "#694BDB",
+          color: "#FFA432",
         },
         {
-          name: "Visualizacion",
-          data: [120],
+          name: "Asisten",
+          data: [chartData.asisten],
           type: "bar",
-          color: "#44BCD7",
+          color: "#37B1E2",
         },
         {
-          name: "Sin comentar",
-          data: [130],
+          name: "No Asisten",
+          data: [chartData.noAsisten],
           type: "bar",
           color: "#E075C9",
         },
@@ -80,11 +70,36 @@ export default function ChartBar() {
     }
 
     myChart.setOption(option)
+    myChart.resize()
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await axios.get(
+        `${BACKEND_SERVER}/statistics/attendance`
+      )
+
+      setChartData({
+        total: data.totalUsersWithFeedback,
+        asisten: data.usersWithFeedbackAndAttendance,
+        noAsisten: data.usersWithFeedbackButNoAttendance,
+      })
+    }
+
+    fetchData()
+  }, [])
+
+  useEffect(() => {
+    if (chartData) {
+      renderChart()
+    }
+
+    window.addEventListener("resize", renderChart)
 
     return () => {
-      myChart.dispose()
+      window.removeEventListener("resize", renderChart)
     }
-  }, [])
+  }, [chartData])
 
   return (
     <div
