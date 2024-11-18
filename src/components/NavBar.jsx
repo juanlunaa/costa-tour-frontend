@@ -10,6 +10,7 @@ import { getDashboardByRole } from "@/logic/auth"
 import { X, Menu } from "lucide-react"
 import { Label } from "./ui/label"
 import { useTheme } from "next-themes"
+import { AvatarNavBar } from "./AvatarNavBar"
 export const NavBar = ({ pathname }) => {
   const { user, isLoggedIn } = useUserStore()
   const [isOpen, setIsOpen] = useState(false)
@@ -55,11 +56,13 @@ export const NavBar = ({ pathname }) => {
     { name: "Planes", href: "/category/activities" },
     { name: "Exclusivos", href: "/plans/exclusive" },
     { name: "Ayuda", href: "#" },
-    {
-      name: `${isLoggedIn ? "Mi cuenta" : "Iniciar Sesion"}`,
-      href: `${isLoggedIn ? `/dashboard/${getDashboardByRole(user.tipoUsuario)}/info-profile` : "/auth/login"}`,
-    },
+    // {
+    //   name: `${isLoggedIn ? "Mi cuenta" : "Iniciar Sesion"}`,
+    //   href: `${isLoggedIn ? `/dashboard/${getDashboardByRole(user.tipoUsuario)}/info-profile` : "/auth/login"}`,
+    // },
   ]
+
+  !isLoggedIn && menuItems.push({ name: "Iniciar Sesión", href: "/auth/login" })
 
   return (
     <nav className="fixed z-[1100] top-0 max-w-[83rem] w-[100%] mx-auto">
@@ -77,6 +80,14 @@ export const NavBar = ({ pathname }) => {
             ))}
 
             <ModeToggle className={cn(linkStyle, "bg-transparent")} />
+            {isLoggedIn && (
+              <AvatarNavBar
+                srcAvatar={user?.avatar}
+                name={user.nombre}
+                profileHref={`/dashboard/${getDashboardByRole(user.tipoUsuario)}/info-profile`}
+                role={user.tipoUsuario}
+              />
+            )}
           </div>
 
           <div className="md:hidden flex items-center gap-2">
@@ -89,6 +100,15 @@ export const NavBar = ({ pathname }) => {
               checked={isOpen}
             />
 
+            {isLoggedIn && (
+              <AvatarNavBar
+                srcAvatar={user?.avatar}
+                name={user.nombre}
+                profileHref={`/dashboard/${getDashboardByRole(user.tipoUsuario)}/info-profile`}
+                role={user.tipoUsuario}
+              />
+            )}
+
             <Label htmlFor={menuId} className="cursor-pointer dark:text-white">
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </Label>
@@ -97,7 +117,7 @@ export const NavBar = ({ pathname }) => {
         <div
           className={cn(
             "responsive-nav-bar md:hidden overflow-hidden bg-white/90 dark:bg-customBlack/90 text-center",
-            isOpen ? "h-[200px]" : "h-0"
+            isOpen ? (isLoggedIn ? "h-[160px]" : "h-[200px]") : "h-0"
           )}
         >
           {menuItems.map((item, index) => (
