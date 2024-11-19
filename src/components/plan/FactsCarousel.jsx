@@ -29,7 +29,7 @@ const FactsCarousel = ({ facts }) => {
     console.log(text)
 
     const utterance = new SpeechSynthesisUtterance(text)
-    utterance.lang = "es-ES"
+    utterance.lang = "es-CO"
 
     utterance.onstart = () => setIsSpeaking(true)
     utterance.onend = () => setIsSpeaking(false)
