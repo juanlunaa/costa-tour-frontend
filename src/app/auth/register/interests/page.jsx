@@ -54,7 +54,7 @@ export default function RegisterInterest() {
   return (
     <form
       onSubmit={onSubmit}
-      className="flex flex-col justify-between h-full items-center p-8"
+      className="flex flex-col justify-between h-full items-center p-8 dark:bg-customBlack"
     >
       <div className="h-[20%] text-center">
         <h1 className="text-4xl">Escoge tus intereses</h1>
@@ -88,8 +88,8 @@ export default function RegisterInterest() {
                   />
                   <label
                     htmlFor={`check-${interes.id}`}
-                    className="cursor-pointer px-4 py-2 rounded-full transition-colors duration-300 bg-gray-200 
-                peer-checked:bg-customYellow/50"
+                    className="cursor-pointer px-4 py-2 rounded-full transition-colors duration-300 bg-gray-200 dark:bg-gray-700 
+                peer-checked:bg-customYellow/50 dark:peer-checked:bg-background"
                   >
                     {interes.label}
                   </label>

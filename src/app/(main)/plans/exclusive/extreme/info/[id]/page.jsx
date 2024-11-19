@@ -60,7 +60,9 @@ export default function InfoExtreme({ params }) {
             <span className="text-orange-400">
               <MdStars />
             </span>
-            <span className="text-gray-800">Actividad verificada</span>
+            <span className="text-gray-800 dark:text-white">
+              Actividad verificada
+            </span>
           </div>
         </div>
         <div>

@@ -72,7 +72,7 @@ export default function Register() {
             <div className="relative">
               <Input
                 placeholder="Nombre"
-                className="bg-customBlueInputAuth p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                className="bg-customBlueInputAuth dark:bg-background p-3 pl-10 rounded-lg w-full"
                 {...register("nombre", {
                   required: {
                     value: true,
@@ -88,7 +88,7 @@ export default function Register() {
           <div>
             <Input
               placeholder="Apellido"
-              className="bg-customBlueInputAuth p-3 rounded-lg w-full placeholder:text-black/60"
+              className="bg-customBlueInputAuth dark:bg-background p-3 rounded-lg w-full"
               {...register("apellido", {
                 required: {
                   value: true,
@@ -105,7 +105,7 @@ export default function Register() {
             <div className="relative">
               <Input
                 placeholder="N° Identificación"
-                className="bg-customBlueInputAuth p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                className="bg-customBlueInputAuth dark:bg-background p-3 pl-10 rounded-lg w-full"
                 {...register("dni", {
                   required: {
                     value: true,
@@ -128,7 +128,7 @@ export default function Register() {
               <Input
                 type="date"
                 placeholder="Fecha Nacimiento"
-                className="bg-customBlueInputAuth p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                className="bg-customBlueInputAuth dark:bg-background p-3 pl-10 rounded-lg w-full"
                 {...register("fechaNacimiento", {
                   required: {
                     value: true,
@@ -149,7 +149,7 @@ export default function Register() {
               <Input
                 type="email"
                 placeholder="Email"
-                className="bg-customBlueInputAuth p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                className="bg-customBlueInputAuth dark:bg-background p-3 pl-10 rounded-lg w-full"
                 {...register("email", {
                   required: {
                     value: true,
@@ -176,7 +176,7 @@ export default function Register() {
               <Input
                 type="password"
                 placeholder="Contraseña"
-                className="bg-customBlueInputAuth p-3 rounded-lg pl-10 w-full placeholder:text-black/60"
+                className="bg-customBlueInputAuth dark:bg-background p-3 pl-10 rounded-lg w-full"
                 {...register("password", {
                   required: {
                     value: true,
@@ -203,7 +203,7 @@ export default function Register() {
                 options={locationData.paises}
                 placeholderSelect="Selecciona un pais"
                 notFoundMessage="No se encontraron paises"
-                classname={"pl-10 bg-customBlueInputAuth"}
+                classname={"pl-10 bg-customBlueInputAuth dark:bg-background"}
               />
 
               <TiWorld className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
@@ -221,7 +221,7 @@ export default function Register() {
                   ? "Selecciona un pais"
                   : "No se encontraron estados"
               }
-              classname={"bg-customBlueInputAuth"}
+              classname={"bg-customBlueInputAuth dark:bg-background"}
             />
             {errors.estado && <ErrorMessage message={errors.estado.message} />}
           </div>
@@ -236,7 +236,7 @@ export default function Register() {
                   ? "Selecciona un estado"
                   : "No se encontraron ciudades"
               }
-              classname={"bg-customBlueInputAuth"}
+              classname={"bg-customBlueInputAuth dark:bg-background"}
             />
             {errors.ciudad && <ErrorMessage message={errors.ciudad.message} />}
           </div>

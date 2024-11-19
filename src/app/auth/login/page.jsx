@@ -66,7 +66,7 @@ export default function Login() {
             <Input
               type="email"
               placeholder="Email"
-              className="bg-customBlueInputAuth p-3 pl-10 rounded-lg w-full placeholder:text-black/60 text-black"
+              className="bg-customBlueInputAuth dark:bg-background p-3 pl-10 rounded-lg w-full"
               {...register("email", {
                 required: {
                   value: true,
@@ -78,7 +78,7 @@ export default function Login() {
                 },
               })}
             />
-            <MdOutlineEmail className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl text-black" />
+            <MdOutlineEmail className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
           </div>
           {errors.email && (
             <span className="text-xs text-red-600 font-bold">
@@ -92,7 +92,7 @@ export default function Login() {
             <Input
               type="password"
               placeholder="Contraseña"
-              className="bg-customBlueInputAuth p-3 pl-10 rounded-lg w-full placeholder:text-black/60 text-black"
+              className="bg-customBlueInputAuth dark:bg-background p-3 pl-10 rounded-lg w-full"
               {...register("password", {
                 required: {
                   value: true,
@@ -104,7 +104,7 @@ export default function Login() {
                 },
               })}
             />
-            <RiLockPasswordLine className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl text-black" />
+            <RiLockPasswordLine className="absolute top-1/2 left-3 transform -translate-y-1/2 text-2xl" />
           </div>
           {errors.password && (
             <span className="text-xs text-red-600 font-bold">

@@ -248,7 +248,7 @@ const ChatBotCostaTour = () => {
       function: () => handleRedirectToActivityInfo("sitio-turistico"),
       path: "start",
     },
-   
+
     contact_help: {
       message:
         "Estamos aquí para ayudarte. Nuestro número de atención al cliente es: +57 (5) 123-4567\n\n" +

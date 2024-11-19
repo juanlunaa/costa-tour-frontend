@@ -61,7 +61,7 @@ export default function AuthLayout({ children }) {
           orientation !== undefined &&
             "flex flex-col items-center justify-center sm:w-1/2 pt-12 sm:pt-0", // <- Estilos para cuando se este en /login o /register/turist
           isInterestsPage &&
-            "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-[45px] w-[90%] h-[80%] max-w-5xl" // <- Estilos para cuando se este en /register/insterests
+            "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-[45px] w-[90%] h-[80%] max-w-5xl overflow-hidden" // <- Estilos para cuando se este en /register/insterests
         )}
       >
         {children}
