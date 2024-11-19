@@ -38,3 +38,17 @@
     visibility: hidden;
   }
 }
+
+.rcb-chat-window {
+  height: 550px;
+}
+
+.rcb-chat-window {
+  z-index: 1100 !important;
+}
+
+@media screen and (max-width: 1240px) {
+  .rcb-chat-window {
+    height: 488px;
+  }
+}
