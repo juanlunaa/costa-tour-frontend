@@ -1,3 +1,4 @@
+import { formatPrice } from "@/lib/utils"
 import Link from "next/link"
 import { BsCheckCircle } from "react-icons/bs"
 
@@ -13,7 +14,7 @@ export const CardSuscripcion = ({
       <h3 className="text-base font-semibold leading-3">{descripcion}</h3>
       <p className="mt-4 flex items-baseline gap-x-2">
         <span className="text-[#FF8E01] text-5xl font-semibold tracking-tight">
-          ${Number(precio).toFixed(0)}
+          ${formatPrice(precio)}
         </span>
       </p>
 

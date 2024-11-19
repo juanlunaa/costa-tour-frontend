@@ -10,6 +10,7 @@ import { BACKEND_SERVER } from "@/env"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import Link from "next/link"
+import { formatPrice } from "@/lib/utils"
 
 export const OrderSuscripcion = ({ id, descripcion, precio }) => {
   const router = useRouter()
@@ -53,7 +54,7 @@ export const OrderSuscripcion = ({ id, descripcion, precio }) => {
           <hr />
           <div className="flex justify-between bg-customBlue/40 w-full p-2">
             <h2>Total</h2>
-            <p>${precio}</p>
+            <p>${formatPrice(precio)}</p>
           </div>
         </div>
 
