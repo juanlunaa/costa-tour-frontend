@@ -86,6 +86,21 @@ export default function CustomerProfileLayout({ children }) {
             >
               Guardados
             </Link>
+            {user.exclusivo && (
+              <Link
+                href="/dashboard/customer-profile/my-reservations"
+                className={`sm:text-xs md:text-sm lg:text-lg text-xs flex items-center px-4 font-bold h-16 w-full
+                            ${
+                              isLinkActive(
+                                "/dashboard/customer-profile/favorites"
+                              )
+                                ? "bg-yellowProfile dark:text-black"
+                                : "hover:bg-yellowProfile dark:hover:text-black"
+                            }`}
+              >
+                Mis Reservas
+              </Link>
+            )}
             <button
               onClick={handleLogout}
               className="sm:text-xs md:text-sm lg:text-lg sm:pl-3 sm:pr-0 pl-3 text-start text-xs font-bold h-16 w-full hover:bg-yellowProfile dark:hover:text-black"
