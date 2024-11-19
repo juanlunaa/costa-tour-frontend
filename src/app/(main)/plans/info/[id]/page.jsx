@@ -65,7 +65,9 @@ export default function InfoPLan({ params }) {
             </p>
           </div>
 
-          <FactsCarousel facts={plan?.hechos || []} />
+          {plan?.hechos.length > 0 && (
+            <FactsCarousel facts={plan?.hechos || []} />
+          )}
 
           <div>
             <h1 className="font-bold sm:text-xl text-lg mb-2 dark:text-white">
