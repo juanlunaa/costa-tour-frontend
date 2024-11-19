@@ -3,11 +3,10 @@ import { CarouselHome } from "@/components"
 import ChatBotCostaTour from "@/components/ChatBot/page"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
-import { StarIcon } from "lucide-react"
-import { useState } from "react"
+import FeedbackTop from "@/components/FeedbackTop"
+import Link from "next/link"
 
 export default function Home() {
-  const [rating, setRating] = useState(0)
   return (
     <div className="dark:bg-gray-900">
       <div className="max-w-full">
@@ -108,7 +107,7 @@ export default function Home() {
 
             <div className="w-full mt-6">
               <Button className="bg-[#37B1E2] h-12 w-[30%] shadow-customBoxShadow dark:shadow-customBoxShadowDark">
-                Explora ahora
+                <Link href="/category/activities">Explora ahora</Link>
               </Button>
             </div>
           </div>
@@ -122,102 +121,7 @@ export default function Home() {
           <h1 className="font-bold font-volkhov text-4xl my-8 sm:text-6xl text-center">
             ¿Qué dicen ellos <br /> de nosotros?
           </h1>
-          <div className="grid grid-cols-3 gap-4 md:gap-20 w-full h-[43rem] sm:h-[48rem]">
-            <div className="relative h-[500px] w-full grid grid-cols-1 justify-items-center gap-2">
-              <div className="relative h-64 sm:h-80 md:h-96 w-full lg:w-[90%] ">
-                <Image
-                  src="/home/nosotros1.png"
-                  fill
-                  alt="Comer"
-                  className="rounded-lg relative object-cover aspect-video shadow-customBoxShadow dark:shadow-customBoxShadowDark"
-                />
-              </div>
-              <div className="mt-2 text-center">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <StarIcon
-                    key={i}
-                    onClick={() => setRating(i + 1)}
-                    className={`inline-block lg:w-10 lg:h-10  sm:w-7 sm:h-7 w-4 h-4 fill-current 
-                                ${i < rating ? "text-yellow-400" : "text-gray-400"} cursor-pointer`}
-                  />
-                ))}
-              </div>
-
-              <p className="text-sm sm:text-base text-center">
-                ¡Increíble experiencia! La plataforma de guías turísticas en
-                Cartagena superó todas mis expectativas. Desde la facilidad de
-                uso hasta las descripciones detallada de los destinos.
-              </p>
-              <span className="font-bold text-lg sm:text-2xl text-center">
-                Alejandro García
-              </span>
-              <span className="text-base sm:text-lg text-orange-600 text-center">
-                España
-              </span>
-            </div>
-
-            <div className="relative h-[500px] w-full grid grid-cols-1 justify-items-center  gap-2">
-              <div className="relative h-64 sm:h-80 md:h-96 w-full lg:w-[90%]">
-                <Image
-                  src="/home/nosotros2.png"
-                  fill
-                  alt="Comer"
-                  className="rounded-lg object-cover aspect-video shadow-customBoxShadow dark:shadow-customBoxShadowDark"
-                />
-              </div>
-              <div className="mt-2 text-center">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <StarIcon
-                    key={i}
-                    onClick={() => setRating(i + 1)}
-                    className={`inline-block  lg:w-10 lg:h-10 sm:w-7 sm:h-7 w-4 h-4 fill-current 
-                                ${i < rating ? "text-yellow-400" : "text-gray-400"} cursor-pointer`}
-                  />
-                ))}
-              </div>
-              <p className="text-sm sm:text-base text-center">
-                Fue fácil de usar y me ayudó a descubrir lugares impresionantes
-                que de otro modo no habría encontrado. ¡Altamente recomendado!
-              </p>
-              <span className="font-bold text-lg sm:text-2xl text-center">
-                Olivia Arango
-              </span>
-              <span className="text-base sm:text-lg text-orange-600 text-center">
-                Puerto Rico
-              </span>
-            </div>
-
-            <div className="relative h-[500px] w-full grid grid-cols-1 justify-items-center  gap-2">
-              <div className="relative h-64 sm:h-80 md:h-96 w-full lg:w-[90%]">
-                <Image
-                  src="/home/nosotros3.png"
-                  fill
-                  alt="Comer"
-                  className="rounded-lg object-cover aspect-video shadow-customBoxShadow dark:shadow-customBoxShadowDark"
-                />
-              </div>
-              <div className="mt-2 text-center">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <StarIcon
-                    key={i}
-                    onClick={() => setRating(i + 1)}
-                    className={`inline-block lg:w-10 lg:h-10 sm:w-7 sm:h-7 w-4 h-4 fill-current 
-                                ${i < rating ? "text-yellow-400" : "text-gray-400"} cursor-pointer`}
-                  />
-                ))}
-              </div>
-              <p className="text-sm sm:text-base text-center">
-                Fue fácil de usar y me ayudó a descubrir lugares impresionantes
-                que de otro modo no habría encontrado. ¡Altamente recomendado!
-              </p>
-              <span className="font-bold text-lg sm:text-2xl text-center">
-                Olivia Arango
-              </span>
-              <span className="text-base sm:text-lg text-orange-600 text-center">
-                Puerto Rico
-              </span>
-            </div>
-          </div>
+          <FeedbackTop />
         </div>
 
         <ChatBotCostaTour />
